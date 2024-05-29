@@ -16,6 +16,8 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(application: Application): AndroidViewModel(application) {
     val selectNavigationItem : MutableLiveData<Int> = MutableLiveData(0)
 
+
+    val moviesList : MutableLiveData<List<Result>> = MutableLiveData()
     val nowPlayingList : MutableLiveData<List<Result>> = MutableLiveData()
     val popularList : MutableLiveData<List<Result>> = MutableLiveData()
     val topRatedList : MutableLiveData<List<Result>> = MutableLiveData()
@@ -50,6 +52,9 @@ class MainViewModel @Inject constructor(application: Application): AndroidViewMo
 
     fun getData(){
         viewModelScope.launch {
+            TMDBRetrofit.fetchMovies()?.let {
+                moviesList.value = it
+            }
             TMDBRetrofit.fetchNowPlayingMovies()?.let {
                 nowPlayingList.value = it
             }

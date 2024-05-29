@@ -67,6 +67,10 @@ dependencies {
 
     implementation ("com.google.code.gson:gson:2.8.6")
 
+    implementation ("androidx.viewpager2:viewpager2:1.0.0")
+
+    implementation ("me.relex:circleindicator:2.1.6")
+
     // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2")

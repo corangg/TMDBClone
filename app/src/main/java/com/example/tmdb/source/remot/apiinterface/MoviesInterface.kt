@@ -1,5 +1,6 @@
 package com.example.tmdb.source.remot.apiinterface
 
+import com.example.tmdb.model.MoviesResponse
 import com.example.tmdb.model.NowPlayingResponse
 import com.example.tmdb.model.PopularResponse
 import com.example.tmdb.model.TopRatedResponse
@@ -10,32 +11,40 @@ import retrofit2.http.Header
 import retrofit2.http.Query
 
 interface MoviesInterface {
-    @GET("now_playing")
+    @GET("trending/movie/day")
+    fun getMovies(
+        @Header("Authorization") authHeader: String,
+        @Query("language") language: String,
+        @Query("page") page: Int
+    ): Call<MoviesResponse>
+
+    @GET("movie/now_playing")
     fun getNowPlayingMovies(
         @Header("Authorization") authHeader: String,
         @Query("language") language: String,
         @Query("page") page: Int
     ): Call<NowPlayingResponse>
 
-    @GET("popular")
+    @GET("movie/popular")
     fun getPopularMovies(
         @Header("Authorization") authHeader: String,
         @Query("language") language: String,
         @Query("page") page: Int
     ): Call<PopularResponse>
 
-    @GET("top_rated")
+    @GET("movie/top_rated")
     fun getTopRatedMovies(
         @Header("Authorization") authHeader: String,
         @Query("language") language: String,
         @Query("page") page: Int
     ): Call<TopRatedResponse>
 
-    @GET("upcoming")
+    @GET("movie/upcoming")
     fun getUpcomingMovies(
         @Header("Authorization") authHeader: String,
         @Query("language") language: String,
         @Query("page") page: Int
     ): Call<UpcomingResponse>
+
 
 }

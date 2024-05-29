@@ -10,10 +10,27 @@ import retrofit2.converter.gson.GsonConverterFactory
 object TMDBRetrofit {
     val authHeader = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0OTUwZmEyYTRiYTVmMGQ5NWZmYzhiZGFkNDc4NWVmYSIsInN1YiI6IjY2NTZkYjY5YmIxNDRjOGQ3N2E2ZGE1YSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.-8qeYfk8z7lvaeb2TyW7WYBJZ2JZ33QFDgN0E_5zZgU"
     val retrofit = Retrofit.Builder()
-        .baseUrl("https://api.themoviedb.org/3/movie/")
+        .baseUrl("https://api.themoviedb.org/3/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
     val tmdbApi = retrofit.create(MoviesInterface::class.java)
+
+    suspend fun fetchMovies():List<Result>? {
+
+        return withContext(Dispatchers.IO) {
+            val call = tmdbApi.getMovies(authHeader, "en-US", 1)
+            try {
+                val response = call.execute()
+                if (response.isSuccessful) {
+                    response.body()?.results
+                } else {
+                    null
+                }
+            } catch (e: Exception) {
+                null
+            }
+        }
+    }
 
     suspend fun fetchNowPlayingMovies():List<Result>? {
         return withContext(Dispatchers.IO) {
