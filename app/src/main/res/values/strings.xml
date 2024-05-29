@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">TMDB</string>
+
+
+    <string name="id_hint">Username</string>
+    <string name="pw_hint">Password</string>
+    <string name="sign_in">SIGN IN</string>
+
+    <string name="account">Don\'t have an account?</string>
+    <string name="sign_up">SIGN UP</string>
+    <string name="conti">CONTINUE</string>
+    <!--<string name=""></string>-->
+</resources>
