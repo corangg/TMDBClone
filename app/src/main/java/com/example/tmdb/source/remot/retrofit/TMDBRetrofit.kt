@@ -1,6 +1,7 @@
 package com.example.tmdb.source.remot.retrofit
 
 import com.example.tmdb.model.Result
+import com.example.tmdb.model.detailmovie.DetailsMovieResponse
 import com.example.tmdb.source.remot.apiinterface.MoviesInterface
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -87,6 +88,22 @@ object TMDBRetrofit {
                 val response = call.execute()
                 if (response.isSuccessful) {
                     response.body()?.results
+                } else {
+                    null
+                }
+            } catch (e: Exception) {
+                null
+            }
+        }
+    }
+
+    suspend fun fetchDetailMovies(id : Int):DetailsMovieResponse?{
+        return withContext(Dispatchers.IO){
+            val call = tmdbApi.getDetailMovies(authHeader,id,"en-US")
+            try {
+                val response = call.execute()
+                if (response.isSuccessful) {
+                    response.body()
                 } else {
                     null
                 }

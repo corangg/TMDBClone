@@ -5,9 +5,11 @@ import com.example.tmdb.model.NowPlayingResponse
 import com.example.tmdb.model.PopularResponse
 import com.example.tmdb.model.TopRatedResponse
 import com.example.tmdb.model.UpcomingResponse
+import com.example.tmdb.model.detailmovie.DetailsMovieResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface MoviesInterface {
@@ -45,6 +47,13 @@ interface MoviesInterface {
         @Query("language") language: String,
         @Query("page") page: Int
     ): Call<UpcomingResponse>
+
+    @GET("movie/{movie_id}")
+    fun getDetailMovies(
+        @Header("Authorization") authHeader: String,
+        @Path("movie_id") movieId: Int,
+        @Query("language") language: String,
+    ): Call<DetailsMovieResponse>
 
 
 }

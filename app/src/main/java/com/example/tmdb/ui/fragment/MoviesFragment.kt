@@ -54,10 +54,8 @@ class MoviesFragment : Fragment(),
         handler.removeCallbacksAndMessages(null)
     }
 
-    override fun onItemClick(position: Int, type: Int) {
-        val a = position
-        val b = type
-        true
+    override fun onItemClick(id: Int) {
+        viewModel.startActivity(id)
     }
 
 

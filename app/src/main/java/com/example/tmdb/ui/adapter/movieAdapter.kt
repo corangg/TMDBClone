@@ -17,7 +17,7 @@ import com.example.tmdb.model.Result
 class movieAdapter(val list: List<Result>, val type: Int, val onItemClickListener: OnItemClickListener )
     : RecyclerView.Adapter<movieAdapter.MoviesViewHolder>(){
     interface OnItemClickListener{
-        fun onItemClick(position: Int, type: Int)
+        fun onItemClick(id : Int)
     }
     override fun getItemCount(): Int {
         return list.size
@@ -57,25 +57,25 @@ class movieAdapter(val list: List<Result>, val type: Int, val onItemClickListene
                     setPoster(result.backdrop_path, binding.imgMovies)
                     setTitle(result.title, binding.title)
                     setPopularity(result.popularity, binding.popularity)
-                    clickedMovie(position, binding.movie)
+                    clickedMovie(result.id, binding.movie)
                 }
                 is ItemNowPlayingBinding ->{
                     setPoster(result.poster_path, binding.poster)
                     setTitle(result.title, binding.title)
                     setPopularity(result.popularity, binding.popularity)
-                    clickedMovie(position, binding.movie)
+                    clickedMovie(result.id, binding.movie)
                 }
                 is ItemPopularBinding -> {
                     setPoster(result.backdrop_path, binding.poster)
                     setTitle(result.title, binding.title)
                     setPopularity(result.popularity, binding.popularity)
-                    clickedMovie(position, binding.movie)
+                    clickedMovie(result.id, binding.movie)
                 }
                 is ItemTopRatedBinding -> {
                     setPoster(result.backdrop_path, binding.poster)
                     setTitle(result.title, binding.title)
                     setPopularity(result.popularity, binding.popularity)
-                    clickedMovie(position, binding.movie)
+                    clickedMovie(result.id, binding.movie)
                 }
             }
         }
@@ -95,9 +95,9 @@ class movieAdapter(val list: List<Result>, val type: Int, val onItemClickListene
             view.text = popularity
         }
 
-        private fun clickedMovie(itemPosition : Int,view: View){
+        private fun clickedMovie(id : Int,view: View){
             view.setOnClickListener {
-                onItemClickListener.onItemClick(position = itemPosition, type = type)
+                onItemClickListener.onItemClick(id)
             }
 
         }

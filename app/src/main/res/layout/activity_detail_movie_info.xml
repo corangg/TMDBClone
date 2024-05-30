@@ -22,10 +22,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_title"
-            app:titleTextColor="@color/white"
-            app:title="@={viewmodel.movieTitle}"
             android:paddingHorizontal="24dp"
-            android:id="@+id/title_movies" />
+            android:id="@+id/toolbar_movies" >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@={viewmodel.movieTitle}"
+                android:gravity="center_horizontal"
+                android:textSize="24sp"
+                android:textColor="@color/white"/>
+        </androidx.appcompat.widget.Toolbar>
 
         <ScrollView
             android:layout_width="match_parent"
@@ -35,7 +41,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:paddingHorizontal="6dp"
+                android:paddingHorizontal="16dp"
                 android:orientation="vertical">
 
                 <RelativeLayout
@@ -47,7 +53,7 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:scaleType="centerCrop"
+                        android:scaleType="fitCenter"
                         android:id="@+id/img_back" />
 
                     <View
@@ -59,63 +65,60 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="216dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
                     android:orientation="horizontal">
 
-                    <RelativeLayout
-                        android:layout_width="140dp"
-                        android:layout_height="wrap_content">
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="@{()->viewmodel.onclickedPoster()}"
+                        app:cardCornerRadius="4dp">
+                        <RelativeLayout
+                            android:layout_width="140dp"
+                            android:layout_height="wrap_content">
 
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:onClick="@{()->viewmodel.onclickedPoster()}"
-                            app:cardCornerRadius="4dp">
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:scaleType="centerInside"
+                                android:background="@drawable/bg_radius_conner"
+                                android:id="@+id/img_poster"/>
 
                             <RelativeLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content">
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:layout_margin="2dp"
+                                android:background="@drawable/bg_circle_white"
+                                android:layout_alignParentEnd="true">
 
-                                <ImageView
+                                <com.mikhaellopez.circularprogressbar.CircularProgressBar
+                                    android:id="@+id/circularProgressBar"
+                                    android:layout_centerInParent="true"
+                                    android:layout_width="26dp"
+                                    android:layout_height="26dp"
+                                    app:cpb_progress="0"
+                                    app:cpb_progress_max="100"
+                                    android:background="@drawable/bg_circle_white"
+                                    app:cpb_background_progressbar_width="2dp"
+                                    app:cpb_progressbar_width="2dp"
+                                    app:cpb_progressbar_color="@color/logincolor"
+                                    app:cpb_background_progressbar_color="@color/black" />
+
+                                <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:scaleType="centerCrop"
-                                    android:src="@drawable/img_not_found" />
+                                    android:text="@={viewmodel.ratingPercent}"
+                                    android:textSize="8sp"
+                                    android:textColor="@color/black"
+                                    android:layout_centerInParent="true" />
 
-                                <RelativeLayout
-                                    android:layout_width="32dp"
-                                    android:layout_height="32dp"
-                                    android:layout_margin="2dp"
-                                    android:background="@drawable/bg_circle_white"
-                                    android:layout_alignParentEnd="true">
-
-                                    <com.mikhaellopez.circularprogressbar.CircularProgressBar
-                                        android:id="@+id/circularProgressBar"
-                                        android:layout_centerInParent="true"
-                                        android:layout_width="26dp"
-                                        android:layout_height="26dp"
-                                        app:cpb_progress="70"
-                                        app:cpb_progress_max="100"
-                                        android:background="@drawable/bg_circle_white"
-                                        app:cpb_background_progressbar_width="2dp"
-                                        app:cpb_progressbar_width="2dp"
-                                        app:cpb_progressbar_color="@color/logincolor"
-                                        app:cpb_background_progressbar_color="@color/black" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="@={viewmodel.ratingPercent}"
-                                        android:textSize="8sp"
-                                        android:textColor="@color/black"
-                                        android:layout_centerInParent="true" />
-
-                                </RelativeLayout>
                             </RelativeLayout>
-                        </androidx.cardview.widget.CardView>
+                        </RelativeLayout>
 
-                    </RelativeLayout>
+
+                    </androidx.cardview.widget.CardView>
+
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -124,7 +127,7 @@
 
                         <ImageButton
                             android:layout_width="32dp"
-                            android:layout_height="34dp"
+                            android:layout_height="32dp"
                             android:id="@+id/btn_bookmark"
                             android:layout_alignParentEnd="true"
                             android:layout_marginEnd="6dp"
@@ -242,7 +245,7 @@
                             android:layout_below="@+id/language_layout"
                             android:orientation="horizontal">
                             <TextView
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:id="@+id/text_revenue"
                                 android:textSize="14sp"
@@ -260,7 +263,7 @@
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="20dp"
                             android:id="@+id/recycler_genre"
                             android:layout_below="@id/revenue_layout" />
                     </RelativeLayout>
@@ -309,6 +312,7 @@
                             android:text="@string/actor"
                             android:layout_marginStart="20dp"
                             android:textColor="@color/white"
+                            android:textStyle="bold"
                             android:layout_alignParentBottom="true"
                             android:textSize="16sp" />
 
@@ -360,6 +364,7 @@
                             android:text="@string/video"
                             android:layout_marginStart="20dp"
                             android:textColor="@color/white"
+                            android:textStyle="bold"
                             android:layout_alignParentBottom="true"
                             android:textSize="16sp" />
                     </RelativeLayout>
@@ -388,6 +393,7 @@
                             android:text="@string/similar"
                             android:layout_marginStart="20dp"
                             android:textColor="@color/white"
+                            android:textStyle="bold"
                             android:layout_alignParentBottom="true"
                             android:textSize="16sp" />
 

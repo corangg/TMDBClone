@@ -5,6 +5,7 @@ import android.view.MenuItem
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.bumptech.glide.Glide.init
 import com.example.tmdb.R
 import com.example.tmdb.model.Result
 import com.example.tmdb.source.remot.retrofit.TMDBRetrofit
@@ -21,6 +22,8 @@ class MainViewModel @Inject constructor(application: Application): AndroidViewMo
     val popularList : MutableLiveData<List<Result>> = MutableLiveData()
     val topRatedList : MutableLiveData<List<Result>> = MutableLiveData()
     val upComingList : MutableLiveData<List<Result>> = MutableLiveData()
+
+    val movieId : MutableLiveData<Int> = MutableLiveData()
     init {
         getData()
     }
@@ -70,4 +73,9 @@ class MainViewModel @Inject constructor(application: Application): AndroidViewMo
 
         }
     }
+
+    fun startActivity(id : Int){
+        movieId.value = id
+    }
+
 }

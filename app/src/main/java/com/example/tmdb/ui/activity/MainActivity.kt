@@ -52,5 +52,11 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        viewModel.movieId.observe(this){
+            val intent = Intent(this,DetailMovieInfoActivity::class.java)
+            intent.putExtra("id", it)
+            startActivity(intent)
+        }
+
     }
 }
