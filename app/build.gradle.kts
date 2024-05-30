@@ -76,6 +76,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2")
 
     implementation("com.google.android.material:material:1.12.0")//CardView
+    implementation ("com.mikhaellopez:circularprogressbar:3.1.0")
 
     implementation("com.github.bumptech.glide:glide:4.13.0")//Glide
     kapt("com.github.bumptech.glide:compiler:4.13.0")

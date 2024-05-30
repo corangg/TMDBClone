@@ -16,7 +16,6 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(application: Application): AndroidViewModel(application) {
     val selectNavigationItem : MutableLiveData<Int> = MutableLiveData(0)
 
-
     val moviesList : MutableLiveData<List<Result>> = MutableLiveData()
     val nowPlayingList : MutableLiveData<List<Result>> = MutableLiveData()
     val popularList : MutableLiveData<List<Result>> = MutableLiveData()
