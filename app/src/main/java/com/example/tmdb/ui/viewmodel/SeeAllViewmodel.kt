@@ -27,10 +27,33 @@ class SeeAllViewmodel @Inject constructor(application: Application): AndroidView
                     val getlist = TMDBRetrofit.fetchNowPlayingMovies(page)
                     getlist?.let {
                         list.addAll(it)
-                        movieList.value = list
+                        movieList.value = it
+                    }
+                }
+                "Popular"->{
+                    val getlist = TMDBRetrofit.fetchPopularMovies(page)
+                    getlist?.let {
+                        list.addAll(it)
+                        movieList.value = it
+                    }
+                }
+                "Top Rated"->{
+                    val getlist = TMDBRetrofit.fetchTopRatedMovies(page)
+                    getlist?.let {
+                        list.addAll(it)
+                        movieList.value = it
+                    }
+                }
+                "Upcoming"->{
+                    val getlist = TMDBRetrofit.fetchUpcomingMovies(page)
+                    getlist?.let {
+                        list.addAll(it)
+                        movieList.value = it
                     }
                 }
             }
         }
     }
+
+
 }

@@ -52,9 +52,9 @@ object TMDBRetrofit {
         }
     }
 
-    suspend fun fetchPopularMovies():List<Result>?{
+    suspend fun fetchPopularMovies(page : Int = 1):List<Result>?{
         return withContext(Dispatchers.IO){
-            val call = tmdbApi.getPopularMovies(authHeader,"en-US", 1)
+            val call = tmdbApi.getPopularMovies(authHeader,"en-US", page)
             try {
                 val response = call.execute()
                 if (response.isSuccessful) {
@@ -68,9 +68,9 @@ object TMDBRetrofit {
         }
     }
 
-    suspend fun fetchTopRatedMovies():List<Result>?{
+    suspend fun fetchTopRatedMovies(page : Int = 1):List<Result>?{
         return withContext(Dispatchers.IO){
-            val call = tmdbApi.getTopRatedMovies(authHeader,"en-US", 1)
+            val call = tmdbApi.getTopRatedMovies(authHeader,"en-US", page)
             try {
                 val response = call.execute()
                 if (response.isSuccessful) {
@@ -84,9 +84,9 @@ object TMDBRetrofit {
         }
     }
 
-    suspend fun fetchUpcomingMovies():List<Result>?{
+    suspend fun fetchUpcomingMovies(page : Int = 1):List<Result>?{
         return withContext(Dispatchers.IO){
-            val call = tmdbApi.getUpcomingMovies(authHeader,"en-US", 1)
+            val call = tmdbApi.getUpcomingMovies(authHeader,"en-US", page)
             try {
                 val response = call.execute()
                 if (response.isSuccessful) {

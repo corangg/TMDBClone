@@ -1,5 +1,6 @@
 package com.example.tmdb.ui.activity
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -24,6 +25,7 @@ class SeeAllActivity : AppCompatActivity(),
     lateinit private var seeAllAdapter  : SeeAllAdapter
 
     var type = ""
+    var page = 1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_see_all)
@@ -35,11 +37,17 @@ class SeeAllActivity : AppCompatActivity(),
     }
 
     override fun onMovieItemClick(id: Int) {
+        startDetailMovieInfoActivity(id)
     }
 
     private fun setObserve(){
         viewmodel.movieList.observe(this){
-            setAdapter(it)
+            if(page ==1){
+                setAdapter(it)
+                page += 1
+            }else{
+                seeAllAdapter.addData(it)
+            }
         }
 
     }
@@ -54,7 +62,7 @@ class SeeAllActivity : AppCompatActivity(),
 
     private fun setAdapter(list: List<Result>){
         binding.movieRecycler.layoutManager = GridLayoutManager(this,2)
-        seeAllAdapter = SeeAllAdapter(list, this)
+        seeAllAdapter = SeeAllAdapter(list.toMutableList(), this)
         binding.movieRecycler.adapter = seeAllAdapter
     }
 
@@ -64,5 +72,11 @@ class SeeAllActivity : AppCompatActivity(),
                 viewmodel.getData(type)
             }
         }
+    }
+
+    private fun startDetailMovieInfoActivity(id: Int){
+        val intent = Intent(this,DetailMovieInfoActivity::class.java)
+        intent.putExtra("id", id)
+        startActivity(intent)
     }
 }

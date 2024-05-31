@@ -10,7 +10,7 @@ import com.example.tmdb.model.Result
 import com.example.tmdb.util.ItemClickInterface
 import java.sql.Date
 
-class SeeAllAdapter(val list : List<Result>, val onItemClickListener: ItemClickInterface) : RecyclerView.Adapter<SeeAllAdapter.SeeAllViewHolder>(){
+class SeeAllAdapter(val list : MutableList<Result>, val onItemClickListener: ItemClickInterface) : RecyclerView.Adapter<SeeAllAdapter.SeeAllViewHolder>(){
 
     override fun getItemCount(): Int {
         return list.size
@@ -24,6 +24,12 @@ class SeeAllAdapter(val list : List<Result>, val onItemClickListener: ItemClickI
         holder.setTitle(list[position].title)
         holder.setDate(list[position].release_date)
         holder.clickedItem(list[position].id)
+    }
+
+    fun addData(newItems: List<Result>) {
+        val startPosition = list.size
+        list.addAll(newItems)
+        notifyItemRangeInserted(startPosition, newItems.size)
     }
 
     inner class SeeAllViewHolder(private val binding: ItemSeeAllBinding): RecyclerView.ViewHolder(binding.root){

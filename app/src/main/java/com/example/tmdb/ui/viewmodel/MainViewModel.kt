@@ -82,7 +82,18 @@ class MainViewModel @Inject constructor(application: Application): AndroidViewMo
 
     fun nowPlayingSeeAll(){
         startSeeAllActivity.value = "NowPlaying"
+    }
 
+    fun popularSeeAll(){
+        startSeeAllActivity.value = "Popular"
+    }
+
+    fun topRatedSeeAll(){
+        startSeeAllActivity.value = "Top Rated"
+    }
+
+    fun upcomingSeeAll(){
+        startSeeAllActivity.value = "Upcoming"
     }
 
 }
