@@ -57,6 +57,7 @@ class MoviesFragment : Fragment(), ItemClickInterface{
 
 
     private fun setObserve(){
+
         viewModel.liveMoviesList.observe(viewLifecycleOwner){
             setMoviesAdapter(it)
         }
@@ -64,6 +65,7 @@ class MoviesFragment : Fragment(), ItemClickInterface{
         viewModel.liveMoviesNowPlayingList.observe(viewLifecycleOwner){
             setNowPlayingAdapter(it)
         }
+
         viewModel.liveMoviesPopularList.observe(viewLifecycleOwner){
             setPopularAdapter(it)
         }
@@ -93,27 +95,27 @@ class MoviesFragment : Fragment(), ItemClickInterface{
         handler.postDelayed(slideRunnable, 5000)
     }
 
-    private fun setNowPlayingAdapter(list: List<com.example.tmdb.data.model.Result>){
+    private fun setNowPlayingAdapter(list: List<Result>){
         binding.moviesNowPlayingRecycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL,false)
         nowPlayingAdapter = MovieAdapter(list,1,this)
         binding.moviesNowPlayingRecycler.adapter = nowPlayingAdapter
     }
 
-    private fun setPopularAdapter(list: List<com.example.tmdb.data.model.Result>){
+    private fun setPopularAdapter(list: List<Result>){
         binding.moviesPopularRecycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL,false)
         popularAdapter = MovieAdapter(list,2,this)
         binding.moviesPopularRecycler.adapter = popularAdapter
     }
 
-    private fun setTopRatedAdapter(list: List<com.example.tmdb.data.model.Result>){
+    private fun setTopRatedAdapter(list: List<Result>){
         binding.moviesTopRatedRecycler.layoutManager = GridLayoutManager(requireContext(),4, GridLayoutManager.HORIZONTAL,false)
         topRatedAdapter = MovieAdapter(list,3,this)
         binding.moviesTopRatedRecycler.adapter = topRatedAdapter
     }
 
-    private fun setUpcomingAdapter(list: List<com.example.tmdb.data.model.Result>){
+    private fun setUpcomingAdapter(list: List<Result>){
         binding.moviesUpcomingRecycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL,false)
-        upComingAdapter = MovieAdapter(list,4,this)
+        upComingAdapter = MovieAdapter(list,1,this)
         binding.moviesUpcomingRecycler.adapter = upComingAdapter
     }
 }

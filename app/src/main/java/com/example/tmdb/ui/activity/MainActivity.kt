@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.selectNavigationItem.observe(this){
             when(it){
                 0->{
-                    //supportFragmentManager.beginTransaction().replace(binding.fragmentMain.id, MoviesFragment()).commit()
+                    supportFragmentManager.beginTransaction().replace(binding.fragmentMain.id, MoviesFragment()).commit()
                 }
                 1->{
                     supportFragmentManager.beginTransaction().replace(binding.fragmentMain.id, CelebritiesFragment()).commit()
