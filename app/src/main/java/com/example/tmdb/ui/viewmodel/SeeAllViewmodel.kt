@@ -4,8 +4,8 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.tmdb.model.Result
-import com.example.tmdb.source.remot.retrofit.TMDBRetrofit
+import com.example.tmdb.data.model.Result
+import com.example.tmdb.data.source.remot.retrofit.TMDBRetrofit
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -13,10 +13,10 @@ import javax.inject.Inject
 class SeeAllViewmodel @Inject constructor(application: Application): AndroidViewModel(application)  {
 
     val title : MutableLiveData<String> = MutableLiveData()
-    val movieList : MutableLiveData<List<Result>> = MutableLiveData()
+    val movieList : MutableLiveData<List<com.example.tmdb.data.model.Result>> = MutableLiveData()
 
     var page : Int = 0
-    val list = mutableListOf<Result>()
+    val list = mutableListOf<com.example.tmdb.data.model.Result>()
 
     fun getData(type: String){
         title.value = type

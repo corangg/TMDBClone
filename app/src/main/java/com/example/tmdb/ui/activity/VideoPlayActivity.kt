@@ -26,13 +26,12 @@ class VideoPlayActivity : AppCompatActivity() {
         }
     }
 
-    private  fun setVideo(key: String){
+    private fun setVideo(key: String){
         binding.youtubePlayerView.addYouTubePlayerListener(object :
             AbstractYouTubePlayerListener(){
             override fun onReady(youTubePlayer: YouTubePlayer) {
                 youTubePlayer.loadVideo(key,0f)
             }
-        }
-        )
+        })
     }
 }

@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.example.tmdb.databinding.ItemCountryBinding
-import com.example.tmdb.model.Result
+import com.example.tmdb.data.model.Result
 
 class CountryAdapter (val list: List<String>) : RecyclerView.Adapter<CountryAdapter.CountryViewHolder>(){
     override fun getItemCount(): Int {
@@ -20,8 +20,10 @@ class CountryAdapter (val list: List<String>) : RecyclerView.Adapter<CountryAdap
     }
 
     inner class CountryViewHolder(private val binding: ItemCountryBinding) : RecyclerView.ViewHolder(binding.root){
-        fun setCountry(string: String){
-            binding.itemCountry.text = string
+        fun setCountry(string: String?){
+            string?.let {
+                binding.textCountry.text = string
+            }
         }
     }
 }

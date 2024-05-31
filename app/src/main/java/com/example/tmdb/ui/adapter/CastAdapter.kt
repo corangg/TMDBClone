@@ -8,16 +8,12 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.tmdb.databinding.ItemCastBinding
 import com.example.tmdb.databinding.ItemCompanyBinding
-import com.example.tmdb.model.credit.Cast
-import com.example.tmdb.model.detailmovie.ProductionCompany
+import com.example.tmdb.data.model.credit.Cast
+import com.example.tmdb.data.model.detailmovie.ProductionCompany
+import com.example.tmdb.util.ItemClickInterface
+import com.example.tmdb.util.Util
 
-class CastAdapter (val list: List<Cast>, val onActerItemClickListener: OnActerItemClickListener) : RecyclerView.Adapter<CastAdapter.CastViewHolder>(){
-
-    interface OnActerItemClickListener{
-        fun onActerClick(id : Int){
-
-        }
-    }
+class CastAdapter (val list: List<Cast>, val onItemClickListener: ItemClickInterface) : RecyclerView.Adapter<CastAdapter.CastViewHolder>(){
     override fun getItemCount(): Int {
         return list.size
     }
@@ -29,22 +25,33 @@ class CastAdapter (val list: List<Cast>, val onActerItemClickListener: OnActerIt
         holder.setProfile(list[position].profile_path)
         holder.setName(list[position].name)
         holder.setCast(list[position].character)
+        holder.itemClicked(list[position].cast_id)
     }
 
     inner class CastViewHolder(private val binding: ItemCastBinding) : RecyclerView.ViewHolder(binding.root){
         fun setProfile(url: String?){
             url?.let {
-                val imageUrl ="https://image.tmdb.org/t/p/w500" + url
-                Glide.with(binding.root).load(imageUrl).apply(RequestOptions().override(100,100)).into(binding.imgProfile)
+                Util.setImage(it, binding.root, binding.imgProfile) }
+        }
+
+        fun setName(name: String?){
+            name?.let {
+                binding.textName.text = it
             }
         }
 
-        fun setName(name: String){
-            binding.name.text = name
+        fun setCast(cast : String?){
+            cast?.let {
+                binding.textCast.text = it
+            }
         }
 
-        fun setCast(cast : String){
-            binding.cast.text = cast
+        fun itemClicked(id: Int?){
+            binding.itemCast.setOnClickListener {
+                id?.let {
+                    onItemClickListener.onActorItemClick(it)
+                }
+            }
         }
     }
 }

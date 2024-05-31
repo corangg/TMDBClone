@@ -2,19 +2,20 @@ package com.example.tmdb.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.core.content.ContextCompat.startActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.tmdb.R
+import com.example.tmdb.data.model.Result
+import com.example.tmdb.data.model.credit.Cast
+import com.example.tmdb.data.model.detailmovie.Genre
+import com.example.tmdb.data.model.detailmovie.ProductionCompany
+import com.example.tmdb.data.model.video.VideoResult
 import com.example.tmdb.databinding.ActivityDetailMovieInfoBinding
-import com.example.tmdb.databinding.ActivityMainBinding
 import com.example.tmdb.ui.adapter.CastAdapter
 import com.example.tmdb.ui.adapter.CompanyAdapter
 import com.example.tmdb.ui.adapter.CountryAdapter
@@ -22,15 +23,13 @@ import com.example.tmdb.ui.adapter.GenreAdapter
 import com.example.tmdb.ui.adapter.MovieAdapter
 import com.example.tmdb.ui.adapter.VideoAdapter
 import com.example.tmdb.ui.viewmodel.DetailMovieViewmodel
-import com.example.tmdb.ui.viewmodel.MainViewModel
+import com.example.tmdb.util.ItemClickInterface
+import com.example.tmdb.util.Util
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class DetailMovieInfoActivity : AppCompatActivity(),
-    CastAdapter.OnActerItemClickListener,
-    VideoAdapter.OnVideoItemClickListener,
-    MovieAdapter.OnItemClickListener{
-
+    ItemClickInterface{
     private lateinit var binding : ActivityDetailMovieInfoBinding
     private val viewModel: DetailMovieViewmodel by viewModels()
 
@@ -50,16 +49,16 @@ class DetailMovieInfoActivity : AppCompatActivity(),
         setObserve()
     }
 
-    override fun onActerClick(id: Int) {
-
-    }
-
     override fun onVideoItemClick(key: String) {
         startVideoActivity(key)
     }
 
-    override fun onItemClick(id: Int) {
+    override fun onMovieItemClick(id: Int) {
+        viewModel.startMovieActivity(id)
+    }
 
+    override fun onActorItemClick(id: Int) {
+        viewModel.startActerActivity(id)
     }
 
     private fun setMovie(){
@@ -68,58 +67,80 @@ class DetailMovieInfoActivity : AppCompatActivity(),
             viewModel.getMovieData(id)
         }
     }
+
     private fun setObserve(){
         viewModel.backImg.observe(this){
-            binding.imgBack
-            val imageUrl ="https://image.tmdb.org/t/p/w500" + it
-            Glide.with(binding.root).load(imageUrl).into(binding.imgBack)
+            Util.setImage(it, binding.root, binding.imgBack)
         }
         viewModel.posterImg.observe(this){
-            val imageUrl ="https://image.tmdb.org/t/p/w500" + it
-            Glide.with(binding.root).load(imageUrl).into(binding.imgPoster)
+            Util.setImage(it, binding.root, binding.imgPoster)
         }
         viewModel.ratingPercentInt.observe(this){
             binding.circularProgressBar.progress = it.toFloat()
         }
-
         viewModel.countryList.observe(this){
-            binding.countryRecycler.layoutManager = LinearLayoutManager(
-                this,
-                LinearLayoutManager.HORIZONTAL,false)
-            countryAdapter = CountryAdapter(it)
-            binding.countryRecycler.adapter = countryAdapter
+            setContryAdapter(it)
         }
-
         viewModel.genresList.observe(this){
-            binding.recyclerGenre.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false)
-            genreAdapter = GenreAdapter(it)
-            binding.recyclerGenre.adapter = genreAdapter
+            setGenresAdapter(it)
         }
-
         viewModel.companyList.observe(this){
-            binding.recyclerCompany.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-            companyAdapter = CompanyAdapter(it)
-            binding.recyclerCompany.adapter = companyAdapter
+            setCompanyAdapter(it)
         }
-
         viewModel.creditList.observe(this){
-            binding.moviesActorsRecycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-            castAdapter = CastAdapter(it, this)
-            binding.moviesActorsRecycler.adapter = castAdapter
+            setCastAdapter(it)
         }
-
         viewModel.videoList.observe(this){
-            binding.moviesVideoRecycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-            videoAdapter = VideoAdapter(it, this)
-            binding.moviesVideoRecycler.adapter = videoAdapter
+            setVideoAdapter(it)
         }
-
         viewModel.similarList.observe(this){
-            binding.moviesSimilarMovieRecycler.layoutManager = LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
-            movieAdapter = MovieAdapter(it,1,this)
-            binding.moviesSimilarMovieRecycler.adapter = movieAdapter
-
+            setMovieAdapter(it)
         }
+        viewModel.acterId.observe(this){
+            startDetailActorActivity(it)
+        }
+    }
+
+    private fun setContryAdapter(list: List<String>){
+        binding.countryRecycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false)
+        countryAdapter = CountryAdapter(list)
+        binding.countryRecycler.adapter = countryAdapter
+    }
+
+    private fun setGenresAdapter(list: List<Genre>){
+        binding.recyclerGenre.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false)
+        genreAdapter = GenreAdapter(list)
+        binding.recyclerGenre.adapter = genreAdapter
+    }
+
+    private fun setCompanyAdapter(list: List<ProductionCompany>){
+        binding.recyclerCompany.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        companyAdapter = CompanyAdapter(list)
+        binding.recyclerCompany.adapter = companyAdapter
+    }
+
+    private fun setCastAdapter(list: List<Cast>){
+        binding.moviesActorsRecycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        castAdapter = CastAdapter(list, this)
+        binding.moviesActorsRecycler.adapter = castAdapter
+    }
+
+    private fun setVideoAdapter(list: List<VideoResult>){
+        binding.moviesVideoRecycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        videoAdapter = VideoAdapter(list, this)
+        binding.moviesVideoRecycler.adapter = videoAdapter
+    }
+
+    private fun setMovieAdapter(list: List<Result>){
+        binding.moviesSimilarMovieRecycler.layoutManager = LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
+        movieAdapter = MovieAdapter(list,1,this)
+        binding.moviesSimilarMovieRecycler.adapter = movieAdapter
+    }
+
+    private fun startDetailActorActivity(id: Int){
+        val intent = Intent(this,DetailActorInfoActivity::class.java)
+        intent.putExtra("id", id)
+        startActivity(intent)
     }
 
     private fun startVideoActivity(key: String){

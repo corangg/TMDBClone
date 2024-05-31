@@ -12,13 +12,12 @@ import com.example.tmdb.databinding.ItemMoviesBinding
 import com.example.tmdb.databinding.ItemNowPlayingBinding
 import com.example.tmdb.databinding.ItemPopularBinding
 import com.example.tmdb.databinding.ItemTopRatedBinding
-import com.example.tmdb.model.Result
+import com.example.tmdb.data.model.Result
+import com.example.tmdb.util.ItemClickInterface
+import com.example.tmdb.util.Util
 
-class MovieAdapter(val list: List<Result>, val type: Int, val onItemClickListener: OnItemClickListener )
+class MovieAdapter(val list: List<Result>, val type: Int, val onItemClickListener: ItemClickInterface)
     : RecyclerView.Adapter<MovieAdapter.MoviesViewHolder>(){
-    interface OnItemClickListener{
-        fun onItemClick(id : Int)
-    }
     override fun getItemCount(): Int {
         return list.size
     }
@@ -38,9 +37,6 @@ class MovieAdapter(val list: List<Result>, val type: Int, val onItemClickListene
             3->{
                 ItemTopRatedBinding.inflate(inflater, parent, false)
             }
-            4->{
-                ItemNowPlayingBinding.inflate(inflater, parent,false)
-            }
             else -> throw IllegalArgumentException("Invalid view type")
         }
         return  MoviesViewHolder(binding)
@@ -51,56 +47,60 @@ class MovieAdapter(val list: List<Result>, val type: Int, val onItemClickListene
     }
 
     inner class MoviesViewHolder(private val binding: ViewBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(result: Result, position: Int){
+        fun bind(result: com.example.tmdb.data.model.Result, position: Int){
             when(binding){
                 is ItemMoviesBinding ->{
                     setPoster(result.backdrop_path, binding.imgMovies)
-                    setTitle(result.title, binding.title)
-                    setPopularity(result.popularity, binding.popularity)
-                    clickedMovie(result.id, binding.movie)
+                    setTitle(result.title, binding.textTitle)
+                    setPopularity(result.popularity, binding.textPopularity)
+                    clickedMovie(result.id, binding.itemMovie)
                 }
                 is ItemNowPlayingBinding ->{
-                    setPoster(result.poster_path, binding.poster)
-                    setTitle(result.title, binding.title)
-                    setPopularity(result.popularity, binding.popularity)
-                    clickedMovie(result.id, binding.movie)
+                    setPoster(result.poster_path, binding.imgPoster)
+                    setTitle(result.title, binding.textTitle)
+                    setPopularity(result.popularity, binding.textPopularity)
+                    clickedMovie(result.id, binding.itemMovie)
                 }
                 is ItemPopularBinding -> {
-                    setPoster(result.backdrop_path, binding.poster)
-                    setTitle(result.title, binding.title)
-                    setPopularity(result.popularity, binding.popularity)
-                    clickedMovie(result.id, binding.movie)
+                    setPoster(result.backdrop_path, binding.imgPoster)
+                    setTitle(result.title, binding.textTitle)
+                    setPopularity(result.popularity, binding.textPopularity)
+                    clickedMovie(result.id, binding.itemMovie)
                 }
                 is ItemTopRatedBinding -> {
-                    setPoster(result.backdrop_path, binding.poster)
-                    setTitle(result.title, binding.title)
-                    setPopularity(result.popularity, binding.popularity)
-                    clickedMovie(result.id, binding.movie)
+                    setPoster(result.backdrop_path, binding.imgPoster)
+                    setTitle(result.title, binding.textTitle)
+                    setPopularity(result.popularity, binding.textPopularity)
+                    clickedMovie(result.id, binding.itmeMovie)
                 }
             }
         }
 
         private fun setPoster(url : String?, view : ImageView){
             url?.let {
-                val imageUrl ="https://image.tmdb.org/t/p/w500" + url
-                Glide.with(binding.root).load(imageUrl).into(view) }
-
-        }
-
-        private fun setTitle(title: String, view : TextView){
-            view.text = title
-        }
-
-        private fun setPopularity(value: Double, view : TextView){
-            val popularity = "Popularity " + value.toString()
-            view.text = popularity
-        }
-
-        private fun clickedMovie(id : Int,view: View){
-            view.setOnClickListener {
-                onItemClickListener.onItemClick(id)
+                Util.setImage(it, binding.root, view)
             }
+        }
 
+        private fun setTitle(title: String?, view : TextView){
+            title?.let {
+                view.text = it
+            }
+        }
+
+        private fun setPopularity(value: Double?, view : TextView){
+            value?.let {
+                val popularity = "Popularity " + it.toString()
+                view.text = popularity
+            }
+        }
+
+        private fun clickedMovie(id : Int?, view: View){
+            id?.let {
+                view.setOnClickListener {view->
+                    onItemClickListener.onMovieItemClick(it)
+                }
+            }
         }
     }
 }

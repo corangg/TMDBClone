@@ -5,30 +5,34 @@ import android.view.MenuItem
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.bumptech.glide.Glide.init
 import com.example.tmdb.R
-import com.example.tmdb.model.Result
-import com.example.tmdb.source.remot.retrofit.TMDBRetrofit
+import com.example.tmdb.data.model.Result
+import com.example.tmdb.data.model.celebrities.CelebritiesResult
+import com.example.tmdb.data.repository.GetDataRepository
+import com.example.tmdb.data.source.remot.retrofit.TMDBRetrofit
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(application: Application): AndroidViewModel(application) {
+class MainViewModel @Inject constructor(
+    application: Application,
+    private val getDataRepository: GetDataRepository): AndroidViewModel(application) {
     val selectNavigationItem : MutableLiveData<Int> = MutableLiveData(0)
 
-    val moviesList : MutableLiveData<List<Result>> = MutableLiveData()
-    val nowPlayingList : MutableLiveData<List<Result>> = MutableLiveData()
-    val popularList : MutableLiveData<List<Result>> = MutableLiveData()
-    val topRatedList : MutableLiveData<List<Result>> = MutableLiveData()
-    val upComingList : MutableLiveData<List<Result>> = MutableLiveData()
+    val liveMoviesList : MutableLiveData<List<Result>> = MutableLiveData()
+    val liveMoviesNowPlayingList : MutableLiveData<List<Result>> = MutableLiveData()
+    val liveMoviesPopularList : MutableLiveData<List<Result>> = MutableLiveData()
+    val liveMoviesTopRatedList : MutableLiveData<List<Result>> = MutableLiveData()
+    val liveMoviesUpComingList : MutableLiveData<List<Result>> = MutableLiveData()
+    val liveCelebritiesPopularList : MutableLiveData<List<CelebritiesResult>> = MutableLiveData()
+    val liveCelebritiesTrendingList : MutableLiveData<List<CelebritiesResult>> = MutableLiveData()
 
-    val startSeeAllActivity : MutableLiveData<String> = MutableLiveData()
+    val startSeeAllMovieActivity : MutableLiveData<String> = MutableLiveData()
+    val startSeeAllActorActivity : MutableLiveData<String> = MutableLiveData()
 
     val movieId : MutableLiveData<Int> = MutableLiveData()
-    init {
-        getData()
-    }
+    val actorId : MutableLiveData<Int> = MutableLiveData()
 
 
     fun bottomNavigationItemSelected(item : MenuItem):Boolean{
@@ -40,6 +44,7 @@ class MainViewModel @Inject constructor(application: Application): AndroidViewMo
             }
             R.id.navigation_celebrities->{
                 selectNavigationItem.value = 1
+                setCelebritiesList()
                 return true
             }
             R.id.navigation_search->{
@@ -54,46 +59,46 @@ class MainViewModel @Inject constructor(application: Application): AndroidViewMo
         return false
     }
 
-    fun getData(){
-        viewModelScope.launch {
-            TMDBRetrofit.fetchMovies()?.let {
-                moviesList.value = it
-            }
-            TMDBRetrofit.fetchNowPlayingMovies()?.let {
-                nowPlayingList.value = it
-            }
-            TMDBRetrofit.fetchPopularMovies()?.let {
-                popularList.value = it
-            }
-            TMDBRetrofit.fetchTopRatedMovies()?.let {
-                topRatedList.value = it
-            }
-
-            TMDBRetrofit.fetchUpcomingMovies()?.let {
-                upComingList.value = it
-            }
-
-        }
+    fun setMoviesList(){
+        liveMoviesList.value = getDataRepository.moviesList
+        liveMoviesNowPlayingList.value = getDataRepository.moviesNowPlayingList
+        liveMoviesPopularList.value = getDataRepository.moviesPopularList
+        liveMoviesTopRatedList.value = getDataRepository.moviesTopRatedList
+        liveMoviesUpComingList.value = getDataRepository.moviesUpComingList
     }
 
-    fun startActivity(id : Int){
+    private fun setCelebritiesList(){
+        liveCelebritiesPopularList.value = getDataRepository.celebritiesPopularList
+        liveCelebritiesTrendingList.value = getDataRepository.celebritiesTrendingList
+    }
+
+
+    fun startMovieActivity(id : Int){
         movieId.value = id
     }
 
+    fun startActorActivity(id : Int){
+        actorId.value = id
+    }
+
     fun nowPlayingSeeAll(){
-        startSeeAllActivity.value = "NowPlaying"
+        startSeeAllMovieActivity.value = "NowPlaying"
     }
 
     fun popularSeeAll(){
-        startSeeAllActivity.value = "Popular"
+        startSeeAllMovieActivity.value = "Popular"
     }
 
     fun topRatedSeeAll(){
-        startSeeAllActivity.value = "Top Rated"
+        startSeeAllMovieActivity.value = "Top Rated"
     }
 
     fun upcomingSeeAll(){
-        startSeeAllActivity.value = "Upcoming"
+        startSeeAllMovieActivity.value = "Upcoming"
+    }
+
+    fun celebritiesPopularSeeAll(){
+
     }
 
 }

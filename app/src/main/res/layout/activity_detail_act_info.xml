@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewmodel"
+            type="com.example.tmdb.ui.viewmodel.DetailActViewmodel" />
+    </data>
+    <LinearLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/black"
+        tools:context=".ui.activity.DetailActorInfoActivity">
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_title"
+            android:id="@+id/toolbar_movies" >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@={viewmodel.actName}"
+                android:gravity="center_horizontal"
+                android:textSize="24sp"
+                android:textColor="@color/white"/>
+        </androidx.appcompat.widget.Toolbar>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="240dp"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal">
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="8dp">
+                        <ImageView
+                            android:layout_width="180dp"
+                            android:layout_height="240dp"
+                            android:id="@+id/img_profile"
+                            android:src="@drawable/img_not_found"
+                            android:scaleType="fitXY"/>
+                    </androidx.cardview.widget.CardView>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="8dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/name"
+                            android:text="Freya Allan"
+                            android:textSize="20sp"
+                            android:textColor="@color/white"
+                            android:layout_marginTop="12dp"
+                            android:maxLines="1"/>
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/knowfor"
+                            android:textSize="9sp"
+                            android:layout_above="@+id/knowfordata"
+                            android:layout_marginBottom="4dp"
+                            android:textColor="@color/gray"
+                            android:text="@string/known"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/knowfordata"
+                            android:layout_above="@+id/place"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:layout_marginBottom="6dp"
+                            android:text="Acting"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/place"
+                            android:textSize="9sp"
+                            android:layout_above="@+id/placeinfo"
+                            android:layout_marginBottom="4dp"
+                            android:textColor="@color/gray"
+                            android:text="@string/birthplace"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/placeinfo"
+                            android:layout_above="@+id/companies"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:layout_marginBottom="6dp"
+                            android:text="Oxfordshire, England, UK"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/companies"
+                            android:textSize="9sp"
+                            android:layout_above="@+id/dateinfo"
+                            android:layout_marginBottom="4dp"
+                            android:textColor="@color/gray"
+                            android:text="@string/companies"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/dateinfo"
+                            android:layout_alignParentBottom="true"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:layout_marginBottom="6dp"
+                            android:text="2001-09-06"/>
+                    </RelativeLayout>
+                </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/biography"
+                    android:textColor="@color/logincolor"
+                    android:layout_marginStart="10dp"
+                    android:textSize="16sp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/biographydata"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="24dp"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="24dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/movies"
+                            android:layout_marginStart="16dp"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"
+                            android:layout_alignParentBottom="true"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_toStartOf="@+id/btn_movie_see_all"
+                            android:textSize="14sp"
+                            android:layout_marginEnd="12dp"
+                            android:text="@string/seeall"
+                            android:textColor="@color/logincolor" />
+
+                        <ImageButton
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
+                            android:id="@+id/btn_movie_see_all"
+                            android:background="@drawable/ic_right"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginEnd="12dp"
+                            android:backgroundTint="@color/white"
+                            android:layout_alignParentEnd="true" />
+
+                    </RelativeLayout>
+                </LinearLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/recycler_movie"/>
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+</layout>

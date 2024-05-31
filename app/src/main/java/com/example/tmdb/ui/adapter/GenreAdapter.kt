@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tmdb.databinding.ItemGenreBinding
-import com.example.tmdb.model.detailmovie.Genre
+import com.example.tmdb.data.model.detailmovie.Genre
 
 class GenreAdapter (val list: List<Genre>) : RecyclerView.Adapter<GenreAdapter.GemreViewHolder>(){
     override fun getItemCount(): Int {
@@ -19,8 +19,10 @@ class GenreAdapter (val list: List<Genre>) : RecyclerView.Adapter<GenreAdapter.G
     }
 
     inner class GemreViewHolder(private val binding: ItemGenreBinding) : RecyclerView.ViewHolder(binding.root){
-        fun setGenre(string: String){
-            binding.itemGenre.text = string
+        fun setGenre(string: String?){
+            string?.let {
+                binding.textGenre.text = string
+            }
         }
     }
 }

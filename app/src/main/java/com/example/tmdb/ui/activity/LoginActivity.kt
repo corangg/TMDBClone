@@ -27,10 +27,6 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setObserve(){
         viewModel.startMainActivity.observe(this){
-            /*val intent = Intent(this, MainActivity::class.java)
-            //val intent = Intent(this, DetailMovieInfoActivity::class.java)
-            startActivity(intent)*/
-
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }

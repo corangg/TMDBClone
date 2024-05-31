@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
         android:layout_below="@+id/youtubePlayerView"
-        android:id="@+id/title"
+        android:id="@+id/text_title"
         android:textColor="@color/white"
         android:textSize="14sp"/>
     <View
@@ -23,6 +23,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/view"
         android:layout_alignTop="@id/youtubePlayerView"
-        android:layout_alignBottom="@+id/title"/>
+        android:layout_alignBottom="@+id/text_title"/>
 
 </RelativeLayout>

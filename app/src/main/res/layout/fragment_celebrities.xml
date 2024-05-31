@@ -1,15 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.fragment.CelebritiesFragment"
-    android:background="@color/black">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <data>
+        <variable
+            name="viewmodel"
+            type="com.example.tmdb.ui.viewmodel.MainViewModel" />
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        tools:context=".ui.fragment.CelebritiesFragment"
+        android:orientation="vertical">
 
-</FrameLayout>
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_title"
+            app:title="@string/celebrities"
+            app:titleTextColor="@color/white"
+            android:paddingHorizontal="24dp"
+            android:id="@+id/title_celebrities" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:background="@color/black">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="24dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/popular"
+                        android:textColor="@color/white"
+                        android:layout_alignParentBottom="true"
+                        android:textSize="16sp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_toStartOf="@+id/btn_popular_see_all"
+                        android:textSize="14sp"
+                        android:layout_marginEnd="12dp"
+                        android:text="@string/seeall"
+                        android:textColor="@color/logincolor"
+                        android:onClick="@{()->viewmodel.celebritiesPopularSeeAll()}"
+                        />
+
+                    <ImageButton
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:id="@+id/btn_popular_see_all"
+                        android:background="@drawable/ic_right"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginEnd="12dp"
+                        android:backgroundTint="@color/white"
+                        android:layout_alignParentEnd="true"
+                        android:onClick="@{()->viewmodel.celebritiesPopularSeeAll()}"/>
+                </RelativeLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:id="@+id/celebrities_popular_recycler"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="24dp"
+                    android:layout_marginTop="24dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/trending"
+                        android:textColor="@color/white"
+                        android:layout_alignParentBottom="true"
+                        android:textSize="16sp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_toStartOf="@+id/btn_trending_see_all"
+                        android:textSize="14sp"
+                        android:layout_marginEnd="12dp"
+                        android:text="@string/seeall"
+                        android:textColor="@color/logincolor"
+                        android:onClick="@{()->viewmodel.celebritiesPopularSeeAll()}"
+                        />
+
+                    <ImageButton
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:id="@+id/btn_trending_see_all"
+                        android:background="@drawable/ic_right"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginEnd="12dp"
+                        android:backgroundTint="@color/white"
+                        android:layout_alignParentEnd="true"
+                        android:onClick="@{()->viewmodel.celebritiesPopularSeeAll()}"/>
+                </RelativeLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:id="@+id/celebrities_trending_recycler"/>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</layout>
