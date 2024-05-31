@@ -58,5 +58,11 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        viewModel.startSeeAllActivity.observe(this){
+            val intent = Intent(this,SeeAllActivity::class.java)
+            intent.putExtra("type",it)
+            startActivity(intent)
+        }
+
     }
 }

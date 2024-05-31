@@ -5,7 +5,10 @@ import com.example.tmdb.model.NowPlayingResponse
 import com.example.tmdb.model.PopularResponse
 import com.example.tmdb.model.TopRatedResponse
 import com.example.tmdb.model.UpcomingResponse
+import com.example.tmdb.model.credit.CreditResponse
 import com.example.tmdb.model.detailmovie.DetailsMovieResponse
+import com.example.tmdb.model.SimilarResponse
+import com.example.tmdb.model.video.VideoResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -54,6 +57,29 @@ interface MoviesInterface {
         @Path("movie_id") movieId: Int,
         @Query("language") language: String,
     ): Call<DetailsMovieResponse>
+
+    @GET("movie/{movie_id}/credits")
+    fun getCreditMovies(
+        @Header("Authorization") authHeader: String,
+        @Path("movie_id") movieId: Int,
+        @Query("language") language: String,
+    ): Call<CreditResponse>
+
+    @GET("movie/{movie_id}/videos")
+    fun getVideoMovies(
+        @Header("Authorization") authHeader: String,
+        @Path("movie_id") movieId: Int,
+        @Query("language") language: String,
+    ): Call<VideoResponse>
+
+    @GET("movie/{movie_id}/similar")
+    fun getSimilarMovies(
+        @Header("Authorization") authHeader: String,
+        @Path("movie_id") movieId: Int,
+        @Query("language") language: String,
+        @Query("page") page: Int
+    ): Call<SimilarResponse>
+
 
 
 }

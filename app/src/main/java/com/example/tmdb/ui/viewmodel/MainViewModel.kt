@@ -23,6 +23,8 @@ class MainViewModel @Inject constructor(application: Application): AndroidViewMo
     val topRatedList : MutableLiveData<List<Result>> = MutableLiveData()
     val upComingList : MutableLiveData<List<Result>> = MutableLiveData()
 
+    val startSeeAllActivity : MutableLiveData<String> = MutableLiveData()
+
     val movieId : MutableLiveData<Int> = MutableLiveData()
     init {
         getData()
@@ -76,6 +78,11 @@ class MainViewModel @Inject constructor(application: Application): AndroidViewMo
 
     fun startActivity(id : Int){
         movieId.value = id
+    }
+
+    fun nowPlayingSeeAll(){
+        startSeeAllActivity.value = "NowPlaying"
+
     }
 
 }

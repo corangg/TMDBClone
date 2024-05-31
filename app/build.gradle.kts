@@ -78,6 +78,8 @@ dependencies {
     implementation("com.google.android.material:material:1.12.0")//CardView
     implementation ("com.mikhaellopez:circularprogressbar:3.1.0")
 
+    implementation ("com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.0")
+
     implementation("com.github.bumptech.glide:glide:4.13.0")//Glide
     kapt("com.github.bumptech.glide:compiler:4.13.0")
 }

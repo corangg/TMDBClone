@@ -14,8 +14,8 @@ import com.example.tmdb.databinding.ItemPopularBinding
 import com.example.tmdb.databinding.ItemTopRatedBinding
 import com.example.tmdb.model.Result
 
-class movieAdapter(val list: List<Result>, val type: Int, val onItemClickListener: OnItemClickListener )
-    : RecyclerView.Adapter<movieAdapter.MoviesViewHolder>(){
+class MovieAdapter(val list: List<Result>, val type: Int, val onItemClickListener: OnItemClickListener )
+    : RecyclerView.Adapter<MovieAdapter.MoviesViewHolder>(){
     interface OnItemClickListener{
         fun onItemClick(id : Int)
     }
@@ -80,10 +80,11 @@ class movieAdapter(val list: List<Result>, val type: Int, val onItemClickListene
             }
         }
 
-        private fun setPoster(url : String, view : ImageView){
-            val imageUrl ="https://image.tmdb.org/t/p/w500$url"
+        private fun setPoster(url : String?, view : ImageView){
+            url?.let {
+                val imageUrl ="https://image.tmdb.org/t/p/w500" + url
+                Glide.with(binding.root).load(imageUrl).into(view) }
 
-            Glide.with(binding.root).load(imageUrl).into(view)
         }
 
         private fun setTitle(title: String, view : TextView){

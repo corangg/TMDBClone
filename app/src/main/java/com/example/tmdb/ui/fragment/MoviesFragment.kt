@@ -15,27 +15,23 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tmdb.R
 import com.example.tmdb.databinding.FragmentMoviesBinding
 import com.example.tmdb.model.Result
-import com.example.tmdb.ui.adapter.MoviesAdapter
-import com.example.tmdb.ui.adapter.MoviesNowPlayingAdapter
-import com.example.tmdb.ui.adapter.MoviesPopularAdapter
-import com.example.tmdb.ui.adapter.MoviesTopRatedAdapter
-import com.example.tmdb.ui.adapter.movieAdapter
+import com.example.tmdb.ui.adapter.MovieAdapter
 import com.example.tmdb.ui.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MoviesFragment : Fragment(),
-    movieAdapter.OnItemClickListener{
+    MovieAdapter.OnItemClickListener{
 
     private val viewModel: MainViewModel by activityViewModels()
     private val handler = Handler(Looper.getMainLooper())
     private lateinit var binding : FragmentMoviesBinding
 
-    private lateinit var moviesAdapter: movieAdapter
-    private lateinit var nowPlayingAdapter: movieAdapter
-    private lateinit var popularAdapter: movieAdapter
-    private lateinit var topRatedAdapter: movieAdapter
-    private lateinit var upComingAdapter: movieAdapter
+    private lateinit var moviesAdapter: MovieAdapter
+    private lateinit var nowPlayingAdapter: MovieAdapter
+    private lateinit var popularAdapter: MovieAdapter
+    private lateinit var topRatedAdapter: MovieAdapter
+    private lateinit var upComingAdapter: MovieAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -88,7 +84,7 @@ class MoviesFragment : Fragment(),
                 handler.postDelayed(this, 5000)
             }
         }
-        moviesAdapter = movieAdapter(list, 0 , this)
+        moviesAdapter = MovieAdapter(list, 0 , this)
         val viewPager = binding.viewPager
         val indicator = binding.indicator
         viewPager.adapter = moviesAdapter
@@ -98,26 +94,25 @@ class MoviesFragment : Fragment(),
 
     private fun setNowPlayingAdapter(list: List<Result>){
         binding.moviesNowPlayingRecycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL,false)
-        nowPlayingAdapter = movieAdapter(list,1,this)
+        nowPlayingAdapter = MovieAdapter(list,1,this)
         binding.moviesNowPlayingRecycler.adapter = nowPlayingAdapter
     }
 
     private fun setPopularAdapter(list: List<Result>){
         binding.moviesPopularRecycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL,false)
-        popularAdapter = movieAdapter(list,2,this)
+        popularAdapter = MovieAdapter(list,2,this)
         binding.moviesPopularRecycler.adapter = popularAdapter
     }
 
     private fun setTopRatedAdapter(list: List<Result>){
         binding.moviesTopRatedRecycler.layoutManager = GridLayoutManager(requireContext(),4, GridLayoutManager.HORIZONTAL,false)
-        topRatedAdapter = movieAdapter(list,3,this)
+        topRatedAdapter = MovieAdapter(list,3,this)
         binding.moviesTopRatedRecycler.adapter = topRatedAdapter
     }
 
     private fun setUpcomingAdapter(list: List<Result>){
         binding.moviesUpcomingRecycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL,false)
-        upComingAdapter = movieAdapter(list,4,this)
+        upComingAdapter = MovieAdapter(list,4,this)
         binding.moviesUpcomingRecycler.adapter = upComingAdapter
     }
-
 }

@@ -1,7 +1,10 @@
 package com.example.tmdb.source.remot.retrofit
 
 import com.example.tmdb.model.Result
+import com.example.tmdb.model.credit.CreditResponse
 import com.example.tmdb.model.detailmovie.DetailsMovieResponse
+import com.example.tmdb.model.SimilarResponse
+import com.example.tmdb.model.video.VideoResponse
 import com.example.tmdb.source.remot.apiinterface.MoviesInterface
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -33,9 +36,9 @@ object TMDBRetrofit {
         }
     }
 
-    suspend fun fetchNowPlayingMovies():List<Result>? {
+    suspend fun fetchNowPlayingMovies(page : Int = 1):List<Result>? {
         return withContext(Dispatchers.IO) {
-            val call = tmdbApi.getNowPlayingMovies(authHeader, "en-US", 1)
+            val call = tmdbApi.getNowPlayingMovies(authHeader, "en-US", page)
             try {
                 val response = call.execute()
                 if (response.isSuccessful) {
@@ -100,6 +103,54 @@ object TMDBRetrofit {
     suspend fun fetchDetailMovies(id : Int):DetailsMovieResponse?{
         return withContext(Dispatchers.IO){
             val call = tmdbApi.getDetailMovies(authHeader,id,"en-US")
+            try {
+                val response = call.execute()
+                if (response.isSuccessful) {
+                    response.body()
+                } else {
+                    null
+                }
+            } catch (e: Exception) {
+                null
+            }
+        }
+    }
+
+    suspend fun fetchCreditMovies(id : Int):CreditResponse?{
+        return withContext(Dispatchers.IO){
+            val call = tmdbApi.getCreditMovies(authHeader,id,"en-US")
+            try {
+                val response = call.execute()
+                if (response.isSuccessful) {
+                    response.body()
+                } else {
+                    null
+                }
+            } catch (e: Exception) {
+                null
+            }
+        }
+    }
+
+    suspend fun fetchVideoMovies(id : Int):VideoResponse?{
+        return withContext(Dispatchers.IO){
+            val call = tmdbApi.getVideoMovies(authHeader,id,"en-US")
+            try {
+                val response = call.execute()
+                if (response.isSuccessful) {
+                    response.body()
+                } else {
+                    null
+                }
+            } catch (e: Exception) {
+                null
+            }
+        }
+    }
+
+    suspend fun fetchSimilarMovies(id : Int): SimilarResponse?{
+        return withContext(Dispatchers.IO){
+            val call = tmdbApi.getSimilarMovies(authHeader,id,"en-US", 1)
             try {
                 val response = call.execute()
                 if (response.isSuccessful) {

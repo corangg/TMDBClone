@@ -4,9 +4,12 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.tmdb.model.Result
+import com.example.tmdb.model.credit.Cast
 import com.example.tmdb.model.detailmovie.DetailsMovieResponse
 import com.example.tmdb.model.detailmovie.Genre
 import com.example.tmdb.model.detailmovie.ProductionCompany
+import com.example.tmdb.model.video.VideoResult
 import com.example.tmdb.source.remot.retrofit.TMDBRetrofit
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -33,11 +36,30 @@ class DetailMovieViewmodel @Inject constructor(application: Application): Androi
     val genresList : MutableLiveData<List<Genre>> = MutableLiveData()
     val companyList : MutableLiveData<List<ProductionCompany>> = MutableLiveData()
 
+    val creditList : MutableLiveData<List<Cast>> = MutableLiveData()
+    val videoList : MutableLiveData<List<VideoResult>> = MutableLiveData()
+    val similarList : MutableLiveData<List<Result>> = MutableLiveData()
+
     fun getMovieData(id : Int){
         viewModelScope.launch {
             val value = TMDBRetrofit.fetchDetailMovies(id)
             value?.let {
                 setMovieData(it)
+            }
+
+            val credit = TMDBRetrofit.fetchCreditMovies(id)
+            credit?.let {
+                creditList.value = it.cast
+            }
+
+            val video = TMDBRetrofit.fetchVideoMovies(id)
+            video?.let {
+                videoList.value = it.results
+            }
+
+            val similar = TMDBRetrofit.fetchSimilarMovies(id)
+            similar?.let {
+                similarList.value = it.results
             }
 
         }
