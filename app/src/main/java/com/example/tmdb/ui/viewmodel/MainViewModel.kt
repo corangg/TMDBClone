@@ -34,6 +34,8 @@ class MainViewModel @Inject constructor(
     val movieId : MutableLiveData<Int> = MutableLiveData()
     val actorId : MutableLiveData<Int> = MutableLiveData()
 
+    var page : Int = 0
+
 
     fun bottomNavigationItemSelected(item : MenuItem):Boolean{
 
@@ -109,6 +111,8 @@ class MainViewModel @Inject constructor(
     val searchKeyword : MutableLiveData<String> = MutableLiveData()
     val searchAny : MutableLiveData<Int> = MutableLiveData(0)
     val textSearchAny : MutableLiveData<String> = MutableLiveData("Search Any Movie")
+    val searchMovieList : MutableLiveData<List<Result>> = MutableLiveData()
+    val searchActorList : MutableLiveData<List<CelebritiesResult>> = MutableLiveData()
 
     fun selectSearchAny(type: Int){
         when(type){
@@ -122,4 +126,52 @@ class MainViewModel @Inject constructor(
             }
         }
     }
+
+    fun searchKeyword() = viewModelScope.launch{
+        val keyword = searchKeyword.value
+        page = 1
+        keyword?.let {
+           getList(it)
+        }
+    }
+
+    fun getMorePage(){
+        val keyword = searchKeyword.value
+        page += 1
+        keyword?.let {
+            getList(it)
+        }
+    }
+
+    private fun getList(keyWord : String) = viewModelScope.launch{
+        when(searchAny.value){
+            0->{
+                val getList  = TMDBRetrofit.fetchSearchMovie(keyWord,page)
+                getList?.let {
+                    searchMovieList.value = it
+                }
+            }
+            1->{
+                val getList  = TMDBRetrofit.fetchSearchActor(keyWord,page)
+                getList?.let {
+                    searchActorList.value = it
+                }
+            }
+        }
+    }
+
+    val log : MutableLiveData<String> = MutableLiveData("Log in")
+    val name : MutableLiveData<String> = MutableLiveData("Name")
+    val id : MutableLiveData<String> = MutableLiveData("dlwprkdlq")
+
+    fun checkLogin(check : Boolean){
+        if(check){
+            log.value = "Log out"
+        }else{
+            log.value = "Log in"
+        }
+    }
+
+
+
 }

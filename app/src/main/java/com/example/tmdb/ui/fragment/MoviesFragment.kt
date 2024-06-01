@@ -57,7 +57,6 @@ class MoviesFragment : Fragment(), ItemClickInterface{
 
 
     private fun setObserve(){
-
         viewModel.liveMoviesList.observe(viewLifecycleOwner){
             setMoviesAdapter(it)
         }

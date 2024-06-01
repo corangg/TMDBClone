@@ -3,10 +3,8 @@ package com.example.tmdb.data.source.remot.retrofit
 import com.example.tmdb.data.model.Result
 import com.example.tmdb.data.model.credit.CreditResponse
 import com.example.tmdb.data.model.detailmovie.DetailsMovieResponse
-import com.example.tmdb.data.model.detailmovie.SimilarResponse
 import com.example.tmdb.data.model.celebrities.CelebritiesResult
 import com.example.tmdb.data.model.detailactor.ActorCast
-import com.example.tmdb.data.model.detailactor.ActorCreditResponse
 import com.example.tmdb.data.model.detailactor.DetailActorResponse
 import com.example.tmdb.data.model.video.VideoResponse
 import com.example.tmdb.data.source.remot.apiinterface.MoviesInterface
@@ -223,6 +221,38 @@ object TMDBRetrofit {
                 val response = call.execute()
                 if (response.isSuccessful) {
                     response.body()?.cast
+                } else {
+                    null
+                }
+            } catch (e: Exception) {
+                null
+            }
+        }
+    }
+
+    suspend fun fetchSearchMovie(keyword : String, page: Int = 1): List<Result>?{
+        return withContext(Dispatchers.IO){
+            val call = tmdbApi.getSearchMovie(authHeader,"en-US", keyword,page)
+            try {
+                val response = call.execute()
+                if (response.isSuccessful) {
+                    response.body()?.results
+                } else {
+                    null
+                }
+            } catch (e: Exception) {
+                null
+            }
+        }
+    }
+
+    suspend fun fetchSearchActor(keyword : String, page: Int = 1): List<CelebritiesResult>?{
+        return withContext(Dispatchers.IO){
+            val call = tmdbApi.getSearchActor(authHeader,"en-US", keyword,page)
+            try {
+                val response = call.execute()
+                if (response.isSuccessful) {
+                    response.body()?.results
                 } else {
                     null
                 }

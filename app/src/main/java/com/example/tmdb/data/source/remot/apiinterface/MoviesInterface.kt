@@ -1,5 +1,6 @@
 package com.example.tmdb.data.source.remot.apiinterface
 
+import com.example.tmdb.data.model.search.SearchMovieResponse
 import com.example.tmdb.data.model.movies.MoviesResponse
 import com.example.tmdb.data.model.movies.NowPlayingResponse
 import com.example.tmdb.data.model.movies.PopularResponse
@@ -12,6 +13,7 @@ import com.example.tmdb.data.model.celebrities.CelebritiesPopularResponse
 import com.example.tmdb.data.model.celebrities.CelebritiesTrendingResponse
 import com.example.tmdb.data.model.detailactor.ActorCreditResponse
 import com.example.tmdb.data.model.detailactor.DetailActorResponse
+import com.example.tmdb.data.model.search.SearchActorResponse
 import com.example.tmdb.data.model.video.VideoResponse
 import retrofit2.Call
 import retrofit2.http.GET
@@ -111,5 +113,21 @@ interface MoviesInterface {
         @Path("person_id") personId: Int,
         @Query("language") language: String,
     ): Call<ActorCreditResponse>
+
+    @GET("search/movie")
+    fun getSearchMovie(
+        @Header("Authorization") authHeader: String,
+        @Query("language") language: String,
+        @Query("query") query: String,
+        @Query("page") page: Int
+    ): Call<SearchMovieResponse>
+
+    @GET("search/person")
+    fun getSearchActor(
+        @Header("Authorization") authHeader: String,
+        @Query("language") language: String,
+        @Query("query") query: String,
+        @Query("page") page: Int
+    ): Call<SearchActorResponse>
 
 }

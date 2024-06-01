@@ -47,12 +47,14 @@
                 android:scaleType="centerInside"
                 android:layout_marginStart="10dp"
                 android:padding="10dp"
-                app:tint="@color/white" />
+                app:tint="@color/white"
+                android:onClick="@{()->viewmodel.searchKeyword()}"/>
         </LinearLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:id="@+id/img_back"
             android:layout_below="@+id/toolbar">
 
             <ImageView
@@ -68,6 +70,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/img_search"
                 android:textColor="@color/white"
+                android:text="@={viewmodel.textSearchAny}"
                 android:textSize="22sp"
                 android:gravity="center_horizontal"
                 android:layout_marginTop="16dp" />
@@ -77,13 +80,14 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:id="@+id/scrollview"
             android:layout_below="@+id/toolbar"
             android:padding="12dp">
 
-            <LinearLayout
+            <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"></LinearLayout>
+                android:id="@+id/recycler_search"/>
         </ScrollView>
 
         <LinearLayout
