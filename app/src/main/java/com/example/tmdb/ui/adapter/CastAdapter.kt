@@ -25,7 +25,7 @@ class CastAdapter (val list: List<Cast>, val onItemClickListener: ItemClickInter
         holder.setProfile(list[position].profile_path)
         holder.setName(list[position].name)
         holder.setCast(list[position].character)
-        holder.itemClicked(list[position].cast_id)
+        holder.itemClicked(list[position].id)
     }
 
     inner class CastViewHolder(private val binding: ItemCastBinding) : RecyclerView.ViewHolder(binding.root){

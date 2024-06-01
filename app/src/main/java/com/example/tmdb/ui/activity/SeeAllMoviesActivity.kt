@@ -10,7 +10,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.tmdb.R
 import com.example.tmdb.databinding.ActivitySeeAllBinding
 import com.example.tmdb.data.model.Result
-import com.example.tmdb.ui.adapter.SeeAllAdapter
+import com.example.tmdb.data.model.detailactor.ActorCast
+import com.example.tmdb.ui.adapter.SeeAllCreditAdapter
+import com.example.tmdb.ui.adapter.SeeAllMovieAdapter
 import com.example.tmdb.ui.viewmodel.SeeAllViewmodel
 import com.example.tmdb.util.ItemClickInterface
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,9 +23,11 @@ class SeeAllMoviesActivity : AppCompatActivity(),
 
     lateinit private var binding : ActivitySeeAllBinding
     private val viewmodel : SeeAllViewmodel by viewModels()
-    lateinit private var seeAllAdapter  : SeeAllAdapter
+    lateinit private var seeAllMovieAdapter  : SeeAllMovieAdapter
+    lateinit private var seeAllCreditAdapter  : SeeAllCreditAdapter
 
     var type = ""
+    var id = -1
     var page = 1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,38 +40,51 @@ class SeeAllMoviesActivity : AppCompatActivity(),
     }
 
     override fun onMovieItemClick(id: Int) {
-        startDetailMovieInfoActivity(id)
+        viewmodel.startMovieActivity(id)
     }
 
     private fun setObserve(){
         viewmodel.movieList.observe(this){
             if(page ==1){
-                setAdapter(it)
+                setMovieAdapter(it)
                 page += 1
             }else{
-                seeAllAdapter.addData(it)
+                seeAllMovieAdapter.addData(it)
             }
+        }
+        viewmodel.creditMovieList.observe(this){
+            setCreditAdapter(it)
+        }
+        viewmodel.movieId.observe(this){
+            startDetailMovieInfoActivity(it)
         }
     }
 
     private fun getData(){
         val data = intent.getStringExtra("type")
+        id = intent.getIntExtra("id",-1)
         data?.let {
             type = it
-            viewmodel.getData(type)
+            viewmodel.getData(type, id)
         }
     }
 
-    private fun setAdapter(list: List<com.example.tmdb.data.model.Result>){
+    private fun setMovieAdapter(list: List<Result>){
         binding.movieRecycler.layoutManager = GridLayoutManager(this,2)
-        seeAllAdapter = SeeAllAdapter(list.toMutableList(), this)
-        binding.movieRecycler.adapter = seeAllAdapter
+        seeAllMovieAdapter = SeeAllMovieAdapter(list.toMutableList(), this)
+        binding.movieRecycler.adapter = seeAllMovieAdapter
+    }
+
+    private fun setCreditAdapter(list: List<ActorCast>){
+        binding.movieRecycler.layoutManager = GridLayoutManager(this,2)
+        seeAllCreditAdapter = SeeAllCreditAdapter(list, this)
+        binding.movieRecycler.adapter = seeAllCreditAdapter
     }
 
     private fun moreData(){
         binding.scrollview.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
             if (!v.canScrollVertically(1)) {
-                viewmodel.getData(type)
+                viewmodel.getData(type, id)
             }
         }
     }

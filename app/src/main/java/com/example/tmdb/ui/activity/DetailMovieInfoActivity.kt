@@ -96,8 +96,20 @@ class DetailMovieInfoActivity : AppCompatActivity(),
         viewModel.similarList.observe(this){
             setMovieAdapter(it)
         }
+        viewModel.movieId.observe(this){
+            startMovieActivity(it)
+        }
+
         viewModel.acterId.observe(this){
             startDetailActorActivity(it)
+        }
+
+        viewModel.fullImage.observe(this){
+            startFullImageActivity(it)
+        }
+
+        viewModel.startSeeAllMovieActivity.observe(this){
+            startSeeALlMovieActivity(it)
         }
     }
 
@@ -137,6 +149,12 @@ class DetailMovieInfoActivity : AppCompatActivity(),
         binding.moviesSimilarMovieRecycler.adapter = movieAdapter
     }
 
+    private fun startMovieActivity(id: Int){
+        val intent = Intent(this,DetailMovieInfoActivity::class.java)
+        intent.putExtra("id", id)
+        startActivity(intent)
+    }
+
     private fun startDetailActorActivity(id: Int){
         val intent = Intent(this,DetailActorInfoActivity::class.java)
         intent.putExtra("id", id)
@@ -149,4 +167,19 @@ class DetailMovieInfoActivity : AppCompatActivity(),
         startActivity(intent)
     }
 
+    private fun startFullImageActivity(img : String){
+        val intent = Intent(this, FullImageActivity::class.java)
+        intent.putExtra("img",img)
+        startActivity(intent)
+    }
+
+    private fun startSeeALlMovieActivity(type : String){
+        val id = intent.getIntExtra("id",-1)
+        if(id != -1){
+            val intent = Intent(this, SeeAllMoviesActivity::class.java)
+            intent.putExtra("id", id)
+            intent.putExtra("type",type)
+            startActivity(intent)
+        }
+    }
 }

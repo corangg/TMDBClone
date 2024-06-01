@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.tmdb.data.model.Result
+import com.example.tmdb.data.model.detailactor.ActorCast
 import com.example.tmdb.data.source.remot.retrofit.TMDBRetrofit
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -13,12 +14,14 @@ import javax.inject.Inject
 class SeeAllViewmodel @Inject constructor(application: Application): AndroidViewModel(application)  {
 
     val title : MutableLiveData<String> = MutableLiveData()
-    val movieList : MutableLiveData<List<com.example.tmdb.data.model.Result>> = MutableLiveData()
+    val movieList : MutableLiveData<List<Result>> = MutableLiveData()
+    val creditMovieList : MutableLiveData<List<ActorCast>> = MutableLiveData()
+    val movieId : MutableLiveData<Int> = MutableLiveData()
 
     var page : Int = 0
-    val list = mutableListOf<com.example.tmdb.data.model.Result>()
+    val list = mutableListOf<Result>()
 
-    fun getData(type: String){
+    fun getData(type: String, id: Int){
         title.value = type
         viewModelScope.launch {
             page += 1
@@ -51,8 +54,27 @@ class SeeAllViewmodel @Inject constructor(application: Application): AndroidView
                         movieList.value = it
                     }
                 }
+                "Similar"->{
+                    if(id != -1){
+                        val getlist = TMDBRetrofit.fetchSimilarMovies(id = id, page = page)
+                        getlist?.let {
+                            list.addAll(it)
+                            movieList.value = it
+                        }
+                    }
+                }
+                "credits"->{
+                    val getlist = TMDBRetrofit.fetchActorCredit(page)
+                    getlist?.let {
+                        creditMovieList.value = it
+                    }
+                }
             }
         }
+    }
+
+    fun startMovieActivity(id : Int){
+        movieId.value = id
     }
 
 

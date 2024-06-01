@@ -10,6 +10,8 @@ import com.example.tmdb.data.model.detailmovie.DetailsMovieResponse
 import com.example.tmdb.data.model.detailmovie.SimilarResponse
 import com.example.tmdb.data.model.celebrities.CelebritiesPopularResponse
 import com.example.tmdb.data.model.celebrities.CelebritiesTrendingResponse
+import com.example.tmdb.data.model.detailactor.ActorCreditResponse
+import com.example.tmdb.data.model.detailactor.DetailActorResponse
 import com.example.tmdb.data.model.video.VideoResponse
 import retrofit2.Call
 import retrofit2.http.GET
@@ -23,56 +25,56 @@ interface MoviesInterface {
         @Header("Authorization") authHeader: String,
         @Query("language") language: String,
         @Query("page") page: Int
-    ): Call<com.example.tmdb.data.model.movies.MoviesResponse>
+    ): Call<MoviesResponse>
 
     @GET("movie/now_playing")
     fun getNowPlayingMovies(
         @Header("Authorization") authHeader: String,
         @Query("language") language: String,
         @Query("page") page: Int
-    ): Call<com.example.tmdb.data.model.movies.NowPlayingResponse>
+    ): Call<NowPlayingResponse>
 
     @GET("movie/popular")
     fun getPopularMovies(
         @Header("Authorization") authHeader: String,
         @Query("language") language: String,
         @Query("page") page: Int
-    ): Call<com.example.tmdb.data.model.movies.PopularResponse>
+    ): Call<PopularResponse>
 
     @GET("movie/top_rated")
     fun getTopRatedMovies(
         @Header("Authorization") authHeader: String,
         @Query("language") language: String,
         @Query("page") page: Int
-    ): Call<com.example.tmdb.data.model.movies.TopRatedResponse>
+    ): Call<TopRatedResponse>
 
     @GET("movie/upcoming")
     fun getUpcomingMovies(
         @Header("Authorization") authHeader: String,
         @Query("language") language: String,
         @Query("page") page: Int
-    ): Call<com.example.tmdb.data.model.movies.UpcomingResponse>
+    ): Call<UpcomingResponse>
 
     @GET("movie/{movie_id}")
     fun getDetailMovies(
         @Header("Authorization") authHeader: String,
         @Path("movie_id") movieId: Int,
         @Query("language") language: String,
-    ): Call<com.example.tmdb.data.model.detailmovie.DetailsMovieResponse>
+    ): Call<DetailsMovieResponse>
 
     @GET("movie/{movie_id}/credits")
     fun getCreditMovies(
         @Header("Authorization") authHeader: String,
         @Path("movie_id") movieId: Int,
         @Query("language") language: String,
-    ): Call<com.example.tmdb.data.model.credit.CreditResponse>
+    ): Call<CreditResponse>
 
     @GET("movie/{movie_id}/videos")
     fun getVideoMovies(
         @Header("Authorization") authHeader: String,
         @Path("movie_id") movieId: Int,
         @Query("language") language: String,
-    ): Call<com.example.tmdb.data.model.video.VideoResponse>
+    ): Call<VideoResponse>
 
     @GET("movie/{movie_id}/similar")
     fun getSimilarMovies(
@@ -80,20 +82,34 @@ interface MoviesInterface {
         @Path("movie_id") movieId: Int,
         @Query("language") language: String,
         @Query("page") page: Int
-    ): Call<com.example.tmdb.data.model.detailmovie.SimilarResponse>
+    ): Call<SimilarResponse>
 
     @GET("person/popular")
     fun getPopularCelebrities(
         @Header("Authorization") authHeader: String,
         @Query("language") language: String,
         @Query("page") page: Int
-    ): Call<com.example.tmdb.data.model.celebrities.CelebritiesPopularResponse>
+    ): Call<CelebritiesPopularResponse>
 
     @GET("trending/person/day")
     fun getTrendingCelebrities(
         @Header("Authorization") authHeader: String,
         @Query("language") language: String,
         @Query("page") page: Int
-    ): Call<com.example.tmdb.data.model.celebrities.CelebritiesTrendingResponse>
+    ): Call<CelebritiesTrendingResponse>
+
+    @GET("person/{person_id}")
+    fun getDetailActors(
+        @Header("Authorization") authHeader: String,
+        @Path("person_id") personId: Int,
+        @Query("language") language: String,
+    ): Call<DetailActorResponse>
+
+    @GET("person/{person_id}/movie_credits")
+    fun getActorsCredits(
+        @Header("Authorization") authHeader: String,
+        @Path("person_id") personId: Int,
+        @Query("language") language: String,
+    ): Call<ActorCreditResponse>
 
 }

@@ -52,7 +52,7 @@ class MoviesFragment : Fragment(), ItemClickInterface{
     }
 
     override fun onMovieItemClick(id: Int) {
-        viewModel.startActorActivity(id)
+        viewModel.startMovieActivity(id)
     }
 
 

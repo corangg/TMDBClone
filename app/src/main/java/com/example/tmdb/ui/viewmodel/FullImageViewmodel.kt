@@ -7,11 +7,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class DetailActViewmodel @Inject constructor(application: Application): AndroidViewModel(application) {
-    val actName : MutableLiveData<String> = MutableLiveData("")
-
-    fun getActData(id: Int){
-
+class FullImageViewmodel@Inject constructor(application: Application): AndroidViewModel(application) {
+    val back : MutableLiveData<Unit> = MutableLiveData()
+    fun clickedBack(){
+        back.value = Unit
     }
-
 }

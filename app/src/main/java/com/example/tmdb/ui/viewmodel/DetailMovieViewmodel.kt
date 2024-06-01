@@ -42,6 +42,10 @@ class DetailMovieViewmodel @Inject constructor(application: Application): Androi
     val similarList : MutableLiveData<List<com.example.tmdb.data.model.Result>> = MutableLiveData()
 
     val acterId : MutableLiveData<Int> = MutableLiveData()
+    val movieId : MutableLiveData<Int> = MutableLiveData()
+
+    val fullImage : MutableLiveData<String> = MutableLiveData()
+    val startSeeAllMovieActivity : MutableLiveData<String> = MutableLiveData()
 
     fun getMovieData(id : Int){
         viewModelScope.launch {
@@ -62,7 +66,7 @@ class DetailMovieViewmodel @Inject constructor(application: Application): Androi
 
             val similar = TMDBRetrofit.fetchSimilarMovies(id)
             similar?.let {
-                similarList.value = it.results
+                similarList.value = it
             }
 
         }
@@ -99,7 +103,7 @@ class DetailMovieViewmodel @Inject constructor(application: Application): Androi
     }
 
     fun startMovieActivity(id: Int){
-
+        movieId.value = id
     }
 
 
@@ -109,11 +113,11 @@ class DetailMovieViewmodel @Inject constructor(application: Application): Androi
     }
 
     fun onclickedbackImage(){
-
+        fullImage.value = backImg.value
     }
 
     fun onclickedPoster(){
-
+        fullImage.value = posterImg.value
     }
 
     fun onclickedAllActors(){
@@ -121,7 +125,7 @@ class DetailMovieViewmodel @Inject constructor(application: Application): Androi
     }
 
     fun onclickedAllSimilarMovies(){
-
+        startSeeAllMovieActivity.value = "Similar"
     }
 
 }

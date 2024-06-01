@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewmodel"
-            type="com.example.tmdb.ui.viewmodel.DetailActViewmodel" />
+            type="com.example.tmdb.ui.viewmodel.DetailActorViewmodel" />
     </data>
     <LinearLayout
         android:id="@+id/main"
@@ -40,13 +40,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="240dp"
                     android:layout_marginTop="20dp"
+                    android:layout_marginHorizontal="6dp"
                     android:orientation="horizontal">
                     <androidx.cardview.widget.CardView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:onClick="@{()->viewmodel.onclickedProfile()}"
                         app:cardCornerRadius="8dp">
                         <ImageView
-                            android:layout_width="180dp"
+                            android:layout_width="160dp"
                             android:layout_height="240dp"
                             android:id="@+id/img_profile"
                             android:src="@drawable/img_not_found"
@@ -61,7 +63,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/name"
-                            android:text="Freya Allan"
+                            android:text="@={viewmodel.actName}"
                             android:textSize="20sp"
                             android:textColor="@color/white"
                             android:layout_marginTop="12dp"
@@ -72,7 +74,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/knowfor"
-                            android:textSize="9sp"
+                            android:textSize="10sp"
                             android:layout_above="@+id/knowfordata"
                             android:layout_marginBottom="4dp"
                             android:textColor="@color/gray"
@@ -84,15 +86,15 @@
                             android:id="@+id/knowfordata"
                             android:layout_above="@+id/place"
                             android:textColor="@color/white"
-                            android:textSize="12sp"
+                            android:textSize="14sp"
                             android:layout_marginBottom="6dp"
-                            android:text="Acting"/>
+                            android:text="@={viewmodel.known}"/>
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/place"
-                            android:textSize="9sp"
+                            android:textSize="10sp"
                             android:layout_above="@+id/placeinfo"
                             android:layout_marginBottom="4dp"
                             android:textColor="@color/gray"
@@ -104,15 +106,15 @@
                             android:id="@+id/placeinfo"
                             android:layout_above="@+id/companies"
                             android:textColor="@color/white"
-                            android:textSize="12sp"
+                            android:textSize="14sp"
                             android:layout_marginBottom="6dp"
-                            android:text="Oxfordshire, England, UK"/>
+                            android:text="@={viewmodel.place}"/>
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/companies"
-                            android:textSize="9sp"
+                            android:textSize="10sp"
                             android:layout_above="@+id/dateinfo"
                             android:layout_marginBottom="4dp"
                             android:textColor="@color/gray"
@@ -124,9 +126,9 @@
                             android:id="@+id/dateinfo"
                             android:layout_alignParentBottom="true"
                             android:textColor="@color/white"
-                            android:textSize="12sp"
+                            android:textSize="14sp"
                             android:layout_marginBottom="6dp"
-                            android:text="2001-09-06"/>
+                            android:text="@={viewmodel.companies}"/>
                     </RelativeLayout>
                 </LinearLayout>
                 <TextView
@@ -142,8 +144,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:id="@+id/biographydata"
+                    android:layout_marginStart="10dp"
+                    android:text="@={viewmodel.biography}"
                     android:textColor="@color/white"
-                    android:textSize="12sp"/>
+                    android:textSize="13sp"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -175,7 +179,8 @@
                             android:textSize="14sp"
                             android:layout_marginEnd="12dp"
                             android:text="@string/seeall"
-                            android:textColor="@color/logincolor" />
+                            android:textColor="@color/logincolor"
+                            android:onClick="@{()->viewmodel.creditSeeAll()}"/>
 
                         <ImageButton
                             android:layout_width="12dp"
@@ -185,13 +190,15 @@
                             android:layout_alignParentBottom="true"
                             android:layout_marginEnd="12dp"
                             android:backgroundTint="@color/white"
-                            android:layout_alignParentEnd="true" />
+                            android:layout_alignParentEnd="true"
+                            android:onClick="@{()->viewmodel.creditSeeAll()}"/>
 
                     </RelativeLayout>
                 </LinearLayout>
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:id="@+id/recycler_movie"/>
             </LinearLayout>
         </ScrollView>
