@@ -83,6 +83,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun startSeeAllActorActivity(type: String){
-
+        val intent = Intent(this,SeeAllActorActivity::class.java)
+        intent.putExtra("type",type)
+        startActivity(intent)
     }
 }

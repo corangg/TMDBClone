@@ -98,7 +98,28 @@ class MainViewModel @Inject constructor(
     }
 
     fun celebritiesPopularSeeAll(){
-
+        startSeeAllActorActivity.value = "Popular"
     }
 
+    fun celebritiesTrendingSeeAll(){
+        startSeeAllActorActivity.value = "Trending"
+    }
+
+
+    val searchKeyword : MutableLiveData<String> = MutableLiveData()
+    val searchAny : MutableLiveData<Int> = MutableLiveData(0)
+    val textSearchAny : MutableLiveData<String> = MutableLiveData("Search Any Movie")
+
+    fun selectSearchAny(type: Int){
+        when(type){
+            0->{
+                searchAny.value = type
+                textSearchAny.value = "Search Any Movie"
+            }
+            1->{
+                searchAny.value = type
+                textSearchAny.value = "Search Any Actor"
+            }
+        }
+    }
 }

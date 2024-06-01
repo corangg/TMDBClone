@@ -99,7 +99,7 @@
                         android:layout_marginEnd="12dp"
                         android:text="@string/seeall"
                         android:textColor="@color/logincolor"
-                        android:onClick="@{()->viewmodel.celebritiesPopularSeeAll()}"
+                        android:onClick="@{()->viewmodel.celebritiesTrendingSeeAll()}"
                         />
 
                     <ImageButton
@@ -111,7 +111,7 @@
                         android:layout_marginEnd="12dp"
                         android:backgroundTint="@color/white"
                         android:layout_alignParentEnd="true"
-                        android:onClick="@{()->viewmodel.celebritiesPopularSeeAll()}"/>
+                        android:onClick="@{()->viewmodel.celebritiesTrendingSeeAll()}"/>
                 </RelativeLayout>
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="wrap_content"

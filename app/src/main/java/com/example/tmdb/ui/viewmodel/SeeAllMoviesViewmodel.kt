@@ -11,15 +11,14 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 @HiltViewModel
-class SeeAllViewmodel @Inject constructor(application: Application): AndroidViewModel(application)  {
+class SeeAllMoviesViewmodel @Inject constructor(application: Application): AndroidViewModel(application)  {
 
     val title : MutableLiveData<String> = MutableLiveData()
     val movieList : MutableLiveData<List<Result>> = MutableLiveData()
     val creditMovieList : MutableLiveData<List<ActorCast>> = MutableLiveData()
     val movieId : MutableLiveData<Int> = MutableLiveData()
 
-    var page : Int = 0
-    val list = mutableListOf<Result>()
+    private var page : Int = 0
 
     fun getData(type: String, id: Int){
         title.value = type
@@ -29,28 +28,24 @@ class SeeAllViewmodel @Inject constructor(application: Application): AndroidView
                 "NowPlaying"->{
                     val getlist = TMDBRetrofit.fetchNowPlayingMovies(page)
                     getlist?.let {
-                        list.addAll(it)
                         movieList.value = it
                     }
                 }
                 "Popular"->{
                     val getlist = TMDBRetrofit.fetchPopularMovies(page)
                     getlist?.let {
-                        list.addAll(it)
                         movieList.value = it
                     }
                 }
                 "Top Rated"->{
                     val getlist = TMDBRetrofit.fetchTopRatedMovies(page)
                     getlist?.let {
-                        list.addAll(it)
                         movieList.value = it
                     }
                 }
                 "Upcoming"->{
                     val getlist = TMDBRetrofit.fetchUpcomingMovies(page)
                     getlist?.let {
-                        list.addAll(it)
                         movieList.value = it
                     }
                 }
@@ -58,7 +53,6 @@ class SeeAllViewmodel @Inject constructor(application: Application): AndroidView
                     if(id != -1){
                         val getlist = TMDBRetrofit.fetchSimilarMovies(id = id, page = page)
                         getlist?.let {
-                            list.addAll(it)
                             movieList.value = it
                         }
                     }

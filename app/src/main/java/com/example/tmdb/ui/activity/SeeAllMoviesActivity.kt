@@ -13,7 +13,7 @@ import com.example.tmdb.data.model.Result
 import com.example.tmdb.data.model.detailactor.ActorCast
 import com.example.tmdb.ui.adapter.SeeAllCreditAdapter
 import com.example.tmdb.ui.adapter.SeeAllMovieAdapter
-import com.example.tmdb.ui.viewmodel.SeeAllViewmodel
+import com.example.tmdb.ui.viewmodel.SeeAllMoviesViewmodel
 import com.example.tmdb.util.ItemClickInterface
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -22,7 +22,7 @@ class SeeAllMoviesActivity : AppCompatActivity(),
     ItemClickInterface{
 
     lateinit private var binding : ActivitySeeAllBinding
-    private val viewmodel : SeeAllViewmodel by viewModels()
+    private val viewmodel : SeeAllMoviesViewmodel by viewModels()
     lateinit private var seeAllMovieAdapter  : SeeAllMovieAdapter
     lateinit private var seeAllCreditAdapter  : SeeAllCreditAdapter
 
