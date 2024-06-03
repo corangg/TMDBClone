@@ -31,7 +31,7 @@ class FullImageActivity : AppCompatActivity() {
     }
 
     private fun ImgSet(){
-        val url = intent.getStringExtra("img")
+        val url = intent.getStringExtra(getString(R.string.imgUrl))
         url?.let {
             Util.setImage(it, binding.root, binding.img)
         }

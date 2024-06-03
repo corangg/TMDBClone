@@ -177,9 +177,9 @@ object TMDBRetrofit {
         }
     }
 
-    suspend fun fetchCreditMovies(id : Int): CreditResponse?{
+    suspend fun fetchCreditMovies(id : Int, page: Int = 1): CreditResponse?{
         return withContext(Dispatchers.IO){
-            val call = tmdbApi.getCreditMovies(authHeader,id,"en-US")
+            val call = tmdbApi.getCreditMovies(authHeader,id,"en-US", page)
             try {
                 val response = call.execute()
                 if (response.isSuccessful) {

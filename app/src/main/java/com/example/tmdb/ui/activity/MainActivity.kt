@@ -68,19 +68,19 @@ class MainActivity : AppCompatActivity() {
         }
 
         viewModel.movieId.observe(this){
-            startDetailMovieInfoActivity(this, it, viewModel.accountCheck)
+            startDetailMovieInfoActivity(this, it, viewModel.accountId)
         }
 
         viewModel.actorId.observe(this){
-            startDetailActorInfoActivity(this, it, viewModel.accountCheck)
+            startDetailActorInfoActivity(this, it, viewModel.accountId)
         }
 
         viewModel.startSeeAllMovieActivity.observe(this){
-            startSeeAllMovieActivity(this, it, viewModel.accountCheck)
+            startSeeAllMovieActivity(this, it, viewModel.accountId)
         }
 
         viewModel.startSeeAllActorActivity.observe(this){
-            startSeeAllActorActivity(this, it, viewModel.accountCheck)
+            startSeeAllActorActivity(this, it, viewModel.accountId)
         }
 
         viewModel.startLoginActivity.observe(this){

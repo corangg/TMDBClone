@@ -4,7 +4,9 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.tmdb.R
 import com.example.tmdb.data.model.celebrities.CelebritiesResult
+import com.example.tmdb.data.model.credit.Cast
 import com.example.tmdb.data.model.detailactor.ActorCast
 import com.example.tmdb.data.source.remot.retrofit.TMDBRetrofit
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,10 +19,12 @@ class SeeAllActorViewmodel @Inject constructor(application: Application): Androi
 
     val actorId : MutableLiveData<Int> = MutableLiveData()
     val actorList : MutableLiveData<List<CelebritiesResult>> = MutableLiveData()
+    val creditList : MutableLiveData<List<Cast>> = MutableLiveData()
 
     var page : Int = 0
+    var accountID = -1
 
-    fun getData(type: String) = viewModelScope.launch {
+    fun getData(type: String, moiveID : Int) = viewModelScope.launch {
         title.value = type
         page += 1
         when(type){
@@ -34,6 +38,12 @@ class SeeAllActorViewmodel @Inject constructor(application: Application): Androi
                 val getlist = TMDBRetrofit.fetchTrendingCelebrities(page)
                 getlist?.let {
                     actorList.value = it
+                }
+            }
+            getApplication<Application>().getString(R.string.credit)->{
+                val getlist = TMDBRetrofit.fetchCreditMovies(moiveID, page)
+                getlist?.let {
+                    creditList.value = it.cast
                 }
             }
         }

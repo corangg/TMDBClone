@@ -26,6 +26,14 @@ import com.example.tmdb.ui.adapter.VideoAdapter
 import com.example.tmdb.ui.viewmodel.DetailMovieViewmodel
 import com.example.tmdb.util.ItemClickInterface
 import com.example.tmdb.util.Util
+import com.example.tmdb.util.Util.getMovieID
+import com.example.tmdb.util.Util.setLinearAdapter
+import com.example.tmdb.util.Util.startDetailActorInfoActivity
+import com.example.tmdb.util.Util.startDetailMovieInfoActivity
+import com.example.tmdb.util.Util.startFullImageActivity
+import com.example.tmdb.util.Util.startSeeAllActorActivity
+import com.example.tmdb.util.Util.startSeeAllMovieActivity
+import com.example.tmdb.util.Util.startVideoActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -40,18 +48,22 @@ class DetailMovieInfoActivity : AppCompatActivity(),
     private lateinit var castAdapter: CastAdapter
     private lateinit var videoAdapter: VideoAdapter
     private lateinit var movieAdapter: MovieAdapter
+
+    var accountID = -1
+    var id = -1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_detail_movie_info)
         (binding as ViewDataBinding).lifecycleOwner = this
         binding.viewmodel = viewModel
 
+        accountID = Util.getAccountID(intent, this)
         setMovie()
         setObserve()
     }
 
     override fun onVideoItemClick(key: String) {
-        startVideoActivity(key)
+        startVideoActivity(this, key)
     }
 
     override fun onMovieItemClick(id: Int) {
@@ -63,7 +75,7 @@ class DetailMovieInfoActivity : AppCompatActivity(),
     }
 
     private fun setMovie(){
-        val id = intent.getIntExtra(getString(R.string.movieID),-1)
+        id = getMovieID(intent, this)
         if(id != -1){
             viewModel.getMovieData(id)
         }
@@ -80,107 +92,47 @@ class DetailMovieInfoActivity : AppCompatActivity(),
             binding.circularProgressBar.progress = it.toFloat()
         }
         viewModel.countryList.observe(this){
-            setContryAdapter(it)
+            countryAdapter = CountryAdapter(it)
+            setLinearAdapter(binding.countryRecycler, this, 1, countryAdapter)
         }
         viewModel.genresList.observe(this){
-            setGenresAdapter(it)
+            genreAdapter = GenreAdapter(it)
+            setLinearAdapter(binding.recyclerGenre, this, 1, genreAdapter)
         }
         viewModel.companyList.observe(this){
-            setCompanyAdapter(it)
+            companyAdapter = CompanyAdapter(it)
+            setLinearAdapter(binding.recyclerCompany, this, 1, companyAdapter)
         }
         viewModel.creditList.observe(this){
-            setCastAdapter(it)
+            castAdapter = CastAdapter(it, this)
+            setLinearAdapter(binding.moviesActorsRecycler, this, 1, castAdapter)
         }
         viewModel.videoList.observe(this){
-            setVideoAdapter(it)
+            videoAdapter = VideoAdapter(it, this)
+            setLinearAdapter(binding.moviesVideoRecycler, this, 1, videoAdapter)
         }
         viewModel.similarList.observe(this){
-            setMovieAdapter(it)
+            movieAdapter = MovieAdapter(it,1,this)
+            setLinearAdapter(binding.moviesSimilarMovieRecycler, this, 1, movieAdapter)
         }
         viewModel.movieId.observe(this){
-            startMovieActivity(it)
+            startDetailMovieInfoActivity(this, it, accountID)
         }
 
         viewModel.acterId.observe(this){
-            startDetailActorActivity(it)
+            startDetailActorInfoActivity(this, it, accountID)
         }
 
         viewModel.fullImage.observe(this){
-            startFullImageActivity(it)
+            startFullImageActivity(this, it)
+        }
+
+        viewModel.startSeeAllActorActivity.observe(this){
+            startSeeAllActorActivity(this, it, accountID, id)
         }
 
         viewModel.startSeeAllMovieActivity.observe(this){
-            startSeeALlMovieActivity(it)
-        }
-    }
-
-    private fun setContryAdapter(list: List<String>){
-        binding.countryRecycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false)
-        countryAdapter = CountryAdapter(list)
-        binding.countryRecycler.adapter = countryAdapter
-    }
-
-    private fun setGenresAdapter(list: List<Genre>){
-        binding.recyclerGenre.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false)
-        genreAdapter = GenreAdapter(list)
-        binding.recyclerGenre.adapter = genreAdapter
-    }
-
-    private fun setCompanyAdapter(list: List<ProductionCompany>){
-        binding.recyclerCompany.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        companyAdapter = CompanyAdapter(list)
-        binding.recyclerCompany.adapter = companyAdapter
-    }
-
-    private fun setCastAdapter(list: List<Cast>){
-        binding.moviesActorsRecycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        castAdapter = CastAdapter(list, this)
-        binding.moviesActorsRecycler.adapter = castAdapter
-    }
-
-    private fun setVideoAdapter(list: List<VideoResult>){
-        binding.moviesVideoRecycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        videoAdapter = VideoAdapter(list, this)
-        binding.moviesVideoRecycler.adapter = videoAdapter
-    }
-
-    private fun setMovieAdapter(list: List<Result>){
-        binding.moviesSimilarMovieRecycler.layoutManager = LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
-        movieAdapter = MovieAdapter(list,1,this)
-        binding.moviesSimilarMovieRecycler.adapter = movieAdapter
-    }
-
-    private fun startMovieActivity(id: Int){
-        val intent = Intent(this,DetailMovieInfoActivity::class.java)
-        intent.putExtra("id", id)
-        startActivity(intent)
-    }
-
-    private fun startDetailActorActivity(id: Int){
-        val intent = Intent(this,DetailActorInfoActivity::class.java)
-        intent.putExtra("id", id)
-        startActivity(intent)
-    }
-
-    private fun startVideoActivity(key: String){
-        val intent = Intent(this,VideoPlayActivity::class.java)
-        intent.putExtra("videoKey",key)
-        startActivity(intent)
-    }
-
-    private fun startFullImageActivity(img : String){
-        val intent = Intent(this, FullImageActivity::class.java)
-        intent.putExtra("img",img)
-        startActivity(intent)
-    }
-
-    private fun startSeeALlMovieActivity(type : String){
-        val id = intent.getIntExtra("id",-1)
-        if(id != -1){
-            val intent = Intent(this, SeeAllMoviesActivity::class.java)
-            intent.putExtra("id", id)
-            intent.putExtra("type",type)
-            startActivity(intent)
+            startSeeAllMovieActivity(this, it, accountID, id)
         }
     }
 }

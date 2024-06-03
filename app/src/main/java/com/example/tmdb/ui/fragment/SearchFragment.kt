@@ -47,11 +47,11 @@ class SearchFragment : Fragment(), ItemClickInterface {
     }
 
     override fun onActorItemClick(id: Int) {
-        Util.startDetailActorInfoActivity(requireContext(), id, viewModel.accountCheck)
+        Util.startDetailActorInfoActivity(requireContext(), id, viewModel.accountId)
     }
 
     override fun onMovieItemClick(id: Int) {
-        Util.startDetailMovieInfoActivity(requireContext(), id, viewModel.accountCheck)
+        Util.startDetailMovieInfoActivity(requireContext(), id, viewModel.accountId)
     }
 
     private fun setObserve(){

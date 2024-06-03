@@ -56,11 +56,20 @@
 
 
     <string name="accountCheck">accountCheck</string>
-    <string name="sessionID">sessionId</string>
-    <string name="movieID">movieId</string>
-    <string name="actorID">actorId</string>
+    <string name="accountID">accountID</string>
+    <string name="sessionID">sessionID</string>
+    <string name="movieID">movieID</string>
+    <string name="actorID">actorID</string>
     <string name="seeAllMovie">seeAllMovie</string>
     <string name="seeAllActor">seeAllActor</string>
+    <string name="imgUrl">imgUrl</string>
+    <string name="videoKey">videoKey</string>
+
+    <string name="credit">credit</string>
+
+
+
+
 
     <string name="contactDetail">This application is created by Muhammadsiddiq, Android Developer. All information is taken from the themoviedb.org website. Your account data is also stored on the themoviedb.org website. If you face any problems while using this application, you can contact me via email, telegram, Linkedin or Instagram. Thank you for choosing this application</string>
     <string name="connection">connection</string>

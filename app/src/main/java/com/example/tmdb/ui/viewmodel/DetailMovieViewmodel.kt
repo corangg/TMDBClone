@@ -5,6 +5,7 @@ import android.os.Build.VERSION_CODES.M
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.tmdb.R
 import com.example.tmdb.data.model.Result
 import com.example.tmdb.data.model.credit.Cast
 import com.example.tmdb.data.model.detailmovie.DetailsMovieResponse
@@ -34,18 +35,19 @@ class DetailMovieViewmodel @Inject constructor(application: Application): Androi
     val overview : MutableLiveData<String> = MutableLiveData("")
 
     val countryList : MutableLiveData<List<String>> = MutableLiveData()
-    val genresList : MutableLiveData<List<com.example.tmdb.data.model.detailmovie.Genre>> = MutableLiveData()
-    val companyList : MutableLiveData<List<com.example.tmdb.data.model.detailmovie.ProductionCompany>> = MutableLiveData()
+    val genresList : MutableLiveData<List<Genre>> = MutableLiveData()
+    val companyList : MutableLiveData<List<ProductionCompany>> = MutableLiveData()
 
-    val creditList : MutableLiveData<List<com.example.tmdb.data.model.credit.Cast>> = MutableLiveData()
-    val videoList : MutableLiveData<List<com.example.tmdb.data.model.video.VideoResult>> = MutableLiveData()
-    val similarList : MutableLiveData<List<com.example.tmdb.data.model.Result>> = MutableLiveData()
+    val creditList : MutableLiveData<List<Cast>> = MutableLiveData()
+    val videoList : MutableLiveData<List<VideoResult>> = MutableLiveData()
+    val similarList : MutableLiveData<List<Result>> = MutableLiveData()
 
     val acterId : MutableLiveData<Int> = MutableLiveData()
     val movieId : MutableLiveData<Int> = MutableLiveData()
 
     val fullImage : MutableLiveData<String> = MutableLiveData()
     val startSeeAllMovieActivity : MutableLiveData<String> = MutableLiveData()
+    val startSeeAllActorActivity : MutableLiveData<String> = MutableLiveData()
 
     fun getMovieData(id : Int){
         viewModelScope.launch {
@@ -121,7 +123,7 @@ class DetailMovieViewmodel @Inject constructor(application: Application): Androi
     }
 
     fun onclickedAllActors(){
-
+        startSeeAllActorActivity.value = getApplication<Application>().getString(R.string.credit)
     }
 
     fun onclickedAllSimilarMovies(){

@@ -14,6 +14,11 @@ import com.example.tmdb.ui.adapter.CreditMovieAdapter
 import com.example.tmdb.ui.viewmodel.DetailActorViewmodel
 import com.example.tmdb.util.ItemClickInterface
 import com.example.tmdb.util.Util
+import com.example.tmdb.util.Util.getAccountID
+import com.example.tmdb.util.Util.setLinearAdapter
+import com.example.tmdb.util.Util.startDetailMovieInfoActivity
+import com.example.tmdb.util.Util.startFullImageActivity
+import com.example.tmdb.util.Util.startSeeAllMovieActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,12 +27,15 @@ class DetailActorInfoActivity : AppCompatActivity(), ItemClickInterface {
     private val viewmodel : DetailActorViewmodel by viewModels()
     private lateinit var creditMovieAdapter: CreditMovieAdapter
 
+    var accountID = -1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.activity_detail_act_info)
         (binding as ViewDataBinding).lifecycleOwner = this
         binding.viewmodel = viewmodel
 
+        accountID = getAccountID(intent, this)
         setMovie()
         setObserve()
     }
@@ -47,42 +55,19 @@ class DetailActorInfoActivity : AppCompatActivity(), ItemClickInterface {
             Util.setImage(it, binding.root, binding.imgProfile)
         }
         viewmodel.fullImage.observe(this){
-            startFullImageActivity(it)
+            startFullImageActivity(this, it)
         }
         viewmodel.creditList.observe(this){
-            setCreditMovieAdapter(it)
+            creditMovieAdapter = CreditMovieAdapter(it,this)
+            setLinearAdapter(binding.recyclerMovie, this, 1, creditMovieAdapter)
         }
 
         viewmodel.movieId.observe(this){
-            startMovieActivity(it)
+            startDetailMovieInfoActivity(this, it, accountID)
         }
 
         viewmodel.startSeeAllMovieActivity.observe(this){
-            startSeeALlMovieActivity(it)
+            startSeeAllMovieActivity(this, it, accountID)
         }
-    }
-
-    private fun startFullImageActivity(img : String){
-        val intent = Intent(this, FullImageActivity::class.java)
-        intent.putExtra("img",img)
-        startActivity(intent)
-    }
-
-    private fun setCreditMovieAdapter(list : List<ActorCast>){
-        binding.recyclerMovie.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        creditMovieAdapter = CreditMovieAdapter(list,this)
-        binding.recyclerMovie.adapter = creditMovieAdapter
-    }
-
-    private fun startMovieActivity(id: Int){
-        val intent = Intent(this,DetailMovieInfoActivity::class.java)
-        intent.putExtra("id", id)
-        startActivity(intent)
-    }
-
-    private fun startSeeALlMovieActivity(type : String){
-        val intent = Intent(this, SeeAllMoviesActivity::class.java)
-        intent.putExtra("type",type)
-        startActivity(intent)
     }
 }

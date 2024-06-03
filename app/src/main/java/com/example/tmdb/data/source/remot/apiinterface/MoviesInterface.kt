@@ -99,6 +99,7 @@ interface MoviesInterface {
         @Header("Authorization") authHeader: String,
         @Path("movie_id") movieId: Int,
         @Query("language") language: String,
+        @Query("page") page: Int
     ): Call<CreditResponse>
 
     @GET("movie/{movie_id}/videos")

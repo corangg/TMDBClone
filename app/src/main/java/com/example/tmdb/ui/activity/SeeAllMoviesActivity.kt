@@ -15,6 +15,9 @@ import com.example.tmdb.ui.adapter.SeeAllCreditAdapter
 import com.example.tmdb.ui.adapter.SeeAllMovieAdapter
 import com.example.tmdb.ui.viewmodel.SeeAllMoviesViewmodel
 import com.example.tmdb.util.ItemClickInterface
+import com.example.tmdb.util.Util
+import com.example.tmdb.util.Util.setGridAdapter
+import com.example.tmdb.util.Util.startDetailMovieInfoActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -26,6 +29,7 @@ class SeeAllMoviesActivity : AppCompatActivity(),
     lateinit private var seeAllMovieAdapter  : SeeAllMovieAdapter
     lateinit private var seeAllCreditAdapter  : SeeAllCreditAdapter
 
+    var accountID = -1
     var type = ""
     var id = -1
     var page = 1
@@ -34,8 +38,10 @@ class SeeAllMoviesActivity : AppCompatActivity(),
         binding = DataBindingUtil.setContentView(this, R.layout.activity_see_all)
         (binding as ViewDataBinding).lifecycleOwner = this
         binding.viewmodel = viewmodel
+
         getData()
-        moreData()
+        accountID = Util.getAccountID(intent, this)
+        Util.moreData(binding.scrollview){viewmodel.getData(type, id)}
         setObserve()
     }
 
@@ -46,52 +52,28 @@ class SeeAllMoviesActivity : AppCompatActivity(),
     private fun setObserve(){
         viewmodel.movieList.observe(this){
             if(page ==1){
-                setMovieAdapter(it)
+                seeAllMovieAdapter = SeeAllMovieAdapter(it.toMutableList(), this)
+                setGridAdapter(binding.movieRecycler, this, 0, 2, seeAllMovieAdapter)
                 page += 1
             }else{
                 seeAllMovieAdapter.addData(it)
             }
         }
         viewmodel.creditMovieList.observe(this){
-            setCreditAdapter(it)
+            seeAllCreditAdapter = SeeAllCreditAdapter(it, this)
+            setGridAdapter(binding.movieRecycler, this, 0, 2, seeAllCreditAdapter)
         }
         viewmodel.movieId.observe(this){
-            startDetailMovieInfoActivity(it)
+            startDetailMovieInfoActivity(this, it, accountID)
         }
     }
 
     private fun getData(){
-        val data = intent.getStringExtra("type")
-        id = intent.getIntExtra("id",-1)
+        val data = intent.getStringExtra(getString(R.string.seeAllMovie))
+        id = Util.getMovieID(intent, this)
         data?.let {
             type = it
             viewmodel.getData(type, id)
         }
-    }
-
-    private fun setMovieAdapter(list: List<Result>){
-        binding.movieRecycler.layoutManager = GridLayoutManager(this,2)
-        seeAllMovieAdapter = SeeAllMovieAdapter(list.toMutableList(), this)
-        binding.movieRecycler.adapter = seeAllMovieAdapter
-    }
-
-    private fun setCreditAdapter(list: List<ActorCast>){
-        binding.movieRecycler.layoutManager = GridLayoutManager(this,2)
-        seeAllCreditAdapter = SeeAllCreditAdapter(list, this)
-        binding.movieRecycler.adapter = seeAllCreditAdapter
-    }
-
-    private fun moreData(){
-        binding.scrollview.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
-            if (!v.canScrollVertically(1)) {
-                viewmodel.getData(type, id)
-            }
-        }
-    }
-
-    private fun startDetailMovieInfoActivity(id: Int){
-        val intent = Intent(this,DetailMovieInfoActivity::class.java)
-        intent.putExtra("id", id)
-        startActivity(intent)
     }
 }

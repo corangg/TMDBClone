@@ -20,7 +20,7 @@ class VideoPlayActivity : AppCompatActivity() {
         binding = ActivityVideoPlayBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val key = intent.getStringExtra("videoKey")
+        val key = intent.getStringExtra(getString(R.string.videoKey))
         key?.let {
             setVideo(it)
         }
