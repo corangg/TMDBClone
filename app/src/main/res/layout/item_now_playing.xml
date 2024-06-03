@@ -13,7 +13,8 @@
         app:cardCornerRadius="6dp">
         <ImageView
             android:layout_width="112dp"
-            android:layout_height="wrap_content"
+            android:layout_height="168dp"
+            android:src="@drawable/img_not_found"
             android:id="@+id/img_poster"/>
     </androidx.cardview.widget.CardView>
     <TextView

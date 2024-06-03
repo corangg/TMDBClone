@@ -1,6 +1,5 @@
 package com.example.tmdb.ui.activity
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +8,8 @@ import androidx.databinding.ViewDataBinding
 import com.example.tmdb.R
 import com.example.tmdb.databinding.ActivityLoginBinding
 import com.example.tmdb.ui.viewmodel.LoginViewmodel
+import com.example.tmdb.util.TMDBUrl
+import com.example.tmdb.util.Util
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -27,16 +28,16 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setObserve(){
         viewModel.sessionId.observe(this){
-            val intent = Intent(this, MainActivity::class.java)
-            intent.putExtra("id",it)
-            startActivity(intent)
+            Util.startMainActivity(this, it)
             finish()
         }
 
         viewModel.startGuest.observe(this){
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+            Util.startMainActivity(this)
             finish()
+        }
+        viewModel.openSignUpPage.observe(this){
+            Util.openInternetPage(this, TMDBUrl.signUpUrl)
         }
     }
 }

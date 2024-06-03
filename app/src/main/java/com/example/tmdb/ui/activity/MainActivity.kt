@@ -12,7 +12,19 @@ import com.example.tmdb.ui.fragment.CelebritiesFragment
 import com.example.tmdb.ui.fragment.MoviesFragment
 import com.example.tmdb.ui.fragment.ProfileFragment
 import com.example.tmdb.ui.fragment.SearchFragment
+import com.example.tmdb.ui.fragment.profile.AboutFragment
+import com.example.tmdb.ui.fragment.profile.ContactFragment
+import com.example.tmdb.ui.fragment.profile.LanguageFragment
+import com.example.tmdb.ui.fragment.profile.LogoutCheckFragment
+import com.example.tmdb.ui.fragment.profile.SavedFragment
 import com.example.tmdb.ui.viewmodel.MainViewModel
+import com.example.tmdb.util.TMDBUrl
+import com.example.tmdb.util.Util
+import com.example.tmdb.util.Util.startDetailActorInfoActivity
+import com.example.tmdb.util.Util.startDetailMovieInfoActivity
+import com.example.tmdb.util.Util.startLoginActivity
+import com.example.tmdb.util.Util.startSeeAllActorActivity
+import com.example.tmdb.util.Util.startSeeAllMovieActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -26,13 +38,12 @@ class MainActivity : AppCompatActivity() {
         (binding as ViewDataBinding).lifecycleOwner = this
         binding.viewmodel = viewModel
 
-
         checkLoginType()
         setObserve()
     }
 
     private fun checkLoginType(){
-        val id = intent.getStringExtra("id")
+        val id = intent.getStringExtra(getString(R.string.sessionID))
         id?.let {
             viewModel.getAccountId(it)
         }
@@ -57,47 +68,52 @@ class MainActivity : AppCompatActivity() {
         }
 
         viewModel.movieId.observe(this){
-            startDetailMovieActivity(it)
+            startDetailMovieInfoActivity(this, it, viewModel.accountCheck)
         }
 
         viewModel.actorId.observe(this){
-            startDetailActorActivity(it)
+            startDetailActorInfoActivity(this, it, viewModel.accountCheck)
         }
 
         viewModel.startSeeAllMovieActivity.observe(this){
-            startSeeAllMovieActivity(it)
+            startSeeAllMovieActivity(this, it, viewModel.accountCheck)
         }
 
         viewModel.startSeeAllActorActivity.observe(this){
-            startSeeAllActorActivity(it)
+            startSeeAllActorActivity(this, it, viewModel.accountCheck)
         }
 
         viewModel.startLoginActivity.observe(this){
-
+            startLoginActivity(this)
+            finish()
         }
-    }
 
-    private fun startDetailMovieActivity(id : Int){
-        val intent = Intent(this, DetailMovieInfoActivity::class.java)
-        intent.putExtra("id", id)
-        startActivity(intent)
-    }
+        viewModel.startSavedFragment.observe(this){
+            supportFragmentManager.beginTransaction().add(binding.fragmentMain.id, SavedFragment()).addToBackStack(null).commit()
+        }
 
-    private fun startDetailActorActivity(id: Int){
-        val intent = Intent(this, DetailActorInfoActivity::class.java)
-        intent.putExtra("id", id)
-        startActivity(intent)
-    }
+        viewModel.startLanguageFragment.observe(this){
+            supportFragmentManager.beginTransaction().add(binding.fragmentMain.id, LanguageFragment()).addToBackStack(null).commit()
+        }
 
-    private fun startSeeAllMovieActivity(type: String){
-        val intent = Intent(this,SeeAllMoviesActivity::class.java)
-        intent.putExtra("type",type)
-        startActivity(intent)
-    }
+        viewModel.startContactFragment.observe(this){
+            supportFragmentManager.beginTransaction().add(binding.fragmentMain.id, ContactFragment()).addToBackStack(null).commit()
+        }
 
-    private fun startSeeAllActorActivity(type: String){
-        val intent = Intent(this,SeeAllActorActivity::class.java)
-        intent.putExtra("type",type)
-        startActivity(intent)
+        viewModel.startAboutFragment.observe(this){
+            supportFragmentManager.beginTransaction().add(binding.fragmentMain.id, AboutFragment()).addToBackStack(null).commit()
+        }
+
+        viewModel.startCheckLogOutFragment.observe(this){
+            supportFragmentManager.beginTransaction().add(binding.fragmentMain.id, LogoutCheckFragment()).addToBackStack(null).commit()
+        }
+
+        viewModel.connectionIC.observe(this){
+            when(it){
+                0->Util.openInternetPage(this, TMDBUrl.telegramUrl)
+                1->Util.openInternetPage(this, TMDBUrl.instargramUrl)
+                2->Util.openInternetPage(this, TMDBUrl.linkedInUrl)
+            }
+        }
     }
 }

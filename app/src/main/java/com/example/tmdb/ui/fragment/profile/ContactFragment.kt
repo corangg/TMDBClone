@@ -9,33 +9,23 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.activityViewModels
 import com.example.tmdb.R
-import com.example.tmdb.databinding.FragmentLogoutCheckBinding
+import com.example.tmdb.databinding.FragmentContactBinding
 import com.example.tmdb.databinding.FragmentProfileBinding
 import com.example.tmdb.ui.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class LogoutCheckFragment : Fragment() {
+class ContactFragment : Fragment() {
 
-    private val viewModel: MainViewModel by activityViewModels()
-    private lateinit var binding : FragmentLogoutCheckBinding
-
+    private val viewmodel: MainViewModel by activityViewModels()
+    private lateinit var binding : FragmentContactBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_logout_check, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_contact, container, false)
         (binding as ViewDataBinding).lifecycleOwner = this
-        binding.viewmodel = viewModel
+        binding.viewmodel = viewmodel
 
-        setObserve()
-        return binding.root
-    }
-    private fun setObserve(){
-        viewModel.finishedLogoutCheckFragment.observe(viewLifecycleOwner) {
-            if (it) {
-                parentFragmentManager.beginTransaction().remove(this).commit()
-            }
-        }
-    }
+        return binding.root}
 }

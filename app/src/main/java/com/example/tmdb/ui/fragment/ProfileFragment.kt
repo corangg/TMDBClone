@@ -40,9 +40,8 @@ class ProfileFragment : Fragment() {
             Glide.with(binding.root).load(R.drawable.ic_log_out).into(binding.imgLog)
         }
 
-        viewModel.profileimgUri.observe(viewLifecycleOwner){
-            Glide.with(binding.root).load(it).into(binding.imgProfile)
-        }
+
+
 
     }
 

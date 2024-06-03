@@ -9,185 +9,182 @@
             type="com.example.tmdb.ui.viewmodel.MainViewModel" />
 
     </data>
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/layout_profile">
+        android:background="@color/black"
+        android:orientation="vertical"
+        tools:context=".ui.fragment.ProfileFragment">
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_title"
+            app:title="@string/profile"
+            app:titleTextColor="@color/white"
+            android:paddingHorizontal="24dp"
+            android:id="@+id/title_movies" />
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/black"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:id="@+id/layer_profile"
             android:orientation="vertical"
-            tools:context=".ui.fragment.ProfileFragment">
+            android:visibility="gone">
+            <androidx.cardview.widget.CardView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="36dp"
+                app:cardCornerRadius="50dp">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/img_profile"
+                    android:background="@color/white"
+                    android:src="@drawable/ic_profile_img"
+                    app:tint="@color/profilecolor"/>
+            </androidx.cardview.widget.CardView>
 
-            <androidx.appcompat.widget.Toolbar
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_title"
-                app:title="@string/profile"
-                app:titleTextColor="@color/white"
-                android:paddingHorizontal="24dp"
-                android:id="@+id/title_movies" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
+                android:textSize="16sp"
+                android:textColor="@color/white"
+                android:layout_marginTop="10dp"
+                android:text="@={viewmodel.name}"/>
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:layout_marginTop="16dp"
-                android:id="@+id/layer_profile"
-                android:orientation="vertical"
-                android:visibility="gone">
-                <androidx.cardview.widget.CardView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginTop="36dp"
-                    app:cardCornerRadius="50dp">
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:id="@+id/img_profile"
-                        android:background="@color/white"
-                        android:src="@drawable/ic_profile_img"
-                        app:tint="@color/profilecolor"/>
-                </androidx.cardview.widget.CardView>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="16sp"
-                    android:textColor="@color/white"
-                    android:layout_marginTop="10dp"
-                    android:text="@={viewmodel.name}"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="11sp"
-                    android:textColor="@color/logincolor"
-                    android:layout_marginTop="4dp"
-                    android:text="@={viewmodel.id}"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="52dp"
-                android:id="@+id/layer_saved"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="12dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_fill_bookmarker"
-                    app:tint="@color/logincolor" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:layout_marginStart="10dp"
-                    android:text="@string/saved"
-                    android:textSize="22sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="52dp"
-                android:id="@+id/layer_language"
-                android:layout_marginStart="12dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_language"
-                    app:tint="@color/logincolor" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:layout_marginStart="10dp"
-                    android:text="@string/profilelanguage"
-                    android:textSize="22sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="52dp"
-                android:id="@+id/layer_contact"
-                android:layout_marginStart="6dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:src="@drawable/ic_contact"
-                    app:tint="@color/logincolor" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:layout_marginStart="4dp"
-                    android:text="@string/contact"
-                    android:textSize="22sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="52dp"
-                android:id="@+id/layer_about"
-                android:layout_marginStart="12dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_about"
-                    app:tint="@color/logincolor" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:layout_marginStart="10dp"
-                    android:text="@string/about"
-                    android:textSize="22sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="52dp"
-                android:id="@+id/layer_log"
-                android:layout_marginStart="12dp"
-                android:onClick="@{()->viewmodel.startLoginActivity()}"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_log_in"
-                    android:id="@+id/img_log"
-                    app:tint="@color/logincolor" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:layout_marginStart="10dp"
-                    android:text="@={viewmodel.log}"
-                    android:textSize="22sp" />
-            </LinearLayout>
+                android:textSize="11sp"
+                android:textColor="@color/logincolor"
+                android:layout_marginTop="4dp"
+                android:text="@={viewmodel.id}"/>
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:id="@+id/layer_saved"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="12dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:onClick="@{()->viewmodel.clickedSaved()}">
 
-    </RelativeLayout>
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_fill_bookmarker"
+                app:tint="@color/logincolor" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:layout_marginStart="10dp"
+                android:text="@string/saved"
+                android:textSize="22sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:id="@+id/layer_language"
+            android:layout_marginStart="12dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:onClick="@{()->viewmodel.clickedLanguage()}">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_language"
+                app:tint="@color/logincolor" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:layout_marginStart="10dp"
+                android:text="@string/profilelanguage"
+                android:textSize="22sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:id="@+id/layer_contact"
+            android:layout_marginStart="6dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:onClick="@{()->viewmodel.clickedContact()}">
+
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_contact"
+                app:tint="@color/logincolor" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:layout_marginStart="4dp"
+                android:text="@string/contact"
+                android:textSize="22sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:id="@+id/layer_about"
+            android:layout_marginStart="12dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:onClick="@{()->viewmodel.clickedAbout()}">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_about"
+                app:tint="@color/logincolor" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:layout_marginStart="10dp"
+                android:text="@string/about"
+                android:textSize="22sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:id="@+id/layer_log"
+            android:layout_marginStart="12dp"
+            android:onClick="@{()->viewmodel.checkLogOut()}"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_log_in"
+                android:id="@+id/img_log"
+                app:tint="@color/logincolor" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:layout_marginStart="10dp"
+                android:text="@={viewmodel.log}"
+                android:textSize="22sp" />
+        </LinearLayout>
+    </LinearLayout>
 
 
 </layout>

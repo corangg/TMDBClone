@@ -14,6 +14,7 @@ import com.example.tmdb.data.model.celebrities.CelebritiesPopularResponse
 import com.example.tmdb.data.model.celebrities.CelebritiesTrendingResponse
 import com.example.tmdb.data.model.detailactor.ActorCreditResponse
 import com.example.tmdb.data.model.detailactor.DetailActorResponse
+import com.example.tmdb.data.model.saved.SavedResponse
 import com.example.tmdb.data.model.search.SearchActorResponse
 import com.example.tmdb.data.model.video.VideoResponse
 import com.example.tmdb.data.test.AccountDetailsResponse
@@ -158,5 +159,14 @@ interface MoviesInterface {
         @Query("query") query: String,
         @Query("page") page: Int
     ): Call<SearchActorResponse>
+
+    @GET("account/{account_id}/watchlist/movies")
+    fun getMySavedList(
+        @Header("Authorization") authHeader: String,
+        @Path("account_id") accountId: Int,
+        @Query("language") language: String,
+        @Query("page") page: Int,
+        @Query("sort_by") sortBy: String
+    ): Call<SavedResponse>
 
 }

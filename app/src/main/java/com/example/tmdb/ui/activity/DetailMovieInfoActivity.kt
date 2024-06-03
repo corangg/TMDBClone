@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
@@ -62,7 +63,7 @@ class DetailMovieInfoActivity : AppCompatActivity(),
     }
 
     private fun setMovie(){
-        val id = intent.getIntExtra("id",-1)
+        val id = intent.getIntExtra(getString(R.string.movieID),-1)
         if(id != -1){
             viewModel.getMovieData(id)
         }

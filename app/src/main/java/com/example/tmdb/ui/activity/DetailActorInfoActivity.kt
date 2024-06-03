@@ -37,7 +37,7 @@ class DetailActorInfoActivity : AppCompatActivity(), ItemClickInterface {
     }
 
     private fun setMovie(){
-        val id = intent.getIntExtra("id",-1)
+        val id = intent.getIntExtra(getString(R.string.actorID),-1)
         if(id != -1){
             viewmodel.getActData(id)
         }

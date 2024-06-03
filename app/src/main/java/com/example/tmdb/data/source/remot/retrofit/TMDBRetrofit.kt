@@ -1,5 +1,6 @@
 package com.example.tmdb.data.source.remot.retrofit
 
+import android.util.Log
 import com.example.tmdb.data.model.CreateTokenResponse
 import com.example.tmdb.data.model.Result
 import com.example.tmdb.data.model.credit.CreditResponse
@@ -46,17 +47,6 @@ object TMDBRetrofit {
 
     suspend fun getRequestToken(body: ValidateTokenBody):ValidateTokenResponse?{
         return withContext(Dispatchers.IO) {
-            /*val call = tmdbApi.validateRequestToken(authHeader,body)
-            try {
-                val response = call.execute()
-                if(response.isSuccessful){
-                    response.body()
-                }else{
-                    null
-                }
-            }catch (e: Exception){
-                null
-            }*/
             try {
                 tmdbApi.validateRequestToken(authHeader, body)
             } catch (e: HttpException) {
@@ -331,6 +321,20 @@ object TMDBRetrofit {
         }
     }
 
-
-
+    suspend fun fetchMySavedList(id : Int, page: Int = 1): List<Result>?{
+        return withContext(Dispatchers.IO){
+            val call = tmdbApi.getMySavedList(authHeader, id,"en-US", page,"created_at.asc")
+            try {
+                val response = call.execute()
+                if (response.isSuccessful) {
+                    response.body()?.results
+                } else {
+                    Log.e("MoviesRepository", "Error: ${response.errorBody()?.string()}")
+                    null
+                }
+            } catch (e: Exception) {
+                null
+            }
+        }
+    }
 }

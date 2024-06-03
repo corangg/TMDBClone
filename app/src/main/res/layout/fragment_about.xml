@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/black"
+    tools:context=".ui.fragment.profile.AboutFragment">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_title">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/about"
+            android:gravity="center_horizontal"
+            android:textSize="24sp"
+            android:textColor="@color/logincolor" />
+    </androidx.appcompat.widget.Toolbar>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="@string/aboutDetail"
+            android:textSize="19sp"
+            android:textStyle="italic"
+            android:textColor="@color/white"/>
+    </ScrollView>
+</LinearLayout>

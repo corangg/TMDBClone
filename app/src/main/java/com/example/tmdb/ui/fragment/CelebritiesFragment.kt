@@ -17,12 +17,15 @@ import com.example.tmdb.ui.adapter.CelebritiesPopularAdapter
 import com.example.tmdb.ui.adapter.CelebritiesTrendingAdapter
 import com.example.tmdb.ui.viewmodel.MainViewModel
 import com.example.tmdb.util.ItemClickInterface
+import com.example.tmdb.util.Util
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class CelebritiesFragment : Fragment(), ItemClickInterface{
     private lateinit var binding: FragmentCelebritiesBinding
+
     private val viewModel : MainViewModel by activityViewModels()
+
     private lateinit var popularAdapter: CelebritiesPopularAdapter
     private lateinit var trendingAdapter: CelebritiesTrendingAdapter
 
@@ -42,25 +45,15 @@ class CelebritiesFragment : Fragment(), ItemClickInterface{
         viewModel.startActorActivity(id)
     }
 
-    private fun setObserve(){
-        viewModel.liveCelebritiesPopularList.observe(viewLifecycleOwner){
-            setPopulartAdapter(it)
+    private fun setObserve() {
+        viewModel.liveCelebritiesPopularList.observe(viewLifecycleOwner) {
+            popularAdapter = CelebritiesPopularAdapter(it, this)
+            Util.setGridAdapter(binding.celebritiesPopularRecycler, requireContext(), 1, 2, popularAdapter)
         }
 
-        viewModel.liveCelebritiesTrendingList.observe(viewLifecycleOwner){
-            setTrendingAdapter(it)
+        viewModel.liveCelebritiesTrendingList.observe(viewLifecycleOwner) {
+            trendingAdapter = CelebritiesTrendingAdapter(it, this)
+            Util.setGridAdapter(binding.celebritiesTrendingRecycler, requireContext(), 1, 4, trendingAdapter)
         }
-    }
-
-    private fun setPopulartAdapter(list: List<CelebritiesResult>){
-        binding.celebritiesPopularRecycler.layoutManager = GridLayoutManager(requireContext(), 2, GridLayoutManager.HORIZONTAL,false)
-        popularAdapter = CelebritiesPopularAdapter(list,this)
-        binding.celebritiesPopularRecycler.adapter = popularAdapter
-    }
-
-    private fun setTrendingAdapter(list: List<CelebritiesResult>){
-        binding.celebritiesTrendingRecycler.layoutManager = GridLayoutManager(requireContext(),4,GridLayoutManager.HORIZONTAL,false)
-        trendingAdapter = CelebritiesTrendingAdapter(list, this)
-        binding.celebritiesTrendingRecycler.adapter = trendingAdapter
     }
 }

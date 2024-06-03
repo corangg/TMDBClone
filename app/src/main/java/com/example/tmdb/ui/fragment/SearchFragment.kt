@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.activityViewModels
@@ -27,45 +28,42 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SearchFragment : Fragment(), ItemClickInterface {
-
     private val viewModel: MainViewModel by activityViewModels()
     private lateinit var binding : FragmentSearchBinding
     private lateinit var searchMovieAdapter: SeeAllMovieAdapter
     private lateinit var searchActorAdapter: SeeAllActorAdapter
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_search,container,false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_search, container,false)
         (binding as ViewDataBinding).lifecycleOwner = this
         binding.viewmodel = viewModel
 
         setObserve()
-        moreData()
+        Util.moreData(binding.scrollview){viewModel.getMorePage()}
         return binding.root
     }
 
     override fun onActorItemClick(id: Int) {
-        Util.startDetailActorInfoActivity(requireContext(),id)
+        Util.startDetailActorInfoActivity(requireContext(), id, viewModel.accountCheck)
     }
 
     override fun onMovieItemClick(id: Int) {
-        Util.startDetailMovieInfoActivity(requireContext(),id)
+        Util.startDetailMovieInfoActivity(requireContext(), id, viewModel.accountCheck)
     }
 
     private fun setObserve(){
         viewModel.searchAny.observe(viewLifecycleOwner){
-            val seletColor : Int = 0xFF378C33.toInt()
             when(it){
                 0->{
-                    binding.btnMovies.setBackgroundColor(seletColor)
+                    binding.btnMovies.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.logincolor))
                     binding.btnActors.setBackgroundColor(Color.BLACK)
                 }
                 1->{
                     binding.btnMovies.setBackgroundColor(Color.BLACK)
-                    binding.btnActors.setBackgroundColor(seletColor)
+                    binding.btnActors.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.logincolor))
                 }
             }
         }
@@ -89,26 +87,12 @@ class SearchFragment : Fragment(), ItemClickInterface {
     }
 
     private fun setSearchMovieAdapter(list: List<Result>){
-        binding.recyclerSearch.layoutManager = GridLayoutManager(requireContext(),2)
         searchMovieAdapter = SeeAllMovieAdapter(list.toMutableList(),this)
-        binding.recyclerSearch.adapter = searchMovieAdapter
+        Util.setGridAdapter(binding.recyclerSearch, requireContext(), 0, 2, searchMovieAdapter)
     }
 
     private fun setSearchActorAdapter(list: List<CelebritiesResult>){
-        binding.recyclerSearch.layoutManager = LinearLayoutManager(requireContext())
         searchActorAdapter = SeeAllActorAdapter(list.toMutableList(),this)
-        binding.recyclerSearch.adapter = searchActorAdapter
+        Util.setLinearAdapter(binding.recyclerSearch, requireContext(), 0, searchActorAdapter)
     }
-
-    private fun moreData(){
-        binding.scrollview.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
-            if (!v.canScrollVertically(1)) {
-                viewModel.getMorePage()
-            }
-        }
-    }
-
-
-
-
 }

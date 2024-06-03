@@ -68,7 +68,7 @@ class MovieAdapter(val list: List<Result>, val type: Int, val onItemClickListene
                     clickedMovie(result.id, binding.itemMovie)
                 }
                 is ItemTopRatedBinding -> {
-                    setPoster(result.backdrop_path, binding.imgPoster)
+                    setPoster(result.poster_path, binding.imgPoster)
                     setTitle(result.title, binding.textTitle)
                     setPopularity(result.popularity, binding.textPopularity)
                     clickedMovie(result.id, binding.itmeMovie)

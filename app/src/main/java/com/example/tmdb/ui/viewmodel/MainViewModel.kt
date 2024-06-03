@@ -9,6 +9,7 @@ import com.example.tmdb.R
 import com.example.tmdb.data.model.Result
 import com.example.tmdb.data.model.celebrities.CelebritiesResult
 import com.example.tmdb.data.repository.GetDataRepository
+import com.example.tmdb.data.repository.GetLoginDataRepository
 import com.example.tmdb.data.source.remot.retrofit.TMDBRetrofit
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -17,8 +18,11 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     application: Application,
-    private val getDataRepository: GetDataRepository): AndroidViewModel(application) {
+    private val getDataRepository: GetDataRepository,
+    private val getLoginDataRepository: GetLoginDataRepository): AndroidViewModel(application) {
     val selectNavigationItem : MutableLiveData<Int> = MutableLiveData(0)
+    var accountCheck : Boolean = false
+
 
     val liveMoviesList : MutableLiveData<List<Result>> = MutableLiveData()
     val liveMoviesNowPlayingList : MutableLiveData<List<Result>> = MutableLiveData()
@@ -37,6 +41,7 @@ class MainViewModel @Inject constructor(
     val actorId : MutableLiveData<Int> = MutableLiveData()
 
     var page : Int = 0
+    var accountId = -1
 
 
     fun bottomNavigationItemSelected(item : MenuItem):Boolean{
@@ -66,8 +71,10 @@ class MainViewModel @Inject constructor(
     fun getAccountId(seesonId : String) = viewModelScope.launch{
         val accountData = TMDBRetrofit.getAccountId(seesonId)
         accountData?.let {
+            accountCheck = true
+            accountId = it.id
             setProfile.value = Unit
-            checkLogin(true)
+            loginoutButtonSet(true)
 
             if(it.name == ""){
                 name.value = "Name"
@@ -75,10 +82,6 @@ class MainViewModel @Inject constructor(
                 name.value = it.name
             }
             id.value = it.username
-
-            /*if(it.avatar.gravatar.hash != ""){
-                profileimgUri.value = it.avatar.gravatar.hash
-            }*/
         }
     }
 
@@ -187,8 +190,14 @@ class MainViewModel @Inject constructor(
     val id : MutableLiveData<String> = MutableLiveData("dlwprkdlq")
 
     val startLoginActivity : MutableLiveData<Unit> = MutableLiveData()
+    val startSavedFragment : MutableLiveData<Unit> = MutableLiveData()
+    val startLanguageFragment : MutableLiveData<Unit> = MutableLiveData()
+    val startContactFragment : MutableLiveData<Unit> = MutableLiveData()
+    val startAboutFragment : MutableLiveData<Unit> = MutableLiveData()
+    val startCheckLogOutFragment : MutableLiveData<Unit> = MutableLiveData()
 
-    fun checkLogin(check : Boolean){
+
+    fun loginoutButtonSet(check : Boolean){
         if(check){
             log.value = "Log out"
         }else{
@@ -197,12 +206,70 @@ class MainViewModel @Inject constructor(
     }
 
     fun checkLogOut(){
+        if(accountCheck){
+            startCheckLogOutFragment.value = Unit
+        }else{
+            startLoginActivity.value = Unit
+        }
+    }
+
+    val finishedLogoutCheckFragment : MutableLiveData<Boolean> = MutableLiveData()
+
+    fun startLoginActivity(click : Boolean){
+        if(click){
+            deleteIDData()
+            startLoginActivity.value = Unit
+        }else{
+            finishedLogoutCheckFragment.value = true
+            finishedLogoutCheckFragment.value = false
+        }
 
     }
 
-    fun startLoginActivity(){
-        startLoginActivity.value = Unit
+    private fun deleteIDData() = viewModelScope.launch {
+        getLoginDataRepository.deleteID()
     }
+
+    fun clickedSaved(){
+        if(accountCheck){
+            startSavedFragment.value = Unit
+        }else{
+            startLoginActivity.value = Unit
+        }
+    }
+
+    fun clickedLanguage(){
+        startLanguageFragment.value = Unit
+    }
+
+    fun clickedContact(){
+        startContactFragment.value = Unit
+    }
+
+    val connectionIC : MutableLiveData<Int> = MutableLiveData()
+
+    fun clickedConnection(ic : Int){
+        connectionIC.value = ic
+    }
+
+    fun clickedAbout(){
+        startAboutFragment.value = Unit
+    }
+
+    var savedListPage = 0
+    val savedList : MutableLiveData<List<Result>> = MutableLiveData()
+
+    fun getMySavedList() = viewModelScope.launch{
+        savedListPage += 1
+        val list = TMDBRetrofit.fetchMySavedList(accountId, savedListPage)
+        list?.let {
+            savedList.value = it
+        }
+    }
+
+
+
+
 
 
 

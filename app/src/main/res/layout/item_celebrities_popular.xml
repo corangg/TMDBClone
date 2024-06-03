@@ -14,9 +14,10 @@
 
         <ImageView
             android:layout_width="120dp"
-            android:layout_height="wrap_content"
+            android:layout_height="148dp"
+            android:src="@drawable/img_not_found"
             android:id="@+id/img_profile"
-            android:scaleType="fitXY"/>
+            android:scaleType="centerCrop"/>
     </androidx.cardview.widget.CardView>
     <TextView
         android:layout_width="wrap_content"
