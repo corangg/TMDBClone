@@ -1,5 +1,6 @@
 package com.example.tmdb.data.source.remot.apiinterface
 
+import com.example.tmdb.data.model.CreateTokenResponse
 import com.example.tmdb.data.model.search.SearchMovieResponse
 import com.example.tmdb.data.model.movies.MoviesResponse
 import com.example.tmdb.data.model.movies.NowPlayingResponse
@@ -15,13 +16,41 @@ import com.example.tmdb.data.model.detailactor.ActorCreditResponse
 import com.example.tmdb.data.model.detailactor.DetailActorResponse
 import com.example.tmdb.data.model.search.SearchActorResponse
 import com.example.tmdb.data.model.video.VideoResponse
+import com.example.tmdb.data.test.AccountDetailsResponse
+import com.example.tmdb.data.test.CreateSessionBody
+import com.example.tmdb.data.test.SessionResponse
+import com.example.tmdb.data.test.ValidateTokenBody
+import com.example.tmdb.data.test.ValidateTokenResponse
 import retrofit2.Call
+import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface MoviesInterface {
+    @GET("authentication/token/new")
+    fun createRequestToken(@Header("Authorization") authHeader: String,): Call<CreateTokenResponse>
+
+    @POST("authentication/token/validate_with_login")
+    suspend fun validateRequestToken(
+        @Header("Authorization") authHeader: String,
+        @Body body: ValidateTokenBody
+    ): ValidateTokenResponse//Call<ValidateTokenResponse>
+
+    @POST("authentication/session/new")
+    suspend fun createSession(
+        @Header("Authorization") authHeader: String,
+        @Body body: CreateSessionBody
+    ): SessionResponse
+
+    @GET("account")
+    suspend fun getAccountDetails(
+        @Header("Authorization") authHeader: String,
+        @Query("session_id") sessionId: String
+    ): AccountDetailsResponse
+
     @GET("trending/movie/day")
     fun getMovies(
         @Header("Authorization") authHeader: String,

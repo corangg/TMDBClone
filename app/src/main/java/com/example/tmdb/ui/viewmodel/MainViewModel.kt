@@ -30,6 +30,8 @@ class MainViewModel @Inject constructor(
 
     val startSeeAllMovieActivity : MutableLiveData<String> = MutableLiveData()
     val startSeeAllActorActivity : MutableLiveData<String> = MutableLiveData()
+    val setProfile : MutableLiveData<Unit> = MutableLiveData()
+    val profileimgUri : MutableLiveData<String> = MutableLiveData()
 
     val movieId : MutableLiveData<Int> = MutableLiveData()
     val actorId : MutableLiveData<Int> = MutableLiveData()
@@ -60,6 +62,26 @@ class MainViewModel @Inject constructor(
         }
         return false
     }
+
+    fun getAccountId(seesonId : String) = viewModelScope.launch{
+        val accountData = TMDBRetrofit.getAccountId(seesonId)
+        accountData?.let {
+            setProfile.value = Unit
+            checkLogin(true)
+
+            if(it.name == ""){
+                name.value = "Name"
+            }else{
+                name.value = it.name
+            }
+            id.value = it.username
+
+            /*if(it.avatar.gravatar.hash != ""){
+                profileimgUri.value = it.avatar.gravatar.hash
+            }*/
+        }
+    }
+
 
     fun setMoviesList(){
         liveMoviesList.value = getDataRepository.moviesList
@@ -164,12 +186,22 @@ class MainViewModel @Inject constructor(
     val name : MutableLiveData<String> = MutableLiveData("Name")
     val id : MutableLiveData<String> = MutableLiveData("dlwprkdlq")
 
+    val startLoginActivity : MutableLiveData<Unit> = MutableLiveData()
+
     fun checkLogin(check : Boolean){
         if(check){
             log.value = "Log out"
         }else{
             log.value = "Log in"
         }
+    }
+
+    fun checkLogOut(){
+
+    }
+
+    fun startLoginActivity(){
+        startLoginActivity.value = Unit
     }
 
 

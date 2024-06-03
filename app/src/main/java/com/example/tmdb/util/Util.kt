@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.example.tmdb.ui.activity.DetailActorInfoActivity
 import com.example.tmdb.ui.activity.DetailMovieInfoActivity
 import com.example.tmdb.ui.activity.FullImageActivity
+import com.example.tmdb.ui.activity.LoginActivity
 
 object Util {
 
@@ -26,6 +27,11 @@ object Util {
     fun startDetailActorInfoActivity(context: Context, id: Int){
         val intent = Intent(context, DetailActorInfoActivity::class.java)
         intent.putExtra("id", id)
+        context.startActivity(intent)
+    }
+
+    fun startLoginActivity(context: Context, id: Int){
+        val intent = Intent(context, LoginActivity::class.java)
         context.startActivity(intent)
     }
 

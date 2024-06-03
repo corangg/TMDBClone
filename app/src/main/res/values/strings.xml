@@ -46,6 +46,12 @@
     <string name="login">Log in</string>
     <string name="logout">Log out</string>
 
+    <string name="logout_check_title">Sign out ofthe account</string>
+    <string name="logout_check_detail">If you want to leave the profile, click Yes, if you don\'t want to leave, clicke No</string>
+    <string name="yes">Yes</string>
+    <string name="No">No</string>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

@@ -26,9 +26,17 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun setObserve(){
-        viewModel.startMainActivity.observe(this){
+        viewModel.sessionId.observe(this){
+            val intent = Intent(this, MainActivity::class.java)
+            intent.putExtra("id",it)
+            startActivity(intent)
+            finish()
+        }
+
+        viewModel.startGuest.observe(this){
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
+            finish()
         }
     }
 }

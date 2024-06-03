@@ -26,7 +26,16 @@ class MainActivity : AppCompatActivity() {
         (binding as ViewDataBinding).lifecycleOwner = this
         binding.viewmodel = viewModel
 
+
+        checkLoginType()
         setObserve()
+    }
+
+    private fun checkLoginType(){
+        val id = intent.getStringExtra("id")
+        id?.let {
+            viewModel.getAccountId(it)
+        }
     }
 
     private fun setObserve(){
@@ -61,6 +70,10 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.startSeeAllActorActivity.observe(this){
             startSeeAllActorActivity(it)
+        }
+
+        viewModel.startLoginActivity.observe(this){
+
         }
     }
 

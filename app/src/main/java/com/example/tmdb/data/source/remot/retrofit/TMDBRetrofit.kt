@@ -1,5 +1,6 @@
 package com.example.tmdb.data.source.remot.retrofit
 
+import com.example.tmdb.data.model.CreateTokenResponse
 import com.example.tmdb.data.model.Result
 import com.example.tmdb.data.model.credit.CreditResponse
 import com.example.tmdb.data.model.detailmovie.DetailsMovieResponse
@@ -8,8 +9,14 @@ import com.example.tmdb.data.model.detailactor.ActorCast
 import com.example.tmdb.data.model.detailactor.DetailActorResponse
 import com.example.tmdb.data.model.video.VideoResponse
 import com.example.tmdb.data.source.remot.apiinterface.MoviesInterface
+import com.example.tmdb.data.test.AccountDetailsResponse
+import com.example.tmdb.data.test.CreateSessionBody
+import com.example.tmdb.data.test.SessionResponse
+import com.example.tmdb.data.test.ValidateTokenBody
+import com.example.tmdb.data.test.ValidateTokenResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import retrofit2.HttpException
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -21,8 +28,70 @@ object TMDBRetrofit {
         .build()
     val tmdbApi = retrofit.create(MoviesInterface::class.java)
 
-    suspend fun fetchMovies():List<Result>? {
+    suspend fun createToken():CreateTokenResponse? {
+        return withContext(Dispatchers.IO) {
+            val call = tmdbApi.createRequestToken(authHeader)
+            try {
+                val response = call.execute()
+                if (response.isSuccessful) {
+                    response.body()
+                } else {
+                    null
+                }
+            } catch (e: Exception) {
+                null
+            }
+        }
+    }
 
+    suspend fun getRequestToken(body: ValidateTokenBody):ValidateTokenResponse?{
+        return withContext(Dispatchers.IO) {
+            /*val call = tmdbApi.validateRequestToken(authHeader,body)
+            try {
+                val response = call.execute()
+                if(response.isSuccessful){
+                    response.body()
+                }else{
+                    null
+                }
+            }catch (e: Exception){
+                null
+            }*/
+            try {
+                tmdbApi.validateRequestToken(authHeader, body)
+            } catch (e: HttpException) {
+                null
+            } catch (e: Exception) {
+                null
+            }
+        }
+    }
+
+    suspend fun fetchSession(token: CreateSessionBody):SessionResponse?{
+        return withContext(Dispatchers.IO) {
+            try {
+                tmdbApi.createSession(authHeader, token)
+            } catch (e: HttpException) {
+                null
+            } catch (e: Exception) {
+                null
+            }
+        }
+    }
+
+    suspend fun getAccountId(id: String):AccountDetailsResponse?{
+        return withContext(Dispatchers.IO) {
+            try {
+                tmdbApi.getAccountDetails(authHeader,id)
+            } catch (e: HttpException) {
+                null
+            } catch (e: Exception) {
+                null
+            }
+        }
+    }
+
+    suspend fun fetchMovies():List<Result>? {
         return withContext(Dispatchers.IO) {
             val call = tmdbApi.getMovies(authHeader, "en-US", 1)
             try {

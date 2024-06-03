@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.activityViewModels
+import com.bumptech.glide.Glide
 import com.example.tmdb.R
 import com.example.tmdb.databinding.FragmentMoviesBinding
 import com.example.tmdb.databinding.FragmentProfileBinding
@@ -34,6 +35,14 @@ class ProfileFragment : Fragment() {
     }
 
     private fun setObserve(){
+        viewModel.setProfile.observe(viewLifecycleOwner){
+            binding.layerProfile.visibility = View.VISIBLE
+            Glide.with(binding.root).load(R.drawable.ic_log_out).into(binding.imgLog)
+        }
+
+        viewModel.profileimgUri.observe(viewLifecycleOwner){
+            Glide.with(binding.root).load(it).into(binding.imgProfile)
+        }
 
     }
 
