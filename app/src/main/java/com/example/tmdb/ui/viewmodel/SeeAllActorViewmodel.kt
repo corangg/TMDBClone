@@ -18,31 +18,28 @@ class SeeAllActorViewmodel @Inject constructor(application: Application): Androi
     val title : MutableLiveData<String> = MutableLiveData("")
 
     val actorId : MutableLiveData<Int> = MutableLiveData()
+
     val actorList : MutableLiveData<List<CelebritiesResult>> = MutableLiveData()
     val creditList : MutableLiveData<List<Cast>> = MutableLiveData()
 
     var page : Int = 0
-    var accountID = -1
 
     fun getData(type: String, moiveID : Int) = viewModelScope.launch {
         title.value = type
         page += 1
         when(type){
-            "Popular"->{
-                val getlist = TMDBRetrofit.fetchPopularCelebrities(page)
-                getlist?.let {
+            getApplication<Application>().getString(R.string.popular)->{
+                TMDBRetrofit.fetchPopularCelebrities(page)?.let {
                     actorList.value = it
                 }
             }
-            "Trending"->{
-                val getlist = TMDBRetrofit.fetchTrendingCelebrities(page)
-                getlist?.let {
+            getApplication<Application>().getString(R.string.trending)->{
+                TMDBRetrofit.fetchTrendingCelebrities(page)?.let {
                     actorList.value = it
                 }
             }
             getApplication<Application>().getString(R.string.credit)->{
-                val getlist = TMDBRetrofit.fetchCreditMovies(moiveID, page)
-                getlist?.let {
+                TMDBRetrofit.fetchCreditMovies(moiveID, page)?.let {
                     creditList.value = it.cast
                 }
             }

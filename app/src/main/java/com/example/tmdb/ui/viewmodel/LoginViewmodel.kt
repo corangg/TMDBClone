@@ -7,9 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.tmdb.data.model.ID.IDData
 import com.example.tmdb.data.repository.GetDataRepository
 import com.example.tmdb.data.repository.GetLoginDataRepository
-import com.example.tmdb.data.source.remot.retrofit.TMDBRetrofit
-import com.example.tmdb.data.model.account.CreateSessionBody
-import com.example.tmdb.data.model.account.ValidateTokenBody
 import com.example.tmdb.data.repository.SetAccountDataRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -24,15 +21,33 @@ class LoginViewmodel @Inject constructor(
 
     val id : MutableLiveData<String> = MutableLiveData()
     val password : MutableLiveData<String> = MutableLiveData()
-    val sessionId : MutableLiveData<String> = MutableLiveData()
 
-    val startGuest : MutableLiveData<Unit> = MutableLiveData()
+    val startMainActivity : MutableLiveData<Unit> = MutableLiveData()
     val openSignUpPage : MutableLiveData<Unit> = MutableLiveData()
 
 
     init {
         loginCheck()
         getTMDBData()
+    }
+
+    private fun loginCheck() = viewModelScope.launch{
+        val id = getLoginDataRepository.getID()
+        id?.let {IDData->
+            setAccountDataRepository.signIn(IDData.ID, IDData.Password)?.let {
+                saveLoginData(IDData.ID, IDData.Password)
+                startMainActivity.value = Unit
+            }
+        }
+    }
+
+    private fun getTMDBData() = viewModelScope.launch {
+        getDataRepository.getData()
+    }
+
+    private fun saveLoginData(id : String, password : String) = viewModelScope.launch {
+        val idData = IDData(id, password)
+        getLoginDataRepository.insertID(idData)
     }
 
     fun signUp(){
@@ -45,32 +60,13 @@ class LoginViewmodel @Inject constructor(
 
         if(idValue != null && passwordValue != null) {
             setAccountDataRepository.signIn(idValue,passwordValue)?.let {
-                sessionId.value = it
                 saveLoginData(idValue, passwordValue)
+                startMainActivity.value = Unit
             }
         }
-    }
-
-    private fun loginCheck() = viewModelScope.launch{
-        val id = getLoginDataRepository.getID()
-        id?.let {IDData->
-            setAccountDataRepository.signIn(IDData.ID, IDData.Password)?.let {
-                sessionId.value = it
-                saveLoginData(IDData.ID, IDData.Password)
-            }
-        }
-    }
-
-    private fun saveLoginData(id : String, password : String) = viewModelScope.launch {
-        val idData = IDData(id, password)
-        getLoginDataRepository.insertID(idData)
-    }
-
-    private fun getTMDBData() = viewModelScope.launch {
-        getDataRepository.getData()
     }
 
     fun servieceContinue(){
-        startGuest.value = Unit
+        startMainActivity.value = Unit
     }
 }

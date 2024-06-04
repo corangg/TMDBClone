@@ -20,7 +20,6 @@ import com.example.tmdb.ui.viewmodel.SeeAllActorViewmodel
 import com.example.tmdb.ui.viewmodel.SeeAllMoviesViewmodel
 import com.example.tmdb.util.ItemClickInterface
 import com.example.tmdb.util.Util
-import com.example.tmdb.util.Util.getAccountID
 import com.example.tmdb.util.Util.moreData
 import com.example.tmdb.util.Util.startDetailActorInfoActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,7 +33,6 @@ class SeeAllActorActivity : AppCompatActivity(),
     private lateinit var seeAllActorAdapter: SeeAllActorAdapter
     private lateinit var seeAllMovieActorAdapter: SeeAllMovieActorAdapter
 
-    var accountID = -1
     var type = ""
     var page = 1
     var id = -1
@@ -44,8 +42,8 @@ class SeeAllActorActivity : AppCompatActivity(),
         binding = DataBindingUtil.setContentView(this, R.layout.activity_see_all_actor)
         (binding as ViewDataBinding).lifecycleOwner = this
         binding.viewmodel = viewmodel
+
         getData()
-        accountID = getAccountID(intent, this)
         moreData(binding.scrollview){viewmodel.getData(type, id)}
         setObserve()
     }
@@ -83,7 +81,7 @@ class SeeAllActorActivity : AppCompatActivity(),
             }
         }
         viewmodel.actorId.observe(this){
-            startDetailActorInfoActivity(this, it, accountID)
+            startDetailActorInfoActivity(this, it)
         }
     }
 }

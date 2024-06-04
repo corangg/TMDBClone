@@ -3,6 +3,7 @@ package com.example.tmdb.di
 import android.content.Context
 import com.example.tmdb.data.repository.GetDataRepository
 import com.example.tmdb.data.repository.GetLoginDataRepository
+import com.example.tmdb.data.repository.WatchListRepository
 import com.example.tmdb.data.repository.SetAccountDataRepository
 import com.example.tmdb.data.source.local.IDDB
 import com.example.tmdb.data.source.local.IDDao
@@ -44,6 +45,12 @@ object Moudle {
     @Singleton
     fun provideSetAccountDataRepository(): SetAccountDataRepository {
         return SetAccountDataRepository()
+    }
+
+    @Provides
+    @Singleton
+    fun provideWatchListRepository(@ApplicationContext context: Context, setAccountDataRepository: SetAccountDataRepository): WatchListRepository {
+        return WatchListRepository(context, setAccountDataRepository)
     }
 
 

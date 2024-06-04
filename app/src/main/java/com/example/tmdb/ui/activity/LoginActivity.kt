@@ -27,12 +27,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun setObserve(){
-        viewModel.sessionId.observe(this){
-            Util.startMainActivity(this, it)
-            finish()
-        }
-
-        viewModel.startGuest.observe(this){
+        viewModel.startMainActivity.observe(this){
             Util.startMainActivity(this)
             finish()
         }

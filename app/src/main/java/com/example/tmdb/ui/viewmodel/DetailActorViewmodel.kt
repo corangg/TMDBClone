@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.tmdb.R
 import com.example.tmdb.data.model.detailactor.ActorCast
 import com.example.tmdb.data.model.detailactor.ActorCreditResponse
 import com.example.tmdb.data.model.detailactor.DetailActorResponse
@@ -29,12 +30,11 @@ class DetailActorViewmodel @Inject constructor(application: Application): Androi
     val creditList : MutableLiveData<List<ActorCast>> = MutableLiveData()
 
     fun getActData(id: Int) = viewModelScope.launch{
-        val value = TMDBRetrofit.fetchDetailActor(id)
-        value?.let {
+        TMDBRetrofit.fetchDetailActor(id)?.let {
             setActorData(it)
         }
-        val credit = TMDBRetrofit.fetchActorCredit(id)
-        credit?.let {
+
+        TMDBRetrofit.fetchActorCredit(id)?.let {
             creditList.value = it
         }
     }
@@ -57,7 +57,7 @@ class DetailActorViewmodel @Inject constructor(application: Application): Androi
     }
 
     fun creditSeeAll(){
-        startSeeAllMovieActivity.value = "credits"
+        startSeeAllMovieActivity.value = getApplication<Application>().getString(R.string.credit)
     }
 
 }

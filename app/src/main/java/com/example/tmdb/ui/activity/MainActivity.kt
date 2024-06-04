@@ -38,16 +38,10 @@ class MainActivity : AppCompatActivity() {
         (binding as ViewDataBinding).lifecycleOwner = this
         binding.viewmodel = viewModel
 
-        checkLoginType()
+        viewModel.setPorfileData()
         setObserve()
     }
 
-    private fun checkLoginType(){
-        val id = intent.getStringExtra(getString(R.string.sessionID))
-        id?.let {
-            viewModel.getAccountId(it)
-        }
-    }
 
     private fun setObserve(){
         viewModel.selectNavigationItem.observe(this){
@@ -68,21 +62,20 @@ class MainActivity : AppCompatActivity() {
         }
 
         viewModel.movieId.observe(this){
-            startDetailMovieInfoActivity(this, it, viewModel.accountId)
+            startDetailMovieInfoActivity(this, it)
         }
 
         viewModel.actorId.observe(this){
-            startDetailActorInfoActivity(this, it, viewModel.accountId)
+            startDetailActorInfoActivity(this, it)
         }
 
         viewModel.startSeeAllMovieActivity.observe(this){
-            startSeeAllMovieActivity(this, it, viewModel.accountId)
+            startSeeAllMovieActivity(this, it)
         }
 
         viewModel.startSeeAllActorActivity.observe(this){
-            startSeeAllActorActivity(this, it, viewModel.accountId)
+            startSeeAllActorActivity(this, it)
         }
-
         viewModel.startLoginActivity.observe(this){
             startLoginActivity(this)
             finish()

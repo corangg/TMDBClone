@@ -29,9 +29,9 @@ class SeeAllMoviesActivity : AppCompatActivity(),
     lateinit private var seeAllMovieAdapter  : SeeAllMovieAdapter
     lateinit private var seeAllCreditAdapter  : SeeAllCreditAdapter
 
-    var accountID = -1
     var type = ""
     var id = -1
+    var actorid = -1
     var page = 1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,8 +40,7 @@ class SeeAllMoviesActivity : AppCompatActivity(),
         binding.viewmodel = viewmodel
 
         getData()
-        accountID = Util.getAccountID(intent, this)
-        Util.moreData(binding.scrollview){viewmodel.getData(type, id)}
+        Util.moreData(binding.scrollview){viewmodel.getData(type, id, actorid)}
         setObserve()
     }
 
@@ -64,16 +63,17 @@ class SeeAllMoviesActivity : AppCompatActivity(),
             setGridAdapter(binding.movieRecycler, this, 0, 2, seeAllCreditAdapter)
         }
         viewmodel.movieId.observe(this){
-            startDetailMovieInfoActivity(this, it, accountID)
+            startDetailMovieInfoActivity(this, it)
         }
     }
 
     private fun getData(){
         val data = intent.getStringExtra(getString(R.string.seeAllMovie))
         id = Util.getMovieID(intent, this)
+        actorid = Util.getActorID(intent, this)
         data?.let {
             type = it
-            viewmodel.getData(type, id)
+            viewmodel.getData(type, id, actorid)
         }
     }
 }

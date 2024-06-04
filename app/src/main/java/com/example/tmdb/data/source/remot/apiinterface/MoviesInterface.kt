@@ -146,6 +146,7 @@ interface MoviesInterface {
         @Header("Authorization") authHeader: String,
         @Path("person_id") personId: Int,
         @Query("language") language: String,
+        @Query("page") page: Int
     ): Call<ActorCreditResponse>
 
     @GET("search/movie")
@@ -169,7 +170,6 @@ interface MoviesInterface {
         @Header("Authorization") authHeader: String,
         @Path("account_id") accountId: Int,
         @Query("language") language: String,
-        @Query("page") page: Int,
         @Query("sort_by") sortBy: String
     ): Call<SavedResponse>
 

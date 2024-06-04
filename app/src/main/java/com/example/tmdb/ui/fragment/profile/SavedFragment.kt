@@ -21,7 +21,6 @@ class SavedFragment : Fragment(), ItemClickInterface {
     private val viewmodel : MainViewModel by activityViewModels()
     private lateinit var binding : FragmentSavedBinding
     private lateinit var  seeAllMovieAdapter: SeeAllMovieAdapter
-    var page = 1
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,19 +31,17 @@ class SavedFragment : Fragment(), ItemClickInterface {
         binding.viewmodel = viewmodel
 
         viewmodel.getMySavedList()
-        Util.moreData(binding.scrollview){viewmodel.getMySavedList()}
         setObserve()
         return binding.root
     }
+
+    override fun onMovieItemClick(id: Int) {
+        viewmodel.startMovieActivity(id)
+    }
     private fun setObserve(){
         viewmodel.savedList.observe(viewLifecycleOwner){
-            if(page ==1){
-                seeAllMovieAdapter= SeeAllMovieAdapter(it.toMutableList(), this)
-                Util.setGridAdapter(binding.savedRecycler, requireContext(),0,2, seeAllMovieAdapter )
-                page += 1
-            }else{
-                seeAllMovieAdapter.addData(it)
-            }
+            seeAllMovieAdapter= SeeAllMovieAdapter(it.toMutableList(), this)
+            Util.setGridAdapter(binding.savedRecycler, requireContext(),0,2, seeAllMovieAdapter )
         }
     }
 }

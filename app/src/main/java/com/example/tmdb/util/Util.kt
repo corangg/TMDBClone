@@ -44,48 +44,43 @@ object Util {
         context.startActivity(intent)
     }
 
-    fun getAccountID(intent: Intent, context: Context) : Int{
-        return intent.getIntExtra(context.getString(R.string.accountID),-1)
-    }
-
     fun getMovieID(intent: Intent, context: Context) : Int{
         return intent.getIntExtra(context.getString(R.string.movieID),-1)
     }
 
-    fun startMainActivity(context: Context, sessionId: String? = null){
-        val intent = Intent(context, MainActivity::class.java)
-        intent.putExtra(getString(context, R.string.sessionID), sessionId)
-        context.startActivity(intent)
-
+    fun getActorID(intent: Intent, context: Context) : Int{
+        return intent.getIntExtra(context.getString(R.string.actorID),-1)
     }
 
-    fun startDetailMovieInfoActivity(context: Context, id: Int, account : Int){
+    fun startMainActivity(context: Context){
+        val intent = Intent(context, MainActivity::class.java)
+        context.startActivity(intent)
+    }
+
+    fun startDetailMovieInfoActivity(context: Context, id: Int){
         val intent = Intent(context, DetailMovieInfoActivity::class.java)
         intent.putExtra(getString(context,R.string.movieID), id)
-        intent.putExtra(getString(context,R.string.accountID), account)
         context.startActivity(intent)
     }
 
-    fun startDetailActorInfoActivity(context: Context, id: Int, account : Int){
+    fun startDetailActorInfoActivity(context: Context, id: Int){
         val intent = Intent(context, DetailActorInfoActivity::class.java)
         intent.putExtra(getString(context,R.string.actorID), id)
-        intent.putExtra(getString(context,R.string.accountID), account)
         context.startActivity(intent)
     }
 
-    fun startSeeAllMovieActivity(context: Context, type: String, account : Int, movieID: Int = -1){
+    fun startSeeAllMovieActivity(context: Context, type: String, movieID: Int = -1, actorID: Int = -1){
         val intent = Intent(context, SeeAllMoviesActivity::class.java)
         intent.putExtra(getString(context,R.string.seeAllMovie),type)
         intent.putExtra(getString(context,R.string.movieID),movieID)
-        intent.putExtra(getString(context,R.string.accountID), account)
+        intent.putExtra(getString(context,R.string.actorID),actorID)
         context.startActivity(intent)
     }
 
-    fun startSeeAllActorActivity(context: Context, type: String, account : Int, movieID: Int = -1){
+    fun startSeeAllActorActivity(context: Context, type: String, movieID: Int = -1){
         val intent = Intent(context, SeeAllActorActivity::class.java)
         intent.putExtra(getString(context,R.string.seeAllActor),type)
         intent.putExtra(getString(context,R.string.movieID),movieID)
-        intent.putExtra(getString(context,R.string.accountID), account)
         context.startActivity(intent)
     }
 
@@ -105,7 +100,6 @@ object Util {
         val intent = Intent(context, LoginActivity::class.java)
         context.startActivity(intent)
     }
-
 
     fun setLinearAdapter(
         recyclerView: RecyclerView,

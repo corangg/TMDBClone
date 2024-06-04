@@ -30,7 +30,8 @@
     <string name="overview">overview:</string>
     <string name="actor">Actors</string>
     <string name="video">Video</string>
-    <string name="similar">Similar Movies</string>
+    <string name="similar">Similar</string>
+    <string name="similarmovier">Similar Movies</string>
 
     <string name="known">Known for</string>
     <string name="birthplace">Birthplace</string>
@@ -67,6 +68,7 @@
     <string name="videoKey">videoKey</string>
 
     <string name="credit">credit</string>
+    <string name="name">Name</string>
 
 
 

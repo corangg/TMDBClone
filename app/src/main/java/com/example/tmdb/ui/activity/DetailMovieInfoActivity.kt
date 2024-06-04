@@ -55,7 +55,6 @@ class DetailMovieInfoActivity : AppCompatActivity(),
     private lateinit var videoAdapter: VideoAdapter
     private lateinit var movieAdapter: MovieAdapter
 
-    var accountID = -1
     var id = -1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,7 +62,6 @@ class DetailMovieInfoActivity : AppCompatActivity(),
         (binding as ViewDataBinding).lifecycleOwner = this
         binding.viewmodel = viewModel
 
-        accountID = Util.getAccountID(intent, this)
         setMovie()
         setObserve()
     }
@@ -84,7 +82,7 @@ class DetailMovieInfoActivity : AppCompatActivity(),
         id = getMovieID(intent, this)
         if(id != -1){
             viewModel.getMovieData(id)
-            viewModel.setAccountID(accountID)
+            viewModel.checkWatchList(id)
         }
     }
 
@@ -123,11 +121,11 @@ class DetailMovieInfoActivity : AppCompatActivity(),
             setLinearAdapter(binding.moviesSimilarMovieRecycler, this, 1, movieAdapter)
         }
         viewModel.selectMovieId.observe(this){
-            startDetailMovieInfoActivity(this, it, accountID)
+            startDetailMovieInfoActivity(this, it)
         }
 
         viewModel.acterId.observe(this){
-            startDetailActorInfoActivity(this, it, accountID)
+            startDetailActorInfoActivity(this, it)
         }
 
         viewModel.fullImage.observe(this){
@@ -135,11 +133,11 @@ class DetailMovieInfoActivity : AppCompatActivity(),
         }
 
         viewModel.startSeeAllActorActivity.observe(this){
-            startSeeAllActorActivity(this, it, accountID, id)
+            startSeeAllActorActivity(this, it, id)
         }
 
         viewModel.startSeeAllMovieActivity.observe(this){
-            startSeeAllMovieActivity(this, it, accountID, id)
+            startSeeAllMovieActivity(this, it, id)
         }
 
         viewModel.startLoginActivity.observe(this){

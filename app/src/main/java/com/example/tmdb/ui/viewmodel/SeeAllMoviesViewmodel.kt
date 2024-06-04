@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.tmdb.R
 import com.example.tmdb.data.model.Result
 import com.example.tmdb.data.model.detailactor.ActorCast
 import com.example.tmdb.data.source.remot.retrofit.TMDBRetrofit
@@ -20,46 +21,40 @@ class SeeAllMoviesViewmodel @Inject constructor(application: Application): Andro
 
     private var page : Int = 0
 
-    fun getData(type: String, id: Int){
+    fun getData(type: String, id: Int, actorid : Int){
         title.value = type
         viewModelScope.launch {
             page += 1
             when(type){
-                "NowPlaying"->{
-                    val getlist = TMDBRetrofit.fetchNowPlayingMovies(page)
-                    getlist?.let {
+                getApplication<Application>().getString(R.string.nowplaying)->{
+                    TMDBRetrofit.fetchNowPlayingMovies(page)?.let {
                         movieList.value = it
                     }
                 }
-                "Popular"->{
-                    val getlist = TMDBRetrofit.fetchPopularMovies(page)
-                    getlist?.let {
+                getApplication<Application>().getString(R.string.popular)->{
+                    TMDBRetrofit.fetchPopularMovies(page)?.let {
                         movieList.value = it
                     }
                 }
-                "Top Rated"->{
-                    val getlist = TMDBRetrofit.fetchTopRatedMovies(page)
-                    getlist?.let {
+                getApplication<Application>().getString(R.string.topRated)->{
+                    TMDBRetrofit.fetchTopRatedMovies(page)?.let {
                         movieList.value = it
                     }
                 }
-                "Upcoming"->{
-                    val getlist = TMDBRetrofit.fetchUpcomingMovies(page)
-                    getlist?.let {
+                getApplication<Application>().getString(R.string.upcoming)->{
+                    TMDBRetrofit.fetchUpcomingMovies(page)?.let {
                         movieList.value = it
                     }
                 }
-                "Similar"->{
+                getApplication<Application>().getString(R.string.similar)->{
                     if(id != -1){
-                        val getlist = TMDBRetrofit.fetchSimilarMovies(id = id, page = page)
-                        getlist?.let {
+                        TMDBRetrofit.fetchSimilarMovies(id = id, page = page)?.let {
                             movieList.value = it
                         }
                     }
                 }
-                "credits"->{
-                    val getlist = TMDBRetrofit.fetchActorCredit(page)
-                    getlist?.let {
+                getApplication<Application>().getString(R.string.credit)->{
+                    TMDBRetrofit.fetchActorCredit(id = actorid, page = page)?.let {
                         creditMovieList.value = it
                     }
                 }
@@ -70,6 +65,4 @@ class SeeAllMoviesViewmodel @Inject constructor(application: Application): Andro
     fun startMovieActivity(id : Int){
         movieId.value = id
     }
-
-
 }

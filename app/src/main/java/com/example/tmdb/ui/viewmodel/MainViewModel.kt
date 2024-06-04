@@ -10,6 +10,7 @@ import com.example.tmdb.data.model.Result
 import com.example.tmdb.data.model.celebrities.CelebritiesResult
 import com.example.tmdb.data.repository.GetDataRepository
 import com.example.tmdb.data.repository.GetLoginDataRepository
+import com.example.tmdb.data.repository.SetAccountDataRepository
 import com.example.tmdb.data.source.remot.retrofit.TMDBRetrofit
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -18,31 +19,47 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     application: Application,
+    private val setAccountDataRepository: SetAccountDataRepository,
     private val getDataRepository: GetDataRepository,
     private val getLoginDataRepository: GetLoginDataRepository): AndroidViewModel(application) {
-    val selectNavigationItem : MutableLiveData<Int> = MutableLiveData(0)
-    var accountCheck : Boolean = false
 
+    val selectNavigationItem : MutableLiveData<Int> = MutableLiveData(0)
+    val searchAny : MutableLiveData<Int> = MutableLiveData(0)
+    val movieId : MutableLiveData<Int> = MutableLiveData()
+    val actorId : MutableLiveData<Int> = MutableLiveData()
+    val connectionIC : MutableLiveData<Int> = MutableLiveData()
+
+    val startSeeAllMovieActivity : MutableLiveData<String> = MutableLiveData()
+    val startSeeAllActorActivity : MutableLiveData<String> = MutableLiveData()
+    val searchKeyword : MutableLiveData<String> = MutableLiveData()
+    val textSearchAny : MutableLiveData<String> = MutableLiveData(getApplication<Application>().getString(R.string.search_movie))
+    val log : MutableLiveData<String> = MutableLiveData(getApplication<Application>().getString(R.string.login))
+    val name : MutableLiveData<String> = MutableLiveData(getApplication<Application>().getString(R.string.name))
+    val id : MutableLiveData<String> = MutableLiveData("")
+
+    val finishedLogoutCheckFragment : MutableLiveData<Boolean> = MutableLiveData()
+
+    val setProfile : MutableLiveData<Unit> = MutableLiveData()
+    val startLoginActivity : MutableLiveData<Unit> = MutableLiveData()
+    val startSavedFragment : MutableLiveData<Unit> = MutableLiveData()
+    val startLanguageFragment : MutableLiveData<Unit> = MutableLiveData()
+    val startContactFragment : MutableLiveData<Unit> = MutableLiveData()
+    val startAboutFragment : MutableLiveData<Unit> = MutableLiveData()
+    val startCheckLogOutFragment : MutableLiveData<Unit> = MutableLiveData()
 
     val liveMoviesList : MutableLiveData<List<Result>> = MutableLiveData()
     val liveMoviesNowPlayingList : MutableLiveData<List<Result>> = MutableLiveData()
     val liveMoviesPopularList : MutableLiveData<List<Result>> = MutableLiveData()
     val liveMoviesTopRatedList : MutableLiveData<List<Result>> = MutableLiveData()
     val liveMoviesUpComingList : MutableLiveData<List<Result>> = MutableLiveData()
+    val searchMovieList : MutableLiveData<List<Result>> = MutableLiveData()
+    val savedList : MutableLiveData<List<Result>> = MutableLiveData()
+
     val liveCelebritiesPopularList : MutableLiveData<List<CelebritiesResult>> = MutableLiveData()
     val liveCelebritiesTrendingList : MutableLiveData<List<CelebritiesResult>> = MutableLiveData()
+    val searchActorList : MutableLiveData<List<CelebritiesResult>> = MutableLiveData()
 
-    val startSeeAllMovieActivity : MutableLiveData<String> = MutableLiveData()
-    val startSeeAllActorActivity : MutableLiveData<String> = MutableLiveData()
-    val setProfile : MutableLiveData<Unit> = MutableLiveData()
-    val profileimgUri : MutableLiveData<String> = MutableLiveData()
-
-    val movieId : MutableLiveData<Int> = MutableLiveData()
-    val actorId : MutableLiveData<Int> = MutableLiveData()
-
-    var page : Int = 0
-    var accountId = -1
-
+    var page = 0
 
     fun bottomNavigationItemSelected(item : MenuItem):Boolean{
 
@@ -68,23 +85,15 @@ class MainViewModel @Inject constructor(
         return false
     }
 
-    fun getAccountId(seesonId : String) = viewModelScope.launch{
-        val accountData = TMDBRetrofit.getAccountId(seesonId)
-        accountData?.let {
-            accountCheck = true
-            accountId = it.id
+    fun setPorfileData() = viewModelScope.launch{
+        setAccountDataRepository.getAccountId()?.let {
             setProfile.value = Unit
-            loginoutButtonSet(true)
-
-            if(it.name == ""){
-                name.value = "Name"
-            }else{
-                name.value = it.name
-            }
+            log.value = getApplication<Application>().getString(R.string.logout)
+            if(it.name != "")name.value = it.name
             id.value = it.username
         }
+        setAccountDataRepository.getMyWatchList()
     }
-
 
     fun setMoviesList(){
         liveMoviesList.value = getDataRepository.moviesList
@@ -99,7 +108,6 @@ class MainViewModel @Inject constructor(
         liveCelebritiesTrendingList.value = getDataRepository.celebritiesTrendingList
     }
 
-
     fun startMovieActivity(id : Int){
         movieId.value = id
     }
@@ -109,45 +117,38 @@ class MainViewModel @Inject constructor(
     }
 
     fun nowPlayingSeeAll(){
-        startSeeAllMovieActivity.value = "NowPlaying"
+        startSeeAllMovieActivity.value = getApplication<Application>().getString(R.string.nowplaying)
     }
 
     fun popularSeeAll(){
-        startSeeAllMovieActivity.value = "Popular"
+        startSeeAllMovieActivity.value = getApplication<Application>().getString(R.string.popular)
     }
 
     fun topRatedSeeAll(){
-        startSeeAllMovieActivity.value = "Top Rated"
+        startSeeAllMovieActivity.value = getApplication<Application>().getString(R.string.topRated)
     }
 
     fun upcomingSeeAll(){
-        startSeeAllMovieActivity.value = "Upcoming"
+        startSeeAllMovieActivity.value = getApplication<Application>().getString(R.string.upcoming)
     }
 
     fun celebritiesPopularSeeAll(){
-        startSeeAllActorActivity.value = "Popular"
+        startSeeAllActorActivity.value = getApplication<Application>().getString(R.string.popular)
     }
 
     fun celebritiesTrendingSeeAll(){
-        startSeeAllActorActivity.value = "Trending"
+        startSeeAllActorActivity.value = getApplication<Application>().getString(R.string.trending)
     }
-
-
-    val searchKeyword : MutableLiveData<String> = MutableLiveData()
-    val searchAny : MutableLiveData<Int> = MutableLiveData(0)
-    val textSearchAny : MutableLiveData<String> = MutableLiveData("Search Any Movie")
-    val searchMovieList : MutableLiveData<List<Result>> = MutableLiveData()
-    val searchActorList : MutableLiveData<List<CelebritiesResult>> = MutableLiveData()
 
     fun selectSearchAny(type: Int){
         when(type){
             0->{
                 searchAny.value = type
-                textSearchAny.value = "Search Any Movie"
+                textSearchAny.value = getApplication<Application>().getString(R.string.search_movie)
             }
             1->{
                 searchAny.value = type
-                textSearchAny.value = "Search Any Actor"
+                textSearchAny.value = getApplication<Application>().getString(R.string.search_actor)
             }
         }
     }
@@ -156,7 +157,7 @@ class MainViewModel @Inject constructor(
         val keyword = searchKeyword.value
         page = 1
         keyword?.let {
-           getList(it)
+            getList(it)
         }
     }
 
@@ -171,49 +172,25 @@ class MainViewModel @Inject constructor(
     private fun getList(keyWord : String) = viewModelScope.launch{
         when(searchAny.value){
             0->{
-                val getList  = TMDBRetrofit.fetchSearchMovie(keyWord,page)
-                getList?.let {
+                TMDBRetrofit.fetchSearchMovie(keyWord,page)?.let {
                     searchMovieList.value = it
                 }
             }
             1->{
-                val getList  = TMDBRetrofit.fetchSearchActor(keyWord,page)
-                getList?.let {
+                TMDBRetrofit.fetchSearchActor(keyWord,page)?.let {
                     searchActorList.value = it
                 }
             }
         }
     }
 
-    val log : MutableLiveData<String> = MutableLiveData("Log in")
-    val name : MutableLiveData<String> = MutableLiveData("Name")
-    val id : MutableLiveData<String> = MutableLiveData("dlwprkdlq")
-
-    val startLoginActivity : MutableLiveData<Unit> = MutableLiveData()
-    val startSavedFragment : MutableLiveData<Unit> = MutableLiveData()
-    val startLanguageFragment : MutableLiveData<Unit> = MutableLiveData()
-    val startContactFragment : MutableLiveData<Unit> = MutableLiveData()
-    val startAboutFragment : MutableLiveData<Unit> = MutableLiveData()
-    val startCheckLogOutFragment : MutableLiveData<Unit> = MutableLiveData()
-
-
-    fun loginoutButtonSet(check : Boolean){
-        if(check){
-            log.value = "Log out"
-        }else{
-            log.value = "Log in"
-        }
-    }
-
     fun checkLogOut(){
-        if(accountCheck){
+        if(setAccountDataRepository.accountId != -1){
             startCheckLogOutFragment.value = Unit
         }else{
             startLoginActivity.value = Unit
         }
     }
-
-    val finishedLogoutCheckFragment : MutableLiveData<Boolean> = MutableLiveData()
 
     fun startLoginActivity(click : Boolean){
         if(click){
@@ -223,7 +200,6 @@ class MainViewModel @Inject constructor(
             finishedLogoutCheckFragment.value = true
             finishedLogoutCheckFragment.value = false
         }
-
     }
 
     private fun deleteIDData() = viewModelScope.launch {
@@ -231,7 +207,7 @@ class MainViewModel @Inject constructor(
     }
 
     fun clickedSaved(){
-        if(accountCheck){
+        if(setAccountDataRepository.accountId != -1){
             startSavedFragment.value = Unit
         }else{
             startLoginActivity.value = Unit
@@ -246,8 +222,6 @@ class MainViewModel @Inject constructor(
         startContactFragment.value = Unit
     }
 
-    val connectionIC : MutableLiveData<Int> = MutableLiveData()
-
     fun clickedConnection(ic : Int){
         connectionIC.value = ic
     }
@@ -256,21 +230,10 @@ class MainViewModel @Inject constructor(
         startAboutFragment.value = Unit
     }
 
-    var savedListPage = 0
-    val savedList : MutableLiveData<List<Result>> = MutableLiveData()
 
     fun getMySavedList() = viewModelScope.launch{
-        savedListPage += 1
-        val list = TMDBRetrofit.fetchMySavedList(accountId, savedListPage)
-        list?.let {
+        setAccountDataRepository.getMyWatchList()?.let {
             savedList.value = it
         }
     }
-
-
-
-
-
-
-
 }

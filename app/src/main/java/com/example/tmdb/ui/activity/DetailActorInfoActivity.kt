@@ -14,7 +14,6 @@ import com.example.tmdb.ui.adapter.CreditMovieAdapter
 import com.example.tmdb.ui.viewmodel.DetailActorViewmodel
 import com.example.tmdb.util.ItemClickInterface
 import com.example.tmdb.util.Util
-import com.example.tmdb.util.Util.getAccountID
 import com.example.tmdb.util.Util.setLinearAdapter
 import com.example.tmdb.util.Util.startDetailMovieInfoActivity
 import com.example.tmdb.util.Util.startFullImageActivity
@@ -27,7 +26,7 @@ class DetailActorInfoActivity : AppCompatActivity(), ItemClickInterface {
     private val viewmodel : DetailActorViewmodel by viewModels()
     private lateinit var creditMovieAdapter: CreditMovieAdapter
 
-    var accountID = -1
+    var actorId = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,8 +34,7 @@ class DetailActorInfoActivity : AppCompatActivity(), ItemClickInterface {
         (binding as ViewDataBinding).lifecycleOwner = this
         binding.viewmodel = viewmodel
 
-        accountID = getAccountID(intent, this)
-        setMovie()
+        setID()
         setObserve()
     }
 
@@ -44,10 +42,10 @@ class DetailActorInfoActivity : AppCompatActivity(), ItemClickInterface {
         viewmodel.startMovieActivity(id)
     }
 
-    private fun setMovie(){
-        val id = intent.getIntExtra(getString(R.string.actorID),-1)
-        if(id != -1){
-            viewmodel.getActData(id)
+    private fun setID(){
+        actorId = intent.getIntExtra(getString(R.string.actorID),-1)
+        if(actorId != -1){
+            viewmodel.getActData(actorId)
         }
     }
     private fun setObserve(){
@@ -63,11 +61,11 @@ class DetailActorInfoActivity : AppCompatActivity(), ItemClickInterface {
         }
 
         viewmodel.movieId.observe(this){
-            startDetailMovieInfoActivity(this, it, accountID)
+            startDetailMovieInfoActivity(this, it)
         }
 
         viewmodel.startSeeAllMovieActivity.observe(this){
-            startSeeAllMovieActivity(this, it, accountID)
+            startSeeAllMovieActivity(this, it, actorID = actorId)
         }
     }
 }

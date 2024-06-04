@@ -276,9 +276,9 @@ object TMDBRetrofit {
         }
     }
 
-    suspend fun fetchActorCredit(id : Int): List<ActorCast>?{
+    suspend fun fetchActorCredit(id : Int, page: Int = 1): List<ActorCast>?{
         return withContext(Dispatchers.IO){
-            val call = tmdbApi.getActorsCredits(authHeader,id,"en-US")
+            val call = tmdbApi.getActorsCredits(authHeader,id,"en-US", page)
             try {
                 val response = call.execute()
                 if (response.isSuccessful) {
@@ -324,9 +324,9 @@ object TMDBRetrofit {
         }
     }
 
-    suspend fun fetchMySavedList(id : Int, page: Int = 1): List<Result>?{
+    suspend fun fetchMySavedList(id : Int,): List<Result>?{
         return withContext(Dispatchers.IO){
-            val call = tmdbApi.getMySavedList(authHeader, id,"en-US", page,"created_at.asc")
+            val call = tmdbApi.getMySavedList(authHeader, id,"en-US","created_at.asc")
             try {
                 val response = call.execute()
                 if (response.isSuccessful) {
