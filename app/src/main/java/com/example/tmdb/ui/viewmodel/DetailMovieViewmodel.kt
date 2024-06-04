@@ -1,7 +1,6 @@
 package com.example.tmdb.ui.viewmodel
 
 import android.app.Application
-import android.os.Build.VERSION_CODES.M
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -12,6 +11,7 @@ import com.example.tmdb.data.model.detailmovie.DetailsMovieResponse
 import com.example.tmdb.data.model.detailmovie.Genre
 import com.example.tmdb.data.model.detailmovie.ProductionCompany
 import com.example.tmdb.data.model.video.VideoResult
+import com.example.tmdb.data.model.watchlist.WatchListBody
 import com.example.tmdb.data.source.remot.retrofit.TMDBRetrofit
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -43,13 +43,17 @@ class DetailMovieViewmodel @Inject constructor(application: Application): Androi
     val similarList : MutableLiveData<List<Result>> = MutableLiveData()
 
     val acterId : MutableLiveData<Int> = MutableLiveData()
-    val movieId : MutableLiveData<Int> = MutableLiveData()
+    val selectMovieId : MutableLiveData<Int> = MutableLiveData()
+    var accountId : Int = -1
+    var movieId : Int = -1
 
     val fullImage : MutableLiveData<String> = MutableLiveData()
     val startSeeAllMovieActivity : MutableLiveData<String> = MutableLiveData()
     val startSeeAllActorActivity : MutableLiveData<String> = MutableLiveData()
+    val startLoginActivity : MutableLiveData<Unit> = MutableLiveData()
 
     fun getMovieData(id : Int){
+        movieId = id
         viewModelScope.launch {
             val value = TMDBRetrofit.fetchDetailMovies(id)
             value?.let {
@@ -70,9 +74,7 @@ class DetailMovieViewmodel @Inject constructor(application: Application): Androi
             similar?.let {
                 similarList.value = it
             }
-
         }
-
     }
 
     private fun setMovieData(it : DetailsMovieResponse){
@@ -97,15 +99,15 @@ class DetailMovieViewmodel @Inject constructor(application: Application): Androi
         companyList.value = it.production_companies
     }
 
-    private fun setGenres(){
-
+    fun setAccountID(id : Int){
+        accountId = id
     }
     fun startActerActivity(id: Int){
         acterId.value = id
     }
 
     fun startMovieActivity(id: Int){
-        movieId.value = id
+        selectMovieId.value = id
     }
 
 
@@ -128,6 +130,26 @@ class DetailMovieViewmodel @Inject constructor(application: Application): Androi
 
     fun onclickedAllSimilarMovies(){
         startSeeAllMovieActivity.value = "Similar"
+    }
+
+    val addWatchListCheck : MutableLiveData<Boolean> = MutableLiveData(false)
+
+    fun addWatchList()= viewModelScope.launch{
+        if(accountId != -1){
+            val check = addWatchListCheck.value
+            check?.let {bool->
+                val body = WatchListBody(
+                    getApplication<Application>().getString(R.string.movie),
+                    movieId,
+                    !bool
+                )
+                TMDBRetrofit.addWatchList(accountId, body)?.let {
+                    addWatchListCheck.value = !bool
+                }
+            }
+        }else{
+            startLoginActivity.value = Unit
+        }
     }
 
 }

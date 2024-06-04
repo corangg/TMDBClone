@@ -8,13 +8,16 @@ import com.example.tmdb.data.model.detailmovie.DetailsMovieResponse
 import com.example.tmdb.data.model.celebrities.CelebritiesResult
 import com.example.tmdb.data.model.detailactor.ActorCast
 import com.example.tmdb.data.model.detailactor.DetailActorResponse
+import com.example.tmdb.data.model.rating.RatingResponse
 import com.example.tmdb.data.model.video.VideoResponse
+import com.example.tmdb.data.model.watchlist.WatchListBody
+import com.example.tmdb.data.model.watchlist.WatchListResponse
 import com.example.tmdb.data.source.remot.apiinterface.MoviesInterface
-import com.example.tmdb.data.test.AccountDetailsResponse
-import com.example.tmdb.data.test.CreateSessionBody
-import com.example.tmdb.data.test.SessionResponse
-import com.example.tmdb.data.test.ValidateTokenBody
-import com.example.tmdb.data.test.ValidateTokenResponse
+import com.example.tmdb.data.model.account.AccountDetailsResponse
+import com.example.tmdb.data.model.account.CreateSessionBody
+import com.example.tmdb.data.model.account.SessionResponse
+import com.example.tmdb.data.model.account.ValidateTokenBody
+import com.example.tmdb.data.model.account.ValidateTokenResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
@@ -45,7 +48,7 @@ object TMDBRetrofit {
         }
     }
 
-    suspend fun getRequestToken(body: ValidateTokenBody):ValidateTokenResponse?{
+    suspend fun getRequestToken(body: ValidateTokenBody): ValidateTokenResponse?{
         return withContext(Dispatchers.IO) {
             try {
                 tmdbApi.validateRequestToken(authHeader, body)
@@ -57,7 +60,7 @@ object TMDBRetrofit {
         }
     }
 
-    suspend fun fetchSession(token: CreateSessionBody):SessionResponse?{
+    suspend fun fetchSession(token: CreateSessionBody): SessionResponse?{
         return withContext(Dispatchers.IO) {
             try {
                 tmdbApi.createSession(authHeader, token)
@@ -69,7 +72,7 @@ object TMDBRetrofit {
         }
     }
 
-    suspend fun getAccountId(id: String):AccountDetailsResponse?{
+    suspend fun getAccountId(id: String): AccountDetailsResponse?{
         return withContext(Dispatchers.IO) {
             try {
                 tmdbApi.getAccountDetails(authHeader,id)
@@ -332,6 +335,30 @@ object TMDBRetrofit {
                     Log.e("MoviesRepository", "Error: ${response.errorBody()?.string()}")
                     null
                 }
+            } catch (e: Exception) {
+                null
+            }
+        }
+    }
+
+    suspend fun addWatchList(id: Int ,body: WatchListBody):WatchListResponse?{
+        return withContext(Dispatchers.IO) {
+            try {
+                tmdbApi.addWatchList(authHeader,id, body)
+            } catch (e: HttpException) {
+                null
+            } catch (e: Exception) {
+                null
+            }
+        }
+    }
+
+    suspend fun giveRating(id: Int ,rating: Float):RatingResponse?{
+        return withContext(Dispatchers.IO) {
+            try {
+                tmdbApi.giveRating(authHeader,id,rating)
+            } catch (e: HttpException) {
+                null
             } catch (e: Exception) {
                 null
             }

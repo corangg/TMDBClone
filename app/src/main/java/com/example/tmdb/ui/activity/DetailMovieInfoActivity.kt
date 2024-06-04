@@ -1,21 +1,25 @@
 package com.example.tmdb.ui.activity
 
-import android.content.Intent
+import android.graphics.Color
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
+import android.graphics.drawable.Drawable
+import android.os.Build.VERSION_CODES.P
 import android.os.Bundle
+import android.view.View
+import android.widget.ImageButton
+import android.widget.ImageView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.startActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.Target
 import com.example.tmdb.R
-import com.example.tmdb.data.model.Result
-import com.example.tmdb.data.model.credit.Cast
-import com.example.tmdb.data.model.detailmovie.Genre
-import com.example.tmdb.data.model.detailmovie.ProductionCompany
-import com.example.tmdb.data.model.video.VideoResult
 import com.example.tmdb.databinding.ActivityDetailMovieInfoBinding
 import com.example.tmdb.ui.adapter.CastAdapter
 import com.example.tmdb.ui.adapter.CompanyAdapter
@@ -26,11 +30,13 @@ import com.example.tmdb.ui.adapter.VideoAdapter
 import com.example.tmdb.ui.viewmodel.DetailMovieViewmodel
 import com.example.tmdb.util.ItemClickInterface
 import com.example.tmdb.util.Util
+import com.example.tmdb.util.Util.ImgButtonSet
 import com.example.tmdb.util.Util.getMovieID
 import com.example.tmdb.util.Util.setLinearAdapter
 import com.example.tmdb.util.Util.startDetailActorInfoActivity
 import com.example.tmdb.util.Util.startDetailMovieInfoActivity
 import com.example.tmdb.util.Util.startFullImageActivity
+import com.example.tmdb.util.Util.startLoginActivity
 import com.example.tmdb.util.Util.startSeeAllActorActivity
 import com.example.tmdb.util.Util.startSeeAllMovieActivity
 import com.example.tmdb.util.Util.startVideoActivity
@@ -78,6 +84,7 @@ class DetailMovieInfoActivity : AppCompatActivity(),
         id = getMovieID(intent, this)
         if(id != -1){
             viewModel.getMovieData(id)
+            viewModel.setAccountID(accountID)
         }
     }
 
@@ -115,7 +122,7 @@ class DetailMovieInfoActivity : AppCompatActivity(),
             movieAdapter = MovieAdapter(it,1,this)
             setLinearAdapter(binding.moviesSimilarMovieRecycler, this, 1, movieAdapter)
         }
-        viewModel.movieId.observe(this){
+        viewModel.selectMovieId.observe(this){
             startDetailMovieInfoActivity(this, it, accountID)
         }
 
@@ -133,6 +140,19 @@ class DetailMovieInfoActivity : AppCompatActivity(),
 
         viewModel.startSeeAllMovieActivity.observe(this){
             startSeeAllMovieActivity(this, it, accountID, id)
+        }
+
+        viewModel.startLoginActivity.observe(this){
+            startLoginActivity(this)
+            finish()
+        }
+
+        viewModel.addWatchListCheck.observe(this){
+            if(it){
+                ImgButtonSet(R.drawable.ic_fill_bookmarker, binding.root, binding.btnBookmark, getColor(R.color.logincolor))
+            }else{
+                ImgButtonSet(R.drawable.ic_bookmark, binding.root, binding.btnBookmark, getColor(R.color.white))
+            }
         }
     }
 }

@@ -14,14 +14,17 @@ import com.example.tmdb.data.model.celebrities.CelebritiesPopularResponse
 import com.example.tmdb.data.model.celebrities.CelebritiesTrendingResponse
 import com.example.tmdb.data.model.detailactor.ActorCreditResponse
 import com.example.tmdb.data.model.detailactor.DetailActorResponse
+import com.example.tmdb.data.model.rating.RatingResponse
 import com.example.tmdb.data.model.saved.SavedResponse
 import com.example.tmdb.data.model.search.SearchActorResponse
 import com.example.tmdb.data.model.video.VideoResponse
-import com.example.tmdb.data.test.AccountDetailsResponse
-import com.example.tmdb.data.test.CreateSessionBody
-import com.example.tmdb.data.test.SessionResponse
-import com.example.tmdb.data.test.ValidateTokenBody
-import com.example.tmdb.data.test.ValidateTokenResponse
+import com.example.tmdb.data.model.watchlist.WatchListBody
+import com.example.tmdb.data.model.watchlist.WatchListResponse
+import com.example.tmdb.data.model.account.AccountDetailsResponse
+import com.example.tmdb.data.model.account.CreateSessionBody
+import com.example.tmdb.data.model.account.SessionResponse
+import com.example.tmdb.data.model.account.ValidateTokenBody
+import com.example.tmdb.data.model.account.ValidateTokenResponse
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -169,5 +172,19 @@ interface MoviesInterface {
         @Query("page") page: Int,
         @Query("sort_by") sortBy: String
     ): Call<SavedResponse>
+
+    @POST("account/{account_id}/watchlist")
+    suspend fun addWatchList(
+        @Header("Authorization") authHeader: String,
+        @Path("account_id") accountId: Int,
+        @Body body: WatchListBody
+    ): WatchListResponse
+
+    @POST("movie/{movie_id}/rating")
+    suspend fun giveRating(
+        @Header("Authorization") authHeader: String,
+        @Path("movie_id") movieId: Int,
+        @Body body: Float
+    ): RatingResponse
 
 }

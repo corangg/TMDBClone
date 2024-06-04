@@ -1,4 +1,4 @@
-package com.example.tmdb.data.test
+package com.example.tmdb.data.model.account
 
 data class ValidateTokenBody(
     val username: String,

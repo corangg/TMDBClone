@@ -8,8 +8,9 @@ import com.example.tmdb.data.model.ID.IDData
 import com.example.tmdb.data.repository.GetDataRepository
 import com.example.tmdb.data.repository.GetLoginDataRepository
 import com.example.tmdb.data.source.remot.retrofit.TMDBRetrofit
-import com.example.tmdb.data.test.CreateSessionBody
-import com.example.tmdb.data.test.ValidateTokenBody
+import com.example.tmdb.data.model.account.CreateSessionBody
+import com.example.tmdb.data.model.account.ValidateTokenBody
+import com.example.tmdb.data.repository.SetAccountDataRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -17,6 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewmodel @Inject constructor(
     application: Application,
+    private val setAccountDataRepository: SetAccountDataRepository,
     private val getLoginDataRepository: GetLoginDataRepository,
     private val getDataRepository: GetDataRepository): AndroidViewModel(application) {
 
@@ -27,7 +29,6 @@ class LoginViewmodel @Inject constructor(
     val startGuest : MutableLiveData<Unit> = MutableLiveData()
     val openSignUpPage : MutableLiveData<Unit> = MutableLiveData()
 
-    val loginfail : MutableLiveData<Boolean> = MutableLiveData()
 
     init {
         loginCheck()
@@ -38,17 +39,25 @@ class LoginViewmodel @Inject constructor(
         openSignUpPage.value = Unit
     }
 
-    fun clickedSignIn(){
-        if(id.value != null && password.value != null)
-        {
-            signIn(id = id.value!!, password = password.value!!)
+    fun clickedSignIn() = viewModelScope.launch{
+        val idValue = id.value
+        val passwordValue = password.value
+
+        if(idValue != null && passwordValue != null) {
+            setAccountDataRepository.signIn(idValue,passwordValue)?.let {
+                sessionId.value = it
+                saveLoginData(idValue, passwordValue)
+            }
         }
     }
 
     private fun loginCheck() = viewModelScope.launch{
         val id = getLoginDataRepository.getID()
-        id?.let {
-            signIn(it.ID, it.Password)
+        id?.let {IDData->
+            setAccountDataRepository.signIn(IDData.ID, IDData.Password)?.let {
+                sessionId.value = it
+                saveLoginData(IDData.ID, IDData.Password)
+            }
         }
     }
 
@@ -59,25 +68,6 @@ class LoginViewmodel @Inject constructor(
 
     private fun getTMDBData() = viewModelScope.launch {
         getDataRepository.getData()
-    }
-
-    private fun signIn(id : String, password : String){
-        viewModelScope.launch {
-            val token = TMDBRetrofit.createToken()
-            token?.let {
-                val body = ValidateTokenBody(username = id, password = password, request_token = it.request_token)
-                val response = TMDBRetrofit.getRequestToken(body)
-                if(response !=null){
-                    TMDBRetrofit.fetchSession(CreateSessionBody(it.request_token))?.let {
-                        saveLoginData(id, password)
-                        sessionId.value = it.session_id
-                    }
-                }
-                else{
-                    loginfail.value = true
-                }
-            }
-        }
     }
 
     fun servieceContinue(){
