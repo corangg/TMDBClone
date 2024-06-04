@@ -230,10 +230,10 @@ class MainViewModel @Inject constructor(
         startAboutFragment.value = Unit
     }
 
-
     fun getMySavedList() = viewModelScope.launch{
         setAccountDataRepository.getMyWatchList()?.let {
             savedList.value = it
         }
     }
+
 }

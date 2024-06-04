@@ -27,6 +27,8 @@ import com.example.tmdb.ui.adapter.CountryAdapter
 import com.example.tmdb.ui.adapter.GenreAdapter
 import com.example.tmdb.ui.adapter.MovieAdapter
 import com.example.tmdb.ui.adapter.VideoAdapter
+import com.example.tmdb.ui.fragment.GiveRatingFragment
+import com.example.tmdb.ui.fragment.profile.LogoutCheckFragment
 import com.example.tmdb.ui.viewmodel.DetailMovieViewmodel
 import com.example.tmdb.util.ItemClickInterface
 import com.example.tmdb.util.Util
@@ -151,6 +153,10 @@ class DetailMovieInfoActivity : AppCompatActivity(),
             }else{
                 ImgButtonSet(R.drawable.ic_bookmark, binding.root, binding.btnBookmark, getColor(R.color.white))
             }
+        }
+
+        viewModel.startGiveRatingFragment.observe(this){
+            supportFragmentManager.beginTransaction().add(binding.view.id, GiveRatingFragment()).addToBackStack(null).commit()
         }
     }
 }

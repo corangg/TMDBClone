@@ -10,8 +10,8 @@ import com.example.tmdb.data.model.credit.Cast
 import com.example.tmdb.data.model.detailmovie.DetailsMovieResponse
 import com.example.tmdb.data.model.detailmovie.Genre
 import com.example.tmdb.data.model.detailmovie.ProductionCompany
+import com.example.tmdb.data.model.rating.RatingBody
 import com.example.tmdb.data.model.video.VideoResult
-import com.example.tmdb.data.model.watchlist.WatchListBody
 import com.example.tmdb.data.repository.SetAccountDataRepository
 import com.example.tmdb.data.repository.WatchListRepository
 import com.example.tmdb.data.source.remot.retrofit.TMDBRetrofit
@@ -146,6 +146,33 @@ class DetailMovieViewmodel @Inject constructor(
             }
         }else{
             startLoginActivity.value = Unit
+        }
+    }
+
+    val startGiveRatingFragment : MutableLiveData<Unit> = MutableLiveData()
+    val rating : MutableLiveData<String> = MutableLiveData()
+    val finishedGiveRatingFragment : MutableLiveData<Boolean> = MutableLiveData()
+
+
+    fun startGiveRating(){
+        startGiveRatingFragment.value = Unit
+    }
+
+    fun giveRating(check : Boolean){
+        if (check){
+            postRating()
+        }else{
+            finishedGiveRatingFragment.value = true
+            finishedGiveRatingFragment.value = false
+        }
+    }
+
+    fun postRating()=viewModelScope.launch{
+        rating.value?.let {value->
+            TMDBRetrofit.giveRating(movieId, RatingBody(value.toFloat()))?.let {
+                finishedGiveRatingFragment.value = true
+                finishedGiveRatingFragment.value = false
+            }
         }
     }
 }

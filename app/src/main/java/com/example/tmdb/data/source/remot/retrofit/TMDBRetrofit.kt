@@ -18,6 +18,7 @@ import com.example.tmdb.data.model.account.CreateSessionBody
 import com.example.tmdb.data.model.account.SessionResponse
 import com.example.tmdb.data.model.account.ValidateTokenBody
 import com.example.tmdb.data.model.account.ValidateTokenResponse
+import com.example.tmdb.data.model.rating.RatingBody
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
@@ -353,10 +354,10 @@ object TMDBRetrofit {
         }
     }
 
-    suspend fun giveRating(id: Int ,rating: Float):RatingResponse?{
+    suspend fun giveRating(id: Int ,rating: RatingBody):RatingResponse?{
         return withContext(Dispatchers.IO) {
             try {
-                tmdbApi.giveRating(authHeader,id,rating)
+                tmdbApi.giveRating(authHeader, id, rating)
             } catch (e: HttpException) {
                 null
             } catch (e: Exception) {

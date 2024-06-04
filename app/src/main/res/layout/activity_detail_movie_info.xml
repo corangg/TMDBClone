@@ -9,434 +9,441 @@
             type="com.example.tmdb.ui.viewmodel.DetailMovieViewmodel" />
 
     </data>
-
-    <LinearLayout
-        android:id="@+id/main"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/black"
-        android:orientation="vertical"
-        tools:context=".ui.activity.DetailMovieInfoActivity">
-
-        <androidx.appcompat.widget.Toolbar
+        android:id="@+id/view">
+        <LinearLayout
+            android:id="@+id/main"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_title"
-            android:id="@+id/toolbar_movies" >
-            <TextView
+            android:layout_height="match_parent"
+            android:background="@color/black"
+            android:orientation="vertical"
+            tools:context=".ui.activity.DetailMovieInfoActivity">
+
+            <androidx.appcompat.widget.Toolbar
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@={viewmodel.movieTitle}"
-                android:gravity="center_horizontal"
-                android:textSize="23sp"
-                android:textColor="@color/white"/>
-        </androidx.appcompat.widget.Toolbar>
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:paddingHorizontal="16dp"
-                android:orientation="vertical">
-
-                <RelativeLayout
+                android:background="@drawable/bg_title"
+                android:id="@+id/toolbar_movies" >
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:onClick="@{()->viewmodel.onclickedbackImage()}"
-                    android:id="@+id/frame_back">
+                    android:text="@={viewmodel.movieTitle}"
+                    android:gravity="center_horizontal"
+                    android:textSize="23sp"
+                    android:textColor="@color/white"/>
+            </androidx.appcompat.widget.Toolbar>
 
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:scaleType="fitCenter"
-                        android:id="@+id/img_back" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_alignParentBottom="true"
-                        android:background="@drawable/gradient_black" />
-                </RelativeLayout>
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:orientation="horizontal">
+                    android:layout_marginTop="10dp"
+                    android:paddingHorizontal="16dp"
+                    android:orientation="vertical">
 
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="wrap_content"
+                    <RelativeLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:onClick="@{()->viewmodel.onclickedPoster()}"
-                        app:cardCornerRadius="4dp">
-                        <RelativeLayout
-                            android:layout_width="140dp"
-                            android:layout_height="wrap_content">
+                        android:onClick="@{()->viewmodel.onclickedbackImage()}"
+                        android:id="@+id/frame_back">
 
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:scaleType="centerInside"
-                                android:background="@drawable/bg_radius_conner"
-                                android:id="@+id/img_poster"/>
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:scaleType="fitCenter"
+                            android:id="@+id/img_back" />
 
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_alignParentBottom="true"
+                            android:background="@drawable/gradient_black" />
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:orientation="horizontal">
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="@{()->viewmodel.onclickedPoster()}"
+                            app:cardCornerRadius="4dp">
                             <RelativeLayout
+                                android:layout_width="140dp"
+                                android:layout_height="wrap_content">
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:scaleType="centerInside"
+                                    android:background="@drawable/bg_radius_conner"
+                                    android:id="@+id/img_poster"/>
+
+                                <RelativeLayout
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:layout_margin="2dp"
+                                    android:background="@drawable/bg_circle_white"
+                                    android:layout_alignParentEnd="true">
+
+                                    <com.mikhaellopez.circularprogressbar.CircularProgressBar
+                                        android:id="@+id/circularProgressBar"
+                                        android:layout_centerInParent="true"
+                                        android:layout_width="26dp"
+                                        android:layout_height="26dp"
+                                        app:cpb_progress="0"
+                                        app:cpb_progress_max="100"
+                                        android:background="@drawable/bg_circle_white"
+                                        app:cpb_background_progressbar_width="2dp"
+                                        app:cpb_progressbar_width="2dp"
+                                        app:cpb_progressbar_color="@color/logincolor"
+                                        app:cpb_background_progressbar_color="@color/black" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@={viewmodel.ratingPercent}"
+                                        android:textSize="8sp"
+                                        android:textColor="@color/black"
+                                        android:layout_centerInParent="true" />
+
+                                </RelativeLayout>
+                            </RelativeLayout>
+
+
+                        </androidx.cardview.widget.CardView>
+
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp">
+
+                            <ImageButton
                                 android:layout_width="32dp"
                                 android:layout_height="32dp"
-                                android:layout_margin="2dp"
-                                android:background="@drawable/bg_circle_white"
-                                android:layout_alignParentEnd="true">
+                                android:id="@+id/btn_bookmark"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginEnd="6dp"
+                                android:background="@color/black"
+                                android:src="@drawable/ic_bookmark"
+                                app:tint="@color/white"
+                                android:scaleType="centerCrop"
+                                android:onClick="@{()->viewmodel.addWatchList()}"/>
 
-                                <com.mikhaellopez.circularprogressbar.CircularProgressBar
-                                    android:id="@+id/circularProgressBar"
-                                    android:layout_centerInParent="true"
-                                    android:layout_width="26dp"
-                                    android:layout_height="26dp"
-                                    app:cpb_progress="0"
-                                    app:cpb_progress_max="100"
-                                    android:background="@drawable/bg_circle_white"
-                                    app:cpb_background_progressbar_width="2dp"
-                                    app:cpb_progressbar_width="2dp"
-                                    app:cpb_progressbar_color="@color/logincolor"
-                                    app:cpb_background_progressbar_color="@color/black" />
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp"
+                                android:id="@+id/rating_layout"
+                                android:gravity="center_vertical"
+                                android:layout_below="@+id/btn_bookmark"
+                                android:orientation="horizontal"
+                                android:onClick="@{()->viewmodel.startGiveRating()}">
+
+                                <RatingBar
+                                    android:id="@+id/rating_bar"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:numStars="5"
+                                    android:stepSize="0.1"
+                                    android:rating="@={viewmodel.ratingStar}"
+                                    android:isIndicator="true"
+                                    style="?android:attr/ratingBarStyleSmall"
+                                    android:progressTint="@color/logincolor"
+                                    android:progressBackgroundTint="@color/white" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@={viewmodel.ratingPercent}"
-                                    android:textSize="8sp"
-                                    android:textColor="@color/black"
-                                    android:layout_centerInParent="true" />
+                                    android:layout_marginStart="4dp"
+                                    android:textColor="@color/logincolor"
+                                    android:text="@={viewmodel.ratingNum}" />
+                            </LinearLayout>
 
-                            </RelativeLayout>
-                        </RelativeLayout>
-
-
-                    </androidx.cardview.widget.CardView>
-
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp">
-
-                        <ImageButton
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:id="@+id/btn_bookmark"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginEnd="6dp"
-                            android:background="@color/black"
-                            android:src="@drawable/ic_bookmark"
-                            app:tint="@color/white"
-                            android:scaleType="centerCrop"
-                            android:onClick="@{()->viewmodel.addWatchList()}"/>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
-                            android:id="@+id/rating_layout"
-                            android:gravity="center_vertical"
-                            android:layout_below="@+id/btn_bookmark"
-                            android:orientation="horizontal">
-
-                            <RatingBar
-                                android:id="@+id/rating_bar"
-                                android:layout_width="wrap_content"
+                            <LinearLayout
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:numStars="5"
-                                android:stepSize="0.1"
-                                android:rating="@={viewmodel.ratingStar}"
-                                android:isIndicator="true"
-                                style="?android:attr/ratingBarStyleSmall"
-                                android:progressTint="@color/logincolor"
-                                android:progressBackgroundTint="@color/white" />
+                                android:id="@+id/text_layer"
+                                android:layout_marginTop="4dp"
+                                android:layout_below="@id/rating_layout"
+                                android:orientation="horizontal">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:id="@+id/text_date"
+                                    android:text="@string/release_date"
+                                    android:textSize="14sp"
+                                    android:textColor="@color/white" />
 
-                            <TextView
-                                android:layout_width="wrap_content"
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="6dp"
+                                    android:text="@={viewmodel.releaseDate}"
+                                    android:textSize="14sp"
+                                    android:textColor="@color/white" />
+                            </LinearLayout>
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="4dp"
-                                android:textColor="@color/logincolor"
-                                android:text="@={viewmodel.ratingNum}" />
-                        </LinearLayout>
+                                android:layout_marginTop="6dp"
+                                android:id="@+id/country_layout"
+                                android:gravity="center_vertical"
+                                android:layout_below="@+id/text_layer"
+                                android:orientation="horizontal">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/text_layer"
-                            android:layout_marginTop="4dp"
-                            android:layout_below="@id/rating_layout"
-                            android:orientation="horizontal">
-                            <TextView
-                                android:layout_width="wrap_content"
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/white"
+                                    android:text="@string/country"
+                                    android:textSize="14sp" />
+
+                                <androidx.recyclerview.widget.RecyclerView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:id="@+id/country_recycler"
+                                    android:layout_marginStart="8dp" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:id="@+id/text_date"
-                                android:text="@string/release_date"
-                                android:textSize="14sp"
-                                android:textColor="@color/white" />
+                                android:layout_marginTop="6dp"
+                                android:id="@+id/language_layout"
+                                android:gravity="center_vertical"
+                                android:layout_below="@+id/country_layout"
+                                android:orientation="horizontal">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="14sp"
+                                    android:textColor="@color/white"
+                                    android:text="@string/language"/>
 
-                            <TextView
-                                android:layout_width="wrap_content"
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="14sp"
+                                    android:layout_marginStart="6dp"
+                                    android:textColor="@color/white"
+                                    android:text="@={viewmodel.language}"/>
+                            </LinearLayout>
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="6dp"
-                                android:text="@={viewmodel.releaseDate}"
-                                android:textSize="14sp"
-                                android:textColor="@color/white" />
-                        </LinearLayout>
+                                android:layout_marginTop="6dp"
+                                android:id="@+id/revenue_layout"
+                                android:gravity="center_vertical"
+                                android:layout_below="@+id/language_layout"
+                                android:orientation="horizontal">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:id="@+id/text_revenue"
+                                    android:textSize="14sp"
+                                    android:textColor="@color/logincolor"
+                                    android:text="@string/revenue" />
 
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
-                            android:id="@+id/country_layout"
-                            android:gravity="center_vertical"
-                            android:layout_below="@+id/text_layer"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/white"
-                                android:text="@string/country"
-                                android:textSize="14sp" />
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="14sp"
+                                    android:layout_marginStart="6dp"
+                                    android:textColor="@color/logincolor"
+                                    android:text="@={viewmodel.revenueValue}"/>
+                            </LinearLayout>
 
                             <androidx.recyclerview.widget.RecyclerView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:id="@+id/country_recycler"
-                                android:layout_marginStart="8dp" />
-                        </LinearLayout>
+                                android:layout_marginTop="12dp"
+                                android:id="@+id/recycler_genre"
+                                android:layout_below="@id/revenue_layout" />
+                        </RelativeLayout>
+                    </LinearLayout>
 
-                        <LinearLayout
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:id="@+id/recycler_company" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
-                            android:id="@+id/language_layout"
-                            android:gravity="center_vertical"
-                            android:layout_below="@+id/country_layout"
+                            android:text="@string/overview"
+                            android:textColor="@color/white"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@={viewmodel.overview}"
+                            android:textColor="@color/white"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="24dp"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="24dp"
                             android:orientation="horizontal">
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textSize="14sp"
+                                android:text="@string/actor"
+                                android:layout_marginStart="16dp"
                                 android:textColor="@color/white"
-                                android:text="@string/language"/>
+                                android:textStyle="bold"
+                                android:layout_alignParentBottom="true"
+                                android:textSize="16sp" />
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:textSize="14sp"
-                                android:layout_marginStart="6dp"
-                                android:textColor="@color/white"
-                                android:text="@={viewmodel.language}"/>
-                        </LinearLayout>
-
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
-                            android:id="@+id/revenue_layout"
-                            android:gravity="center_vertical"
-                            android:layout_below="@+id/language_layout"
-                            android:orientation="horizontal">
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:id="@+id/text_revenue"
+                                android:layout_marginTop="8dp"
+                                android:layout_alignParentBottom="true"
+                                android:layout_toStartOf="@+id/btn_actors_see_all"
                                 android:textSize="14sp"
+                                android:layout_marginEnd="12dp"
+                                android:text="@string/seeall"
                                 android:textColor="@color/logincolor"
-                                android:text="@string/revenue" />
+                                android:onClick="@{()->viewmodel.onclickedAllActors()}"/>
+
+                            <ImageButton
+                                android:layout_width="12dp"
+                                android:layout_height="12dp"
+                                android:id="@+id/btn_actors_see_all"
+                                android:background="@drawable/ic_right"
+                                android:layout_alignParentBottom="true"
+                                android:layout_marginEnd="12dp"
+                                android:backgroundTint="@color/white"
+                                android:layout_alignParentEnd="true"
+                                android:onClick="@{()->viewmodel.onclickedAllActors()}"/>
+
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:id="@+id/movies_actors_recycler" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="24dp"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="24dp"
+                            android:orientation="horizontal">
 
                             <TextView
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:text="@string/video"
+                                android:layout_marginStart="16dp"
+                                android:textColor="@color/white"
+                                android:textStyle="bold"
+                                android:layout_alignParentBottom="true"
+                                android:textSize="16sp" />
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:id="@+id/movies_video_recycler" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="24dp"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="24dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/similarmovier"
+                                android:layout_marginStart="16dp"
+                                android:textColor="@color/white"
+                                android:textStyle="bold"
+                                android:layout_alignParentBottom="true"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:layout_alignParentBottom="true"
+                                android:onClick="@{()->viewmodel.onclickedAllSimilarMovies()}"
+                                android:layout_toStartOf="@+id/btn_similar_movie_see_all"
                                 android:textSize="14sp"
-                                android:layout_marginStart="6dp"
-                                android:textColor="@color/logincolor"
-                                android:text="@={viewmodel.revenueValue}"/>
-                        </LinearLayout>
+                                android:layout_marginEnd="12dp"
+                                android:text="@string/seeall"
+                                android:textColor="@color/logincolor" />
 
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="12dp"
-                            android:id="@+id/recycler_genre"
-                            android:layout_below="@id/revenue_layout" />
-                    </RelativeLayout>
-                </LinearLayout>
+                            <ImageButton
+                                android:layout_width="12dp"
+                                android:layout_height="12dp"
+                                android:id="@+id/btn_similar_movie_see_all"
+                                android:background="@drawable/ic_right"
+                                android:onClick="@{()->viewmodel.onclickedAllSimilarMovies()}"
+                                android:layout_alignParentBottom="true"
+                                android:layout_marginEnd="12dp"
+                                android:backgroundTint="@color/white"
+                                android:layout_alignParentEnd="true" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:id="@+id/recycler_company" />
+                        </RelativeLayout>
+                    </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/overview"
-                        android:textColor="@color/white"
-                        android:textSize="12sp" />
+                        android:layout_marginTop="12dp"
+                        android:id="@+id/movies_similar_movie_recycler"
+                        android:layout_marginBottom="32dp" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@={viewmodel.overview}"
-                        android:textColor="@color/white"
-                        android:textSize="12sp" />
                 </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="24dp"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="10dp">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="24dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/actor"
-                            android:layout_marginStart="16dp"
-                            android:textColor="@color/white"
-                            android:textStyle="bold"
-                            android:layout_alignParentBottom="true"
-                            android:textSize="16sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:layout_alignParentBottom="true"
-                            android:layout_toStartOf="@+id/btn_actors_see_all"
-                            android:textSize="14sp"
-                            android:layout_marginEnd="12dp"
-                            android:text="@string/seeall"
-                            android:textColor="@color/logincolor"
-                            android:onClick="@{()->viewmodel.onclickedAllActors()}"/>
-
-                        <ImageButton
-                            android:layout_width="12dp"
-                            android:layout_height="12dp"
-                            android:id="@+id/btn_actors_see_all"
-                            android:background="@drawable/ic_right"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginEnd="12dp"
-                            android:backgroundTint="@color/white"
-                            android:layout_alignParentEnd="true"
-                            android:onClick="@{()->viewmodel.onclickedAllActors()}"/>
-
-                    </RelativeLayout>
-                </LinearLayout>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:id="@+id/movies_actors_recycler" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="24dp"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="10dp">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="24dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/video"
-                            android:layout_marginStart="16dp"
-                            android:textColor="@color/white"
-                            android:textStyle="bold"
-                            android:layout_alignParentBottom="true"
-                            android:textSize="16sp" />
-                    </RelativeLayout>
-                </LinearLayout>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:id="@+id/movies_video_recycler" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="24dp"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="10dp">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="24dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/similarmovier"
-                            android:layout_marginStart="16dp"
-                            android:textColor="@color/white"
-                            android:textStyle="bold"
-                            android:layout_alignParentBottom="true"
-                            android:textSize="16sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:layout_alignParentBottom="true"
-                            android:onClick="@{()->viewmodel.onclickedAllSimilarMovies()}"
-                            android:layout_toStartOf="@+id/btn_similar_movie_see_all"
-                            android:textSize="14sp"
-                            android:layout_marginEnd="12dp"
-                            android:text="@string/seeall"
-                            android:textColor="@color/logincolor" />
-
-                        <ImageButton
-                            android:layout_width="12dp"
-                            android:layout_height="12dp"
-                            android:id="@+id/btn_similar_movie_see_all"
-                            android:background="@drawable/ic_right"
-                            android:onClick="@{()->viewmodel.onclickedAllSimilarMovies()}"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginEnd="12dp"
-                            android:backgroundTint="@color/white"
-                            android:layout_alignParentEnd="true" />
-
-                    </RelativeLayout>
-                </LinearLayout>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:id="@+id/movies_similar_movie_recycler"
-                    android:layout_marginBottom="32dp" />
-
-            </LinearLayout>
-        </ScrollView>
+            </ScrollView>
 
 
-    </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+
 </layout>

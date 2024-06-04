@@ -71,13 +71,15 @@
     <string name="name">Name</string>
 
 
-
-
-
     <string name="contactDetail">This application is created by Muhammadsiddiq, Android Developer. All information is taken from the themoviedb.org website. Your account data is also stored on the themoviedb.org website. If you face any problems while using this application, you can contact me via email, telegram, Linkedin or Instagram. Thank you for choosing this application</string>
     <string name="connection">connection</string>
     <string name="aboutDetail">Information about the TMDB site\n\n The Movie Database (TMDB) is a community built movie and TV database. Every piece of data has been added by our amazing community dating back to 2008. TMDb\'s strong international focus and breadth of data is largely unmatched and something we\'re incredibly proud of. Put simply, we live and breathe community and that\'s precisely what makes us different. The TMDB Advantage\n\n1\nEvery year since 2008, the number of contributions to our database has increased. With over 400,000 developers and companies using our platform, TMDB has become a premiere source for metadata.\n\n2\nAlong with extensive metadata for movies, TV shows and people, we also offer one of the best selections of high resolution posters and fanart. On average, over 1,000 images are added every single day.\n\n3\nWe\'re international. While we officially support 39 languages we also have extensive regional data. Every single day TMDB is used in over 180 countries.\n\n4\nOur community is second to none. Between our staff and community moderators, we\'re always here to help. We\'re passionate about making sure your experience on TMDB is nothing short of amazing.\n\n5\nTrusted platform. Every single day our service is used by millions of people while we process over 3 billion requests. We\'ve proven for years that this is a service that can be trusted and relied on.</string>
 
+
+    <string name="giverating">Give Rating</string>
+    <string name="ratinghint">0.0</string>
+    <string name="split">/</string>
+    <string name="perfectrating">10.0</string>
 
 
 

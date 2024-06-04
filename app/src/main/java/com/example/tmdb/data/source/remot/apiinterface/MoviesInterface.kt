@@ -25,6 +25,7 @@ import com.example.tmdb.data.model.account.CreateSessionBody
 import com.example.tmdb.data.model.account.SessionResponse
 import com.example.tmdb.data.model.account.ValidateTokenBody
 import com.example.tmdb.data.model.account.ValidateTokenResponse
+import com.example.tmdb.data.model.rating.RatingBody
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -184,7 +185,7 @@ interface MoviesInterface {
     suspend fun giveRating(
         @Header("Authorization") authHeader: String,
         @Path("movie_id") movieId: Int,
-        @Body body: Float
+        @Body body: RatingBody
     ): RatingResponse
 
 }
