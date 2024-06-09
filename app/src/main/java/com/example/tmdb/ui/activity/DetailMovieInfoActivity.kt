@@ -17,7 +17,7 @@ import com.example.tmdb.ui.fragment.GiveRatingFragment
 import com.example.tmdb.ui.viewmodel.DetailMovieViewmodel
 import com.example.tmdb.util.ItemClickInterface
 import com.example.tmdb.util.Util
-import com.example.tmdb.util.Util.ImgButtonSet
+import com.example.tmdb.util.Util.imgButtonSet
 import com.example.tmdb.util.Util.getMovieID
 import com.example.tmdb.util.Util.setLinearAdapter
 import com.example.tmdb.util.Util.startDetailActorInfoActivity
@@ -134,14 +134,14 @@ class DetailMovieInfoActivity : AppCompatActivity(),
 
         viewModel.addWatchListCheck.observe(this) {
             if (it) {
-                ImgButtonSet(
+                imgButtonSet(
                     R.drawable.ic_fill_bookmarker,
                     binding.root,
                     binding.btnBookmark,
                     getColor(R.color.logincolor)
                 )
             } else {
-                ImgButtonSet(
+                imgButtonSet(
                     R.drawable.ic_bookmark,
                     binding.root,
                     binding.btnBookmark,

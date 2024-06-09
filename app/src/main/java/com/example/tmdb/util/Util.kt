@@ -143,7 +143,7 @@ object Util {
         }
     }
 
-    fun ImgButtonSet(drawable: Int, root: View, view: ImageButton, color: Int) {
+    fun imgButtonSet(drawable: Int, root: View, view: ImageButton, color: Int) {
         Glide.with(root).load(drawable).apply(RequestOptions().centerCrop()).listener(object :
             RequestListener<Drawable> {
             override fun onLoadFailed(

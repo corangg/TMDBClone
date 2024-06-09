@@ -22,11 +22,11 @@ class FullImageActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_full_image)
         (binding as ViewDataBinding).lifecycleOwner = this
         binding.viewmodel = viewmodel
-        ImgSet()
+        imageSet()
         setObserve()
     }
 
-    private fun ImgSet() {
+    private fun imageSet() {
         val url = intent.getStringExtra(getString(R.string.imgUrl))
         url?.let {
             Util.setImage(it, binding.root, binding.img)
