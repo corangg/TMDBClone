@@ -17,13 +17,14 @@ class LoginViewmodel @Inject constructor(
     application: Application,
     private val setAccountDataRepository: SetAccountDataRepository,
     private val getLoginDataRepository: GetLoginDataRepository,
-    private val getDataRepository: GetDataRepository): AndroidViewModel(application) {
+    private val getDataRepository: GetDataRepository
+) : AndroidViewModel(application) {
 
-    val id : MutableLiveData<String> = MutableLiveData()
-    val password : MutableLiveData<String> = MutableLiveData()
+    val id: MutableLiveData<String> = MutableLiveData()
+    val password: MutableLiveData<String> = MutableLiveData()
 
-    val startMainActivity : MutableLiveData<Unit> = MutableLiveData()
-    val openSignUpPage : MutableLiveData<Unit> = MutableLiveData()
+    val startMainActivity: MutableLiveData<Unit> = MutableLiveData()
+    val openSignUpPage: MutableLiveData<Unit> = MutableLiveData()
 
 
     init {
@@ -31,11 +32,11 @@ class LoginViewmodel @Inject constructor(
         getTMDBData()
     }
 
-    private fun loginCheck() = viewModelScope.launch{
+    private fun loginCheck() = viewModelScope.launch {
         val id = getLoginDataRepository.getID()
-        id?.let {IDData->
-            setAccountDataRepository.signIn(IDData.ID, IDData.Password)?.let {
-                saveLoginData(IDData.ID, IDData.Password)
+        id?.let { IDData ->
+            setAccountDataRepository.signIn(IDData.id, IDData.password)?.let {
+                saveLoginData(IDData.id, IDData.password)
                 startMainActivity.value = Unit
             }
         }
@@ -45,28 +46,28 @@ class LoginViewmodel @Inject constructor(
         getDataRepository.getData()
     }
 
-    private fun saveLoginData(id : String, password : String) = viewModelScope.launch {
+    private fun saveLoginData(id: String, password: String) = viewModelScope.launch {
         val idData = IDData(id, password)
         getLoginDataRepository.insertID(idData)
     }
 
-    fun signUp(){
+    fun signUp() {
         openSignUpPage.value = Unit
     }
 
-    fun clickedSignIn() = viewModelScope.launch{
+    fun clickedSignIn() = viewModelScope.launch {
         val idValue = id.value
         val passwordValue = password.value
 
-        if(idValue != null && passwordValue != null) {
-            setAccountDataRepository.signIn(idValue,passwordValue)?.let {
+        if (idValue != null && passwordValue != null) {
+            setAccountDataRepository.signIn(idValue, passwordValue)?.let {
                 saveLoginData(idValue, passwordValue)
                 startMainActivity.value = Unit
             }
         }
     }
 
-    fun servieceContinue(){
+    fun servieceContinue() {
         startMainActivity.value = Unit
     }
 }

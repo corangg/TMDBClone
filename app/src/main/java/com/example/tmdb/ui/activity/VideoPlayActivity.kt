@@ -1,10 +1,7 @@
 package com.example.tmdb.ui.activity
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.tmdb.R
 import com.example.tmdb.databinding.ActivityVideoPlayBinding
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
@@ -26,11 +23,11 @@ class VideoPlayActivity : AppCompatActivity() {
         }
     }
 
-    private fun setVideo(key: String){
+    private fun setVideo(key: String) {
         binding.youtubePlayerView.addYouTubePlayerListener(object :
-            AbstractYouTubePlayerListener(){
+            AbstractYouTubePlayerListener() {
             override fun onReady(youTubePlayer: YouTubePlayer) {
-                youTubePlayer.loadVideo(key,0f)
+                youTubePlayer.loadVideo(key, 0f)
             }
         })
     }

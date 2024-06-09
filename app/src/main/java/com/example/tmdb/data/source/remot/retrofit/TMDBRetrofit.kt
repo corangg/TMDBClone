@@ -3,22 +3,23 @@ package com.example.tmdb.data.source.remot.retrofit
 import android.util.Log
 import com.example.tmdb.data.model.CreateTokenResponse
 import com.example.tmdb.data.model.Result
-import com.example.tmdb.data.model.credit.CreditResponse
-import com.example.tmdb.data.model.detailmovie.DetailsMovieResponse
-import com.example.tmdb.data.model.celebrities.CelebritiesResult
-import com.example.tmdb.data.model.detailactor.ActorCast
-import com.example.tmdb.data.model.detailactor.DetailActorResponse
-import com.example.tmdb.data.model.rating.RatingResponse
-import com.example.tmdb.data.model.video.VideoResponse
-import com.example.tmdb.data.model.watchlist.WatchListBody
-import com.example.tmdb.data.model.watchlist.WatchListResponse
-import com.example.tmdb.data.source.remot.apiinterface.MoviesInterface
 import com.example.tmdb.data.model.account.AccountDetailsResponse
 import com.example.tmdb.data.model.account.CreateSessionBody
 import com.example.tmdb.data.model.account.SessionResponse
 import com.example.tmdb.data.model.account.ValidateTokenBody
 import com.example.tmdb.data.model.account.ValidateTokenResponse
+import com.example.tmdb.data.model.celebrities.CelebritiesResult
+import com.example.tmdb.data.model.credit.CreditResponse
+import com.example.tmdb.data.model.detailactor.ActorCast
+import com.example.tmdb.data.model.detailactor.DetailActorResponse
+import com.example.tmdb.data.model.detailmovie.DetailsMovieResponse
 import com.example.tmdb.data.model.rating.RatingBody
+import com.example.tmdb.data.model.rating.RatingResponse
+import com.example.tmdb.data.model.video.VideoResponse
+import com.example.tmdb.data.model.watchlist.WatchListBody
+import com.example.tmdb.data.model.watchlist.WatchListResponse
+import com.example.tmdb.data.source.remot.apiinterface.MoviesInterface
+import com.example.tmdb.util.TMDBUrl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
@@ -26,14 +27,15 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object TMDBRetrofit {
-    val authHeader = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0OTUwZmEyYTRiYTVmMGQ5NWZmYzhiZGFkNDc4NWVmYSIsInN1YiI6IjY2NTZkYjY5YmIxNDRjOGQ3N2E2ZGE1YSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.-8qeYfk8z7lvaeb2TyW7WYBJZ2JZ33QFDgN0E_5zZgU"
+    val authHeader =
+        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0OTUwZmEyYTRiYTVmMGQ5NWZmYzhiZGFkNDc4NWVmYSIsInN1YiI6IjY2NTZkYjY5YmIxNDRjOGQ3N2E2ZGE1YSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.-8qeYfk8z7lvaeb2TyW7WYBJZ2JZ33QFDgN0E_5zZgU"
     val retrofit = Retrofit.Builder()
-        .baseUrl("https://api.themoviedb.org/3/")
+        .baseUrl(TMDBUrl.baseUrl)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
     val tmdbApi = retrofit.create(MoviesInterface::class.java)
 
-    suspend fun createToken():CreateTokenResponse? {
+    suspend fun createToken(): CreateTokenResponse? {
         return withContext(Dispatchers.IO) {
             val call = tmdbApi.createRequestToken(authHeader)
             try {
@@ -49,7 +51,7 @@ object TMDBRetrofit {
         }
     }
 
-    suspend fun getRequestToken(body: ValidateTokenBody): ValidateTokenResponse?{
+    suspend fun getRequestToken(body: ValidateTokenBody): ValidateTokenResponse? {
         return withContext(Dispatchers.IO) {
             try {
                 tmdbApi.validateRequestToken(authHeader, body)
@@ -61,7 +63,7 @@ object TMDBRetrofit {
         }
     }
 
-    suspend fun fetchSession(token: CreateSessionBody): SessionResponse?{
+    suspend fun fetchSession(token: CreateSessionBody): SessionResponse? {
         return withContext(Dispatchers.IO) {
             try {
                 tmdbApi.createSession(authHeader, token)
@@ -73,10 +75,10 @@ object TMDBRetrofit {
         }
     }
 
-    suspend fun getAccountId(id: String): AccountDetailsResponse?{
+    suspend fun getAccountId(id: String): AccountDetailsResponse? {
         return withContext(Dispatchers.IO) {
             try {
-                tmdbApi.getAccountDetails(authHeader,id)
+                tmdbApi.getAccountDetails(authHeader, id)
             } catch (e: HttpException) {
                 null
             } catch (e: Exception) {
@@ -85,7 +87,7 @@ object TMDBRetrofit {
         }
     }
 
-    suspend fun fetchMovies():List<Result>? {
+    suspend fun fetchMovies(): List<Result>? {
         return withContext(Dispatchers.IO) {
             val call = tmdbApi.getMovies(authHeader, "en-US", 1)
             try {
@@ -101,7 +103,7 @@ object TMDBRetrofit {
         }
     }
 
-    suspend fun fetchNowPlayingMovies(page : Int = 1):List<Result>? {
+    suspend fun fetchNowPlayingMovies(page: Int = 1): List<Result>? {
         return withContext(Dispatchers.IO) {
             val call = tmdbApi.getNowPlayingMovies(authHeader, "en-US", page)
             try {
@@ -117,9 +119,9 @@ object TMDBRetrofit {
         }
     }
 
-    suspend fun fetchPopularMovies(page : Int = 1):List<Result>?{
-        return withContext(Dispatchers.IO){
-            val call = tmdbApi.getPopularMovies(authHeader,"en-US", page)
+    suspend fun fetchPopularMovies(page: Int = 1): List<Result>? {
+        return withContext(Dispatchers.IO) {
+            val call = tmdbApi.getPopularMovies(authHeader, "en-US", page)
             try {
                 val response = call.execute()
                 if (response.isSuccessful) {
@@ -133,9 +135,9 @@ object TMDBRetrofit {
         }
     }
 
-    suspend fun fetchTopRatedMovies(page : Int = 1):List<Result>?{
-        return withContext(Dispatchers.IO){
-            val call = tmdbApi.getTopRatedMovies(authHeader,"en-US", page)
+    suspend fun fetchTopRatedMovies(page: Int = 1): List<Result>? {
+        return withContext(Dispatchers.IO) {
+            val call = tmdbApi.getTopRatedMovies(authHeader, "en-US", page)
             try {
                 val response = call.execute()
                 if (response.isSuccessful) {
@@ -149,9 +151,9 @@ object TMDBRetrofit {
         }
     }
 
-    suspend fun fetchUpcomingMovies(page : Int = 1):List<Result>?{
-        return withContext(Dispatchers.IO){
-            val call = tmdbApi.getUpcomingMovies(authHeader,"en-US", page)
+    suspend fun fetchUpcomingMovies(page: Int = 1): List<Result>? {
+        return withContext(Dispatchers.IO) {
+            val call = tmdbApi.getUpcomingMovies(authHeader, "en-US", page)
             try {
                 val response = call.execute()
                 if (response.isSuccessful) {
@@ -165,9 +167,9 @@ object TMDBRetrofit {
         }
     }
 
-    suspend fun fetchDetailMovies(id : Int): DetailsMovieResponse?{
-        return withContext(Dispatchers.IO){
-            val call = tmdbApi.getDetailMovies(authHeader,id,"en-US")
+    suspend fun fetchDetailMovies(id: Int): DetailsMovieResponse? {
+        return withContext(Dispatchers.IO) {
+            val call = tmdbApi.getDetailMovies(authHeader, id, "en-US")
             try {
                 val response = call.execute()
                 if (response.isSuccessful) {
@@ -181,9 +183,9 @@ object TMDBRetrofit {
         }
     }
 
-    suspend fun fetchCreditMovies(id : Int, page: Int = 1): CreditResponse?{
-        return withContext(Dispatchers.IO){
-            val call = tmdbApi.getCreditMovies(authHeader,id,"en-US", page)
+    suspend fun fetchCreditMovies(id: Int, page: Int = 1): CreditResponse? {
+        return withContext(Dispatchers.IO) {
+            val call = tmdbApi.getCreditMovies(authHeader, id, "en-US", page)
             try {
                 val response = call.execute()
                 if (response.isSuccessful) {
@@ -197,9 +199,9 @@ object TMDBRetrofit {
         }
     }
 
-    suspend fun fetchVideoMovies(id : Int): VideoResponse?{
-        return withContext(Dispatchers.IO){
-            val call = tmdbApi.getVideoMovies(authHeader,id,"en-US")
+    suspend fun fetchVideoMovies(id: Int): VideoResponse? {
+        return withContext(Dispatchers.IO) {
+            val call = tmdbApi.getVideoMovies(authHeader, id, "en-US")
             try {
                 val response = call.execute()
                 if (response.isSuccessful) {
@@ -213,9 +215,9 @@ object TMDBRetrofit {
         }
     }
 
-    suspend fun fetchSimilarMovies(id : Int, page: Int = 1): List<Result>?{
-        return withContext(Dispatchers.IO){
-            val call = tmdbApi.getSimilarMovies(authHeader,id,"en-US", page)
+    suspend fun fetchSimilarMovies(id: Int, page: Int = 1): List<Result>? {
+        return withContext(Dispatchers.IO) {
+            val call = tmdbApi.getSimilarMovies(authHeader, id, "en-US", page)
             try {
                 val response = call.execute()
                 if (response.isSuccessful) {
@@ -229,9 +231,9 @@ object TMDBRetrofit {
         }
     }
 
-    suspend fun fetchPopularCelebrities(page: Int = 1): List<CelebritiesResult>?{
-        return withContext(Dispatchers.IO){
-            val call = tmdbApi.getPopularCelebrities(authHeader,"en-US", page)
+    suspend fun fetchPopularCelebrities(page: Int = 1): List<CelebritiesResult>? {
+        return withContext(Dispatchers.IO) {
+            val call = tmdbApi.getPopularCelebrities(authHeader, "en-US", page)
             try {
                 val response = call.execute()
                 if (response.isSuccessful) {
@@ -245,9 +247,9 @@ object TMDBRetrofit {
         }
     }
 
-    suspend fun fetchTrendingCelebrities(page: Int = 1): List<com.example.tmdb.data.model.celebrities.CelebritiesResult>?{
-        return withContext(Dispatchers.IO){
-            val call = tmdbApi.getTrendingCelebrities(authHeader,"en-US", page)
+    suspend fun fetchTrendingCelebrities(page: Int = 1): List<com.example.tmdb.data.model.celebrities.CelebritiesResult>? {
+        return withContext(Dispatchers.IO) {
+            val call = tmdbApi.getTrendingCelebrities(authHeader, "en-US", page)
             try {
                 val response = call.execute()
                 if (response.isSuccessful) {
@@ -261,9 +263,9 @@ object TMDBRetrofit {
         }
     }
 
-    suspend fun fetchDetailActor(id : Int): DetailActorResponse?{
-        return withContext(Dispatchers.IO){
-            val call = tmdbApi.getDetailActors(authHeader,id,"en-US")
+    suspend fun fetchDetailActor(id: Int): DetailActorResponse? {
+        return withContext(Dispatchers.IO) {
+            val call = tmdbApi.getDetailActors(authHeader, id, "en-US")
             try {
                 val response = call.execute()
                 if (response.isSuccessful) {
@@ -277,9 +279,9 @@ object TMDBRetrofit {
         }
     }
 
-    suspend fun fetchActorCredit(id : Int, page: Int = 1): List<ActorCast>?{
-        return withContext(Dispatchers.IO){
-            val call = tmdbApi.getActorsCredits(authHeader,id,"en-US", page)
+    suspend fun fetchActorCredit(id: Int, page: Int = 1): List<ActorCast>? {
+        return withContext(Dispatchers.IO) {
+            val call = tmdbApi.getActorsCredits(authHeader, id, "en-US", page)
             try {
                 val response = call.execute()
                 if (response.isSuccessful) {
@@ -293,9 +295,9 @@ object TMDBRetrofit {
         }
     }
 
-    suspend fun fetchSearchMovie(keyword : String, page: Int = 1): List<Result>?{
-        return withContext(Dispatchers.IO){
-            val call = tmdbApi.getSearchMovie(authHeader,"en-US", keyword,page)
+    suspend fun fetchSearchMovie(keyword: String, page: Int = 1): List<Result>? {
+        return withContext(Dispatchers.IO) {
+            val call = tmdbApi.getSearchMovie(authHeader, "en-US", keyword, page)
             try {
                 val response = call.execute()
                 if (response.isSuccessful) {
@@ -309,9 +311,9 @@ object TMDBRetrofit {
         }
     }
 
-    suspend fun fetchSearchActor(keyword : String, page: Int = 1): List<CelebritiesResult>?{
-        return withContext(Dispatchers.IO){
-            val call = tmdbApi.getSearchActor(authHeader,"en-US", keyword,page)
+    suspend fun fetchSearchActor(keyword: String, page: Int = 1): List<CelebritiesResult>? {
+        return withContext(Dispatchers.IO) {
+            val call = tmdbApi.getSearchActor(authHeader, "en-US", keyword, page)
             try {
                 val response = call.execute()
                 if (response.isSuccessful) {
@@ -325,9 +327,9 @@ object TMDBRetrofit {
         }
     }
 
-    suspend fun fetchMySavedList(id : Int,): List<Result>?{
-        return withContext(Dispatchers.IO){
-            val call = tmdbApi.getMySavedList(authHeader, id,"en-US","created_at.asc")
+    suspend fun fetchMySavedList(id: Int): List<Result>? {
+        return withContext(Dispatchers.IO) {
+            val call = tmdbApi.getMySavedList(authHeader, id, "en-US", "created_at.asc")
             try {
                 val response = call.execute()
                 if (response.isSuccessful) {
@@ -342,10 +344,10 @@ object TMDBRetrofit {
         }
     }
 
-    suspend fun addWatchList(id: Int ,body: WatchListBody):WatchListResponse?{
+    suspend fun addWatchList(id: Int, body: WatchListBody): WatchListResponse? {
         return withContext(Dispatchers.IO) {
             try {
-                tmdbApi.addWatchList(authHeader,id, body)
+                tmdbApi.addWatchList(authHeader, id, body)
             } catch (e: HttpException) {
                 null
             } catch (e: Exception) {
@@ -354,7 +356,7 @@ object TMDBRetrofit {
         }
     }
 
-    suspend fun giveRating(id: Int ,rating: RatingBody):RatingResponse?{
+    suspend fun giveRating(id: Int, rating: RatingBody): RatingResponse? {
         return withContext(Dispatchers.IO) {
             try {
                 tmdbApi.giveRating(authHeader, id, rating)

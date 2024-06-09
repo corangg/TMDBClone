@@ -7,38 +7,40 @@ import androidx.lifecycle.viewModelScope
 import com.example.tmdb.R
 import com.example.tmdb.data.model.celebrities.CelebritiesResult
 import com.example.tmdb.data.model.credit.Cast
-import com.example.tmdb.data.model.detailactor.ActorCast
 import com.example.tmdb.data.source.remot.retrofit.TMDBRetrofit
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SeeAllActorViewmodel @Inject constructor(application: Application): AndroidViewModel(application){
-    val title : MutableLiveData<String> = MutableLiveData("")
+class SeeAllActorViewmodel @Inject constructor(application: Application) :
+    AndroidViewModel(application) {
+    val title: MutableLiveData<String> = MutableLiveData("")
 
-    val actorId : MutableLiveData<Int> = MutableLiveData()
+    val actorId: MutableLiveData<Int> = MutableLiveData()
 
-    val actorList : MutableLiveData<List<CelebritiesResult>> = MutableLiveData()
-    val creditList : MutableLiveData<List<Cast>> = MutableLiveData()
+    val actorList: MutableLiveData<List<CelebritiesResult>> = MutableLiveData()
+    val creditList: MutableLiveData<List<Cast>> = MutableLiveData()
 
-    var page : Int = 0
+    var page: Int = 0
 
-    fun getData(type: String, moiveID : Int) = viewModelScope.launch {
+    fun getData(type: String, moiveID: Int) = viewModelScope.launch {
         title.value = type
         page += 1
-        when(type){
-            getApplication<Application>().getString(R.string.popular)->{
+        when (type) {
+            getApplication<Application>().getString(R.string.popular) -> {
                 TMDBRetrofit.fetchPopularCelebrities(page)?.let {
                     actorList.value = it
                 }
             }
-            getApplication<Application>().getString(R.string.trending)->{
+
+            getApplication<Application>().getString(R.string.trending) -> {
                 TMDBRetrofit.fetchTrendingCelebrities(page)?.let {
                     actorList.value = it
                 }
             }
-            getApplication<Application>().getString(R.string.credit)->{
+
+            getApplication<Application>().getString(R.string.credit) -> {
                 TMDBRetrofit.fetchCreditMovies(moiveID, page)?.let {
                     creditList.value = it.cast
                 }
@@ -46,7 +48,7 @@ class SeeAllActorViewmodel @Inject constructor(application: Application): Androi
         }
     }
 
-    fun startMovieActivity(id : Int){
+    fun startMovieActivity(id: Int) {
         actorId.value = id
     }
 }

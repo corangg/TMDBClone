@@ -1,12 +1,8 @@
 package com.example.tmdb.ui.activity
 
-import android.content.Intent
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.example.tmdb.R
@@ -18,7 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class FullImageActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFullImageBinding
-    private val viewmodel : FullImageViewmodel by viewModels()
+    private val viewmodel: FullImageViewmodel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,15 +26,15 @@ class FullImageActivity : AppCompatActivity() {
         setObserve()
     }
 
-    private fun ImgSet(){
+    private fun ImgSet() {
         val url = intent.getStringExtra(getString(R.string.imgUrl))
         url?.let {
             Util.setImage(it, binding.root, binding.img)
         }
     }
 
-    private fun setObserve(){
-        viewmodel.back.observe(this){
+    private fun setObserve() {
+        viewmodel.back.observe(this) {
             finish()
         }
     }

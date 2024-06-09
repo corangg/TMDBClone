@@ -1,14 +1,11 @@
 package com.example.tmdb.ui.activity
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tmdb.R
-import com.example.tmdb.data.model.detailactor.ActorCast
 import com.example.tmdb.databinding.ActivityDetailActInfoBinding
 import com.example.tmdb.ui.adapter.CreditMovieAdapter
 import com.example.tmdb.ui.viewmodel.DetailActorViewmodel
@@ -22,15 +19,15 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class DetailActorInfoActivity : AppCompatActivity(), ItemClickInterface {
-    private lateinit var binding : ActivityDetailActInfoBinding
-    private val viewmodel : DetailActorViewmodel by viewModels()
+    private lateinit var binding: ActivityDetailActInfoBinding
+    private val viewmodel: DetailActorViewmodel by viewModels()
     private lateinit var creditMovieAdapter: CreditMovieAdapter
 
     var actorId = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_detail_act_info)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_detail_act_info)
         (binding as ViewDataBinding).lifecycleOwner = this
         binding.viewmodel = viewmodel
 
@@ -42,29 +39,30 @@ class DetailActorInfoActivity : AppCompatActivity(), ItemClickInterface {
         viewmodel.startMovieActivity(id)
     }
 
-    private fun setID(){
-        actorId = intent.getIntExtra(getString(R.string.actorID),-1)
-        if(actorId != -1){
+    private fun setID() {
+        actorId = intent.getIntExtra(getString(R.string.actorID), -1)
+        if (actorId != -1) {
             viewmodel.getActData(actorId)
         }
     }
-    private fun setObserve(){
-        viewmodel.profile.observe(this){
+
+    private fun setObserve() {
+        viewmodel.profile.observe(this) {
             Util.setImage(it, binding.root, binding.imgProfile)
         }
-        viewmodel.fullImage.observe(this){
+        viewmodel.fullImage.observe(this) {
             startFullImageActivity(this, it)
         }
-        viewmodel.creditList.observe(this){
-            creditMovieAdapter = CreditMovieAdapter(it,this)
+        viewmodel.creditList.observe(this) {
+            creditMovieAdapter = CreditMovieAdapter(it, this)
             setLinearAdapter(binding.recyclerMovie, this, 1, creditMovieAdapter)
         }
 
-        viewmodel.movieId.observe(this){
+        viewmodel.movieId.observe(this) {
             startDetailMovieInfoActivity(this, it)
         }
 
-        viewmodel.startSeeAllMovieActivity.observe(this){
+        viewmodel.startSeeAllMovieActivity.observe(this) {
             startSeeAllMovieActivity(this, it, actorID = actorId)
         }
     }

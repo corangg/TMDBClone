@@ -1,6 +1,5 @@
 package com.example.tmdb.ui.activity
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -30,7 +29,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding : ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
     private val viewModel: MainViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,69 +42,81 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun setObserve(){
-        viewModel.selectNavigationItem.observe(this){
-            when(it){
-                0->{
-                    supportFragmentManager.beginTransaction().replace(binding.fragmentMain.id, MoviesFragment()).commit()
+    private fun setObserve() {
+        viewModel.selectNavigationItem.observe(this) {
+            when (it) {
+                0 -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(binding.fragmentMain.id, MoviesFragment()).commit()
                 }
-                1->{
-                    supportFragmentManager.beginTransaction().replace(binding.fragmentMain.id, CelebritiesFragment()).commit()
+
+                1 -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(binding.fragmentMain.id, CelebritiesFragment()).commit()
                 }
-                2->{
-                    supportFragmentManager.beginTransaction().replace(binding.fragmentMain.id, SearchFragment()).commit()
+
+                2 -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(binding.fragmentMain.id, SearchFragment()).commit()
                 }
-                3->{
-                    supportFragmentManager.beginTransaction().replace(binding.fragmentMain.id, ProfileFragment()).commit()
+
+                3 -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(binding.fragmentMain.id, ProfileFragment()).commit()
                 }
             }
         }
 
-        viewModel.movieId.observe(this){
+        viewModel.movieId.observe(this) {
             startDetailMovieInfoActivity(this, it)
         }
 
-        viewModel.actorId.observe(this){
+        viewModel.actorId.observe(this) {
             startDetailActorInfoActivity(this, it)
         }
 
-        viewModel.startSeeAllMovieActivity.observe(this){
+        viewModel.startSeeAllMovieActivity.observe(this) {
             startSeeAllMovieActivity(this, it)
         }
 
-        viewModel.startSeeAllActorActivity.observe(this){
+        viewModel.startSeeAllActorActivity.observe(this) {
             startSeeAllActorActivity(this, it)
         }
-        viewModel.startLoginActivity.observe(this){
+        viewModel.startLoginActivity.observe(this) {
             startLoginActivity(this)
             finish()
         }
 
-        viewModel.startSavedFragment.observe(this){
-            supportFragmentManager.beginTransaction().add(binding.fragmentMain.id, SavedFragment()).addToBackStack(null).commit()
+        viewModel.startSavedFragment.observe(this) {
+            supportFragmentManager.beginTransaction().add(binding.fragmentMain.id, SavedFragment())
+                .addToBackStack(null).commit()
         }
 
-        viewModel.startLanguageFragment.observe(this){
-            supportFragmentManager.beginTransaction().add(binding.fragmentMain.id, LanguageFragment()).addToBackStack(null).commit()
+        viewModel.startLanguageFragment.observe(this) {
+            supportFragmentManager.beginTransaction()
+                .add(binding.fragmentMain.id, LanguageFragment()).addToBackStack(null).commit()
         }
 
-        viewModel.startContactFragment.observe(this){
-            supportFragmentManager.beginTransaction().add(binding.fragmentMain.id, ContactFragment()).addToBackStack(null).commit()
+        viewModel.startContactFragment.observe(this) {
+            supportFragmentManager.beginTransaction()
+                .add(binding.fragmentMain.id, ContactFragment()).addToBackStack(null).commit()
         }
 
-        viewModel.startAboutFragment.observe(this){
-            supportFragmentManager.beginTransaction().add(binding.fragmentMain.id, AboutFragment()).addToBackStack(null).commit()
+        viewModel.startAboutFragment.observe(this) {
+            supportFragmentManager.beginTransaction().add(binding.fragmentMain.id, AboutFragment())
+                .addToBackStack(null).commit()
         }
 
-        viewModel.startCheckLogOutFragment.observe(this){
-            supportFragmentManager.beginTransaction().add(binding.fragmentMain.id, LogoutCheckFragment()).addToBackStack(null).commit()
+        viewModel.startCheckLogOutFragment.observe(this) {
+            supportFragmentManager.beginTransaction()
+                .add(binding.fragmentMain.id, LogoutCheckFragment()).addToBackStack(null).commit()
         }
 
-        viewModel.connectionIC.observe(this){
-            when(it){
-                0->Util.openInternetPage(this, TMDBUrl.telegramUrl)
-                1->Util.openInternetPage(this, TMDBUrl.instargramUrl)
-                2->Util.openInternetPage(this, TMDBUrl.linkedInUrl)
+        viewModel.connectionIC.observe(this) {
+            when (it) {
+                0 -> Util.openInternetPage(this, TMDBUrl.telegramUrl)
+                1 -> Util.openInternetPage(this, TMDBUrl.instargramUrl)
+                2 -> Util.openInternetPage(this, TMDBUrl.linkedInUrl)
             }
         }
     }

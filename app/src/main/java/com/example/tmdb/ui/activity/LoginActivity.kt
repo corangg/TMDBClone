@@ -14,7 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
-    private lateinit var binding : ActivityLoginBinding
+    private lateinit var binding: ActivityLoginBinding
     private val viewModel: LoginViewmodel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,12 +26,12 @@ class LoginActivity : AppCompatActivity() {
         setObserve()
     }
 
-    private fun setObserve(){
-        viewModel.startMainActivity.observe(this){
+    private fun setObserve() {
+        viewModel.startMainActivity.observe(this) {
             Util.startMainActivity(this)
             finish()
         }
-        viewModel.openSignUpPage.observe(this){
+        viewModel.openSignUpPage.observe(this) {
             Util.openInternetPage(this, TMDBUrl.signUpUrl)
         }
     }

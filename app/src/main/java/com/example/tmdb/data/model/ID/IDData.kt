@@ -3,10 +3,9 @@ package com.example.tmdb.data.model.ID
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-
-@Entity(tableName = "ID")
+@Entity(tableName = "id")
 data class IDData(
     @PrimaryKey
-    val ID : String,
-    val Password : String
+    val id : String,
+    val password : String
 )

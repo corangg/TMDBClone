@@ -9,9 +9,10 @@ import javax.inject.Inject
 
 class WatchListRepository @Inject constructor(
     @ApplicationContext private val context: Context,
-    private val setAccountDataRepository: SetAccountDataRepository) {
+    private val setAccountDataRepository: SetAccountDataRepository
+) {
 
-    suspend fun addWatchList(check: Boolean, movieId: Int):Boolean?{
+    suspend fun addWatchList(check: Boolean, movieId: Int): Boolean? {
         val body = WatchListBody(
             context.getString(R.string.movie),
             movieId,

@@ -1,39 +1,39 @@
 package com.example.tmdb.data.repository
 
-import androidx.lifecycle.viewModelScope
-import com.example.tmdb.data.model.ID.IDData
 import com.example.tmdb.data.model.Result
 import com.example.tmdb.data.model.account.AccountDetailsResponse
 import com.example.tmdb.data.model.account.CreateSessionBody
 import com.example.tmdb.data.model.account.ValidateTokenBody
 import com.example.tmdb.data.source.remot.retrofit.TMDBRetrofit
-import kotlinx.coroutines.launch
 
 class SetAccountDataRepository {
-    var accountId  = -1
+    var accountId = -1
     var sessionId = ""
     var myWatchList = listOf<Result>()
 
-    suspend fun signIn(id : String, password : String) : String?{
+    suspend fun signIn(id: String, password: String): String? {
         val token = TMDBRetrofit.createToken()
         token?.let {
-            val body = ValidateTokenBody(username = id, password = password, request_token = it.request_token)
+            val body = ValidateTokenBody(
+                username = id,
+                password = password,
+                request_token = it.request_token
+            )
             val response = TMDBRetrofit.getRequestToken(body)
-            if(response !=null){
+            if (response != null) {
                 TMDBRetrofit.fetchSession(CreateSessionBody(it.request_token))?.let {
                     sessionId = it.session_id
                     return it.session_id
                 }
-            }
-            else{
+            } else {
                 return null
             }
         }
         return null
     }
 
-    suspend fun getAccountId():AccountDetailsResponse?{
-        if(sessionId != ""){
+    suspend fun getAccountId(): AccountDetailsResponse? {
+        if (sessionId != "") {
             TMDBRetrofit.getAccountId(sessionId)?.let {
                 accountId = it.id
                 return it
@@ -42,7 +42,7 @@ class SetAccountDataRepository {
         return null
     }
 
-    suspend fun getMyWatchList():List<Result>?{
+    suspend fun getMyWatchList(): List<Result>? {
         TMDBRetrofit.fetchMySavedList(accountId)?.let {
             myWatchList = it
             return it
@@ -50,11 +50,11 @@ class SetAccountDataRepository {
         return null
     }
 
-    fun checkWatchList(id: Int): Boolean{
-        val checkWatchList = myWatchList.find { it.id  == id}
-        return if(checkWatchList != null){
+    fun checkWatchList(id: Int): Boolean {
+        val checkWatchList = myWatchList.find { it.id == id }
+        return if (checkWatchList != null) {
             true
-        }else{
+        } else {
             false
         }
     }

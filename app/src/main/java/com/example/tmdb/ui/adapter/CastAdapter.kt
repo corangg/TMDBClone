@@ -2,24 +2,20 @@ package com.example.tmdb.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ActionMenuView.OnMenuItemClickListener
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
-import com.example.tmdb.databinding.ItemCastBinding
-import com.example.tmdb.databinding.ItemCompanyBinding
 import com.example.tmdb.data.model.credit.Cast
-import com.example.tmdb.data.model.detailmovie.ProductionCompany
+import com.example.tmdb.databinding.ItemCastBinding
 import com.example.tmdb.util.ItemClickInterface
 import com.example.tmdb.util.Util
 
-class CastAdapter (val list: List<Cast>, val onItemClickListener: ItemClickInterface) : RecyclerView.Adapter<CastAdapter.CastViewHolder>(){
+class CastAdapter(val list: List<Cast>, val onItemClickListener: ItemClickInterface) :
+    RecyclerView.Adapter<CastAdapter.CastViewHolder>() {
     override fun getItemCount(): Int {
         return list.size
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CastViewHolder
-            = CastViewHolder(ItemCastBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CastViewHolder =
+        CastViewHolder(ItemCastBinding.inflate(LayoutInflater.from(parent.context), parent, false))
 
     override fun onBindViewHolder(holder: CastViewHolder, position: Int) {
         holder.setProfile(list[position].profile_path)
@@ -28,25 +24,27 @@ class CastAdapter (val list: List<Cast>, val onItemClickListener: ItemClickInter
         holder.itemClicked(list[position].id)
     }
 
-    inner class CastViewHolder(private val binding: ItemCastBinding) : RecyclerView.ViewHolder(binding.root){
-        fun setProfile(url: String?){
+    inner class CastViewHolder(private val binding: ItemCastBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun setProfile(url: String?) {
             url?.let {
-                Util.setImage(it, binding.root, binding.imgProfile) }
+                Util.setImage(it, binding.root, binding.imgProfile)
+            }
         }
 
-        fun setName(name: String?){
+        fun setName(name: String?) {
             name?.let {
                 binding.textName.text = it
             }
         }
 
-        fun setCast(cast : String?){
+        fun setCast(cast: String?) {
             cast?.let {
                 binding.textCast.text = it
             }
         }
 
-        fun itemClicked(id: Int?){
+        fun itemClicked(id: Int?) {
             binding.itemCast.setOnClickListener {
                 id?.let {
                     onItemClickListener.onActorItemClick(it)

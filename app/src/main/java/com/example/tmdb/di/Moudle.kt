@@ -31,7 +31,7 @@ object Moudle {
 
     @Provides
     @Singleton
-    fun provideGetDataRepository(): GetDataRepository{
+    fun provideGetDataRepository(): GetDataRepository {
         return GetDataRepository()
     }
 
@@ -49,7 +49,10 @@ object Moudle {
 
     @Provides
     @Singleton
-    fun provideWatchListRepository(@ApplicationContext context: Context, setAccountDataRepository: SetAccountDataRepository): WatchListRepository {
+    fun provideWatchListRepository(
+        @ApplicationContext context: Context,
+        setAccountDataRepository: SetAccountDataRepository
+    ): WatchListRepository {
         return WatchListRepository(context, setAccountDataRepository)
     }
 

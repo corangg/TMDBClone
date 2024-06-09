@@ -11,9 +11,9 @@ interface IDDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertIDData(idDta: IDData)
 
-    @Query("SELECT * FROM ID")
+    @Query("SELECT * FROM id")
     suspend fun getIDData(): IDData?
 
-    @Query("DELETE FROM ID")
+    @Query("DELETE FROM id")
     suspend fun deleteIDData()
 }

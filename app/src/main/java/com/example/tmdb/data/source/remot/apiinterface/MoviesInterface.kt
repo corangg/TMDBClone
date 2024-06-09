@@ -1,31 +1,31 @@
 package com.example.tmdb.data.source.remot.apiinterface
 
 import com.example.tmdb.data.model.CreateTokenResponse
-import com.example.tmdb.data.model.search.SearchMovieResponse
-import com.example.tmdb.data.model.movies.MoviesResponse
-import com.example.tmdb.data.model.movies.NowPlayingResponse
-import com.example.tmdb.data.model.movies.PopularResponse
-import com.example.tmdb.data.model.movies.TopRatedResponse
-import com.example.tmdb.data.model.movies.UpcomingResponse
-import com.example.tmdb.data.model.credit.CreditResponse
-import com.example.tmdb.data.model.detailmovie.DetailsMovieResponse
-import com.example.tmdb.data.model.detailmovie.SimilarResponse
-import com.example.tmdb.data.model.celebrities.CelebritiesPopularResponse
-import com.example.tmdb.data.model.celebrities.CelebritiesTrendingResponse
-import com.example.tmdb.data.model.detailactor.ActorCreditResponse
-import com.example.tmdb.data.model.detailactor.DetailActorResponse
-import com.example.tmdb.data.model.rating.RatingResponse
-import com.example.tmdb.data.model.saved.SavedResponse
-import com.example.tmdb.data.model.search.SearchActorResponse
-import com.example.tmdb.data.model.video.VideoResponse
-import com.example.tmdb.data.model.watchlist.WatchListBody
-import com.example.tmdb.data.model.watchlist.WatchListResponse
 import com.example.tmdb.data.model.account.AccountDetailsResponse
 import com.example.tmdb.data.model.account.CreateSessionBody
 import com.example.tmdb.data.model.account.SessionResponse
 import com.example.tmdb.data.model.account.ValidateTokenBody
 import com.example.tmdb.data.model.account.ValidateTokenResponse
+import com.example.tmdb.data.model.celebrities.CelebritiesPopularResponse
+import com.example.tmdb.data.model.celebrities.CelebritiesTrendingResponse
+import com.example.tmdb.data.model.credit.CreditResponse
+import com.example.tmdb.data.model.detailactor.ActorCreditResponse
+import com.example.tmdb.data.model.detailactor.DetailActorResponse
+import com.example.tmdb.data.model.detailmovie.DetailsMovieResponse
+import com.example.tmdb.data.model.detailmovie.SimilarResponse
+import com.example.tmdb.data.model.movies.MoviesResponse
+import com.example.tmdb.data.model.movies.NowPlayingResponse
+import com.example.tmdb.data.model.movies.PopularResponse
+import com.example.tmdb.data.model.movies.TopRatedResponse
+import com.example.tmdb.data.model.movies.UpcomingResponse
 import com.example.tmdb.data.model.rating.RatingBody
+import com.example.tmdb.data.model.rating.RatingResponse
+import com.example.tmdb.data.model.saved.SavedResponse
+import com.example.tmdb.data.model.search.SearchActorResponse
+import com.example.tmdb.data.model.search.SearchMovieResponse
+import com.example.tmdb.data.model.video.VideoResponse
+import com.example.tmdb.data.model.watchlist.WatchListBody
+import com.example.tmdb.data.model.watchlist.WatchListResponse
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -36,7 +36,7 @@ import retrofit2.http.Query
 
 interface MoviesInterface {
     @GET("authentication/token/new")
-    fun createRequestToken(@Header("Authorization") authHeader: String,): Call<CreateTokenResponse>
+    fun createRequestToken(@Header("Authorization") authHeader: String): Call<CreateTokenResponse>
 
     @POST("authentication/token/validate_with_login")
     suspend fun validateRequestToken(

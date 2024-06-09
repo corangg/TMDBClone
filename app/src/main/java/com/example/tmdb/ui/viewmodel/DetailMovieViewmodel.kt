@@ -26,39 +26,40 @@ import javax.inject.Inject
 class DetailMovieViewmodel @Inject constructor(
     application: Application,
     private val watchListRepository: WatchListRepository,
-    private val setAccountDataRepository: SetAccountDataRepository,): AndroidViewModel(application) {
-    val movieTitle : MutableLiveData<String> = MutableLiveData("")
-    val backImg : MutableLiveData<String> = MutableLiveData("")
-    val posterImg : MutableLiveData<String> = MutableLiveData("")
-    val ratingPercentInt : MutableLiveData<Int> = MutableLiveData(0)
-    val ratingPercent : MutableLiveData<String> = MutableLiveData("0%")
-    val ratingStar : MutableLiveData<Float> = MutableLiveData(0f)
-    val ratingNum : MutableLiveData<String> = MutableLiveData("(0)")
-    val releaseDate : MutableLiveData<String> = MutableLiveData("")
-    val language : MutableLiveData<String> = MutableLiveData("")
-    val revenueValue : MutableLiveData<String> = MutableLiveData("0$")
-    val overview : MutableLiveData<String> = MutableLiveData("")
-    val countryList : MutableLiveData<List<String>> = MutableLiveData()
-    val fullImage : MutableLiveData<String> = MutableLiveData()
-    val startSeeAllMovieActivity : MutableLiveData<String> = MutableLiveData()
-    val startSeeAllActorActivity : MutableLiveData<String> = MutableLiveData()
+    private val setAccountDataRepository: SetAccountDataRepository,
+) : AndroidViewModel(application) {
+    val movieTitle: MutableLiveData<String> = MutableLiveData("")
+    val backImg: MutableLiveData<String> = MutableLiveData("")
+    val posterImg: MutableLiveData<String> = MutableLiveData("")
+    val ratingPercentInt: MutableLiveData<Int> = MutableLiveData(0)
+    val ratingPercent: MutableLiveData<String> = MutableLiveData("0%")
+    val ratingStar: MutableLiveData<Float> = MutableLiveData(0f)
+    val ratingNum: MutableLiveData<String> = MutableLiveData("(0)")
+    val releaseDate: MutableLiveData<String> = MutableLiveData("")
+    val language: MutableLiveData<String> = MutableLiveData("")
+    val revenueValue: MutableLiveData<String> = MutableLiveData("0$")
+    val overview: MutableLiveData<String> = MutableLiveData("")
+    val countryList: MutableLiveData<List<String>> = MutableLiveData()
+    val fullImage: MutableLiveData<String> = MutableLiveData()
+    val startSeeAllMovieActivity: MutableLiveData<String> = MutableLiveData()
+    val startSeeAllActorActivity: MutableLiveData<String> = MutableLiveData()
 
-    val addWatchListCheck : MutableLiveData<Boolean> = MutableLiveData(false)
+    val addWatchListCheck: MutableLiveData<Boolean> = MutableLiveData(false)
 
-    val startLoginActivity : MutableLiveData<Unit> = MutableLiveData()
+    val startLoginActivity: MutableLiveData<Unit> = MutableLiveData()
 
-    val acterId : MutableLiveData<Int> = MutableLiveData()
-    val selectMovieId : MutableLiveData<Int> = MutableLiveData()
+    val acterId: MutableLiveData<Int> = MutableLiveData()
+    val selectMovieId: MutableLiveData<Int> = MutableLiveData()
 
-    val genresList : MutableLiveData<List<Genre>> = MutableLiveData()
-    val companyList : MutableLiveData<List<ProductionCompany>> = MutableLiveData()
-    val creditList : MutableLiveData<List<Cast>> = MutableLiveData()
-    val videoList : MutableLiveData<List<VideoResult>> = MutableLiveData()
-    val similarList : MutableLiveData<List<Result>> = MutableLiveData()
+    val genresList: MutableLiveData<List<Genre>> = MutableLiveData()
+    val companyList: MutableLiveData<List<ProductionCompany>> = MutableLiveData()
+    val creditList: MutableLiveData<List<Cast>> = MutableLiveData()
+    val videoList: MutableLiveData<List<VideoResult>> = MutableLiveData()
+    val similarList: MutableLiveData<List<Result>> = MutableLiveData()
 
-    var movieId : Int = -1
+    var movieId: Int = -1
 
-    fun getMovieData(id : Int){
+    fun getMovieData(id: Int) {
         movieId = id
         viewModelScope.launch {
             TMDBRetrofit.fetchDetailMovies(id)?.let {
@@ -79,17 +80,17 @@ class DetailMovieViewmodel @Inject constructor(
         }
     }
 
-    fun checkWatchList(id: Int){
-        if(setAccountDataRepository.checkWatchList(id)){
+    fun checkWatchList(id: Int) {
+        if (setAccountDataRepository.checkWatchList(id)) {
             addWatchListCheck.value = true
-        }else{
+        } else {
             addWatchListCheck.value = false
         }
     }
 
-    private fun setMovieData(it : DetailsMovieResponse){
-        val percent = (it.vote_average*10).toInt()
-        val ratingStars = it.vote_average/2
+    private fun setMovieData(it: DetailsMovieResponse) {
+        val percent = (it.vote_average * 10).toInt()
+        val ratingStars = it.vote_average / 2
         val voteCount = it.vote_count
         val revenue = formatNumber(it.revenue)
         val overviewValue = it.overview
@@ -109,11 +110,11 @@ class DetailMovieViewmodel @Inject constructor(
         companyList.value = it.production_companies
     }
 
-    fun startActerActivity(id: Int){
+    fun startActerActivity(id: Int) {
         acterId.value = id
     }
 
-    fun startMovieActivity(id: Int){
+    fun startMovieActivity(id: Int) {
         selectMovieId.value = id
     }
 
@@ -121,54 +122,54 @@ class DetailMovieViewmodel @Inject constructor(
         return NumberFormat.getNumberInstance(Locale.US).format(number)
     }
 
-    fun onclickedbackImage(){
+    fun onclickedbackImage() {
         fullImage.value = backImg.value
     }
 
-    fun onclickedPoster(){
+    fun onclickedPoster() {
         fullImage.value = posterImg.value
     }
 
-    fun onclickedAllActors(){
+    fun onclickedAllActors() {
         startSeeAllActorActivity.value = getApplication<Application>().getString(R.string.credit)
     }
 
-    fun onclickedAllSimilarMovies(){
+    fun onclickedAllSimilarMovies() {
         startSeeAllMovieActivity.value = getApplication<Application>().getString(R.string.similar)
     }
 
-    fun addWatchList()= viewModelScope.launch{
-        if(setAccountDataRepository.accountId != -1){
+    fun addWatchList() = viewModelScope.launch {
+        if (setAccountDataRepository.accountId != -1) {
             addWatchListCheck.value?.let {
-                watchListRepository.addWatchList(it, movieId)?.let {check->
+                watchListRepository.addWatchList(it, movieId)?.let { check ->
                     addWatchListCheck.value = !check
                 }
             }
-        }else{
+        } else {
             startLoginActivity.value = Unit
         }
     }
 
-    val startGiveRatingFragment : MutableLiveData<Unit> = MutableLiveData()
-    val rating : MutableLiveData<String> = MutableLiveData()
-    val finishedGiveRatingFragment : MutableLiveData<Boolean> = MutableLiveData()
+    val startGiveRatingFragment: MutableLiveData<Unit> = MutableLiveData()
+    val rating: MutableLiveData<String> = MutableLiveData()
+    val finishedGiveRatingFragment: MutableLiveData<Boolean> = MutableLiveData()
 
 
-    fun startGiveRating(){
+    fun startGiveRating() {
         startGiveRatingFragment.value = Unit
     }
 
-    fun giveRating(check : Boolean){
-        if (check){
+    fun giveRating(check: Boolean) {
+        if (check) {
             postRating()
-        }else{
+        } else {
             finishedGiveRatingFragment.value = true
             finishedGiveRatingFragment.value = false
         }
     }
 
-    fun postRating()=viewModelScope.launch{
-        rating.value?.let {value->
+    fun postRating() = viewModelScope.launch {
+        rating.value?.let { value ->
             TMDBRetrofit.giveRating(movieId, RatingBody(value.toFloat()))?.let {
                 finishedGiveRatingFragment.value = true
                 finishedGiveRatingFragment.value = false

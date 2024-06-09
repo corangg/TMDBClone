@@ -1,12 +1,12 @@
 package com.example.tmdb.ui.fragment.profile
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.tmdb.R
 import com.example.tmdb.databinding.FragmentSavedBinding
@@ -18,9 +18,9 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SavedFragment : Fragment(), ItemClickInterface {
-    private val viewmodel : MainViewModel by activityViewModels()
-    private lateinit var binding : FragmentSavedBinding
-    private lateinit var  seeAllMovieAdapter: SeeAllMovieAdapter
+    private val viewmodel: MainViewModel by activityViewModels()
+    private lateinit var binding: FragmentSavedBinding
+    private lateinit var seeAllMovieAdapter: SeeAllMovieAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,10 +38,11 @@ class SavedFragment : Fragment(), ItemClickInterface {
     override fun onMovieItemClick(id: Int) {
         viewmodel.startMovieActivity(id)
     }
-    private fun setObserve(){
-        viewmodel.savedList.observe(viewLifecycleOwner){
-            seeAllMovieAdapter= SeeAllMovieAdapter(it.toMutableList(), this)
-            Util.setGridAdapter(binding.savedRecycler, requireContext(),0,2, seeAllMovieAdapter )
+
+    private fun setObserve() {
+        viewmodel.savedList.observe(viewLifecycleOwner) {
+            seeAllMovieAdapter = SeeAllMovieAdapter(it.toMutableList(), this)
+            Util.setGridAdapter(binding.savedRecycler, requireContext(), 0, 2, seeAllMovieAdapter)
         }
     }
 }
