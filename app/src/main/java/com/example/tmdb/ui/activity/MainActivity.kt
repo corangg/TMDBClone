@@ -1,10 +1,6 @@
 package com.example.tmdb.ui.activity
 
-import android.os.Bundle
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
+import com.example.img_decorat.ui.base.BaseActivity
 import com.example.tmdb.R
 import com.example.tmdb.databinding.ActivityMainBinding
 import com.example.tmdb.ui.fragment.CelebritiesFragment
@@ -27,22 +23,17 @@ import com.example.tmdb.util.Util.startSeeAllMovieActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
+    override fun layoutResId() = R.layout.activity_main
 
-    private lateinit var binding: ActivityMainBinding
-    private val viewModel: MainViewModel by viewModels()
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        (binding as ViewDataBinding).lifecycleOwner = this
+    override fun getViewModelClass() = MainViewModel::class.java
+
+    override fun initializeUI() {
         binding.viewmodel = viewModel
-
         viewModel.setPorfileData()
-        setObserve()
     }
 
-
-    private fun setObserve() {
+    override fun setObserve() {
         viewModel.selectNavigationItem.observe(this) {
             when (it) {
                 0 -> {

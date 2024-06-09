@@ -1,10 +1,6 @@
 package com.example.tmdb.ui.activity
 
-import android.os.Bundle
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
+import com.example.img_decorat.ui.base.BaseActivity
 import com.example.tmdb.R
 import com.example.tmdb.databinding.ActivitySeeAllBinding
 import com.example.tmdb.ui.adapter.SeeAllCreditAdapter
@@ -17,11 +13,9 @@ import com.example.tmdb.util.Util.startDetailMovieInfoActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SeeAllMoviesActivity : AppCompatActivity(),
+class SeeAllMoviesActivity : BaseActivity<ActivitySeeAllBinding, SeeAllMoviesViewmodel>(),
     ItemClickInterface {
 
-    private lateinit var binding: ActivitySeeAllBinding
-    private val viewmodel: SeeAllMoviesViewmodel by viewModels()
     private lateinit var seeAllMovieAdapter: SeeAllMovieAdapter
     private lateinit var seeAllCreditAdapter: SeeAllCreditAdapter
 
@@ -29,23 +23,22 @@ class SeeAllMoviesActivity : AppCompatActivity(),
     var id = -1
     var actorid = -1
     var page = 1
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_see_all)
-        (binding as ViewDataBinding).lifecycleOwner = this
-        binding.viewmodel = viewmodel
 
+    override fun layoutResId() = R.layout.activity_see_all
+    override fun getViewModelClass() = SeeAllMoviesViewmodel::class.java
+
+    override fun initializeUI() {
+        binding.viewmodel = viewModel
         getData()
-        Util.moreData(binding.scrollview) { viewmodel.getData(type, id, actorid) }
-        setObserve()
+        Util.moreData(binding.scrollview) { viewModel.getData(type, id, actorid) }
     }
 
     override fun onMovieItemClick(id: Int) {
-        viewmodel.startMovieActivity(id)
+        viewModel.startMovieActivity(id)
     }
 
-    private fun setObserve() {
-        viewmodel.movieList.observe(this) {
+    override fun setObserve() {
+        viewModel.movieList.observe(this) {
             if (page == 1) {
                 seeAllMovieAdapter = SeeAllMovieAdapter(it.toMutableList(), this)
                 setGridAdapter(binding.movieRecycler, this, 0, 2, seeAllMovieAdapter)
@@ -54,11 +47,11 @@ class SeeAllMoviesActivity : AppCompatActivity(),
                 seeAllMovieAdapter.addData(it)
             }
         }
-        viewmodel.creditMovieList.observe(this) {
+        viewModel.creditMovieList.observe(this) {
             seeAllCreditAdapter = SeeAllCreditAdapter(it, this)
             setGridAdapter(binding.movieRecycler, this, 0, 2, seeAllCreditAdapter)
         }
-        viewmodel.movieId.observe(this) {
+        viewModel.movieId.observe(this) {
             startDetailMovieInfoActivity(this, it)
         }
     }
@@ -69,7 +62,7 @@ class SeeAllMoviesActivity : AppCompatActivity(),
         actorid = Util.getActorID(intent, this)
         data?.let {
             type = it
-            viewmodel.getData(type, id, actorid)
+            viewModel.getData(type, id, actorid)
         }
     }
 }

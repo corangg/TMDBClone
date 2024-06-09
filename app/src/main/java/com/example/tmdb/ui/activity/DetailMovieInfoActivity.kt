@@ -1,10 +1,6 @@
 package com.example.tmdb.ui.activity
 
-import android.os.Bundle
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
+import com.example.img_decorat.ui.base.BaseActivity
 import com.example.tmdb.R
 import com.example.tmdb.databinding.ActivityDetailMovieInfoBinding
 import com.example.tmdb.ui.adapter.CastAdapter
@@ -17,8 +13,8 @@ import com.example.tmdb.ui.fragment.GiveRatingFragment
 import com.example.tmdb.ui.viewmodel.DetailMovieViewmodel
 import com.example.tmdb.util.ItemClickInterface
 import com.example.tmdb.util.Util
-import com.example.tmdb.util.Util.imgButtonSet
 import com.example.tmdb.util.Util.getMovieID
+import com.example.tmdb.util.Util.imgButtonSet
 import com.example.tmdb.util.Util.setLinearAdapter
 import com.example.tmdb.util.Util.startDetailActorInfoActivity
 import com.example.tmdb.util.Util.startDetailMovieInfoActivity
@@ -30,10 +26,9 @@ import com.example.tmdb.util.Util.startVideoActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class DetailMovieInfoActivity : AppCompatActivity(),
+class DetailMovieInfoActivity :
+    BaseActivity<ActivityDetailMovieInfoBinding, DetailMovieViewmodel>(),
     ItemClickInterface {
-    private lateinit var binding: ActivityDetailMovieInfoBinding
-    private val viewModel: DetailMovieViewmodel by viewModels()
 
     private lateinit var countryAdapter: CountryAdapter
     private lateinit var companyAdapter: CompanyAdapter
@@ -43,14 +38,14 @@ class DetailMovieInfoActivity : AppCompatActivity(),
     private lateinit var movieAdapter: MovieAdapter
 
     var id = -1
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_detail_movie_info)
-        (binding as ViewDataBinding).lifecycleOwner = this
-        binding.viewmodel = viewModel
 
+    override fun layoutResId() = R.layout.activity_detail_movie_info
+
+    override fun getViewModelClass() = DetailMovieViewmodel::class.java
+
+    override fun initializeUI() {
+        binding.viewmodel = viewModel
         setMovie()
-        setObserve()
     }
 
     override fun onVideoItemClick(key: String) {
@@ -65,15 +60,7 @@ class DetailMovieInfoActivity : AppCompatActivity(),
         viewModel.startActerActivity(id)
     }
 
-    private fun setMovie() {
-        id = getMovieID(intent, this)
-        if (id != -1) {
-            viewModel.getMovieData(id)
-            viewModel.checkWatchList(id)
-        }
-    }
-
-    private fun setObserve() {
+    override fun setObserve() {
         viewModel.backImg.observe(this) {
             Util.setImage(it, binding.root, binding.imgBack)
         }
@@ -153,6 +140,14 @@ class DetailMovieInfoActivity : AppCompatActivity(),
         viewModel.startGiveRatingFragment.observe(this) {
             supportFragmentManager.beginTransaction().add(binding.view.id, GiveRatingFragment())
                 .addToBackStack(null).commit()
+        }
+    }
+
+    private fun setMovie() {
+        id = getMovieID(intent, this)
+        if (id != -1) {
+            viewModel.getMovieData(id)
+            viewModel.checkWatchList(id)
         }
     }
 }

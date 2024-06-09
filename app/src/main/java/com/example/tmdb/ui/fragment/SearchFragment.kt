@@ -1,15 +1,9 @@
 package com.example.tmdb.ui.fragment
 
 import android.graphics.Color
-import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import com.example.img_decorat.ui.base.BaseFragment
 import com.example.tmdb.R
 import com.example.tmdb.data.model.Result
 import com.example.tmdb.data.model.celebrities.CelebritiesResult
@@ -22,23 +16,17 @@ import com.example.tmdb.util.Util
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SearchFragment : Fragment(), ItemClickInterface {
-    private val viewModel: MainViewModel by activityViewModels()
-    private lateinit var binding: FragmentSearchBinding
+class SearchFragment : BaseFragment<FragmentSearchBinding, MainViewModel>(), ItemClickInterface {
     private lateinit var searchMovieAdapter: SeeAllMovieAdapter
     private lateinit var searchActorAdapter: SeeAllActorAdapter
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_search, container, false)
-        (binding as ViewDataBinding).lifecycleOwner = this
-        binding.viewmodel = viewModel
+    override fun layoutResId() = R.layout.fragment_search
+    override fun getViewModelClass() = MainViewModel::class.java
 
+    override fun initializeUI() {
+        binding.viewmodel = viewModel
         setObserve()
         Util.moreData(binding.scrollview) { viewModel.getMorePage() }
-        return binding.root
     }
 
     override fun onActorItemClick(id: Int) {

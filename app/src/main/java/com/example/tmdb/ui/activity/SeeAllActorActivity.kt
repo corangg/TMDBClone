@@ -1,10 +1,6 @@
 package com.example.tmdb.ui.activity
 
-import android.os.Bundle
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
+import com.example.img_decorat.ui.base.BaseActivity
 import com.example.tmdb.R
 import com.example.tmdb.databinding.ActivitySeeAllActorBinding
 import com.example.tmdb.ui.adapter.SeeAllActorAdapter
@@ -17,11 +13,9 @@ import com.example.tmdb.util.Util.startDetailActorInfoActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SeeAllActorActivity : AppCompatActivity(),
+class SeeAllActorActivity : BaseActivity<ActivitySeeAllActorBinding, SeeAllActorViewmodel>(),
     ItemClickInterface {
 
-    private lateinit var binding: ActivitySeeAllActorBinding
-    private val viewmodel: SeeAllActorViewmodel by viewModels()
     private lateinit var seeAllActorAdapter: SeeAllActorAdapter
     private lateinit var seeAllMovieActorAdapter: SeeAllMovieActorAdapter
 
@@ -29,32 +23,21 @@ class SeeAllActorActivity : AppCompatActivity(),
     var page = 1
     var id = -1
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_see_all_actor)
-        (binding as ViewDataBinding).lifecycleOwner = this
-        binding.viewmodel = viewmodel
+    override fun layoutResId() = R.layout.activity_see_all_actor
+    override fun getViewModelClass() = SeeAllActorViewmodel::class.java
 
+    override fun initializeUI() {
+        binding.viewmodel = viewModel
         getData()
-        moreData(binding.scrollview) { viewmodel.getData(type, id) }
-        setObserve()
-    }
-
-    private fun getData() {
-        val data = intent.getStringExtra(getString(R.string.seeAllActor))
-        id = Util.getMovieID(intent, this)
-        data?.let {
-            type = it
-            viewmodel.getData(type, id)
-        }
+        moreData(binding.scrollview) { viewModel.getData(type, id) }
     }
 
     override fun onActorItemClick(id: Int) {
-        viewmodel.startMovieActivity(id)
+        viewModel.startMovieActivity(id)
     }
 
-    private fun setObserve() {
-        viewmodel.actorList.observe(this) {
+    override fun setObserve() {
+        viewModel.actorList.observe(this) {
             if (page == 1) {
                 seeAllActorAdapter = SeeAllActorAdapter(it.toMutableList(), this)
                 Util.setLinearAdapter(binding.actorRecycler, this, 0, seeAllActorAdapter)
@@ -63,7 +46,7 @@ class SeeAllActorActivity : AppCompatActivity(),
                 seeAllActorAdapter.addData(it)
             }
         }
-        viewmodel.creditList.observe(this) {
+        viewModel.creditList.observe(this) {
             if (page == 1) {
                 seeAllMovieActorAdapter = SeeAllMovieActorAdapter(it.toMutableList(), this)
                 Util.setLinearAdapter(binding.actorRecycler, this, 0, seeAllMovieActorAdapter)
@@ -72,8 +55,17 @@ class SeeAllActorActivity : AppCompatActivity(),
                 seeAllMovieActorAdapter.addData(it)
             }
         }
-        viewmodel.actorId.observe(this) {
+        viewModel.actorId.observe(this) {
             startDetailActorInfoActivity(this, it)
+        }
+    }
+
+    private fun getData() {
+        val data = intent.getStringExtra(getString(R.string.seeAllActor))
+        id = Util.getMovieID(intent, this)
+        data?.let {
+            type = it
+            viewModel.getData(type, id)
         }
     }
 }

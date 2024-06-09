@@ -1,15 +1,8 @@
 package com.example.tmdb.ui.fragment
 
-import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import com.example.img_decorat.ui.base.BaseFragment
 import com.example.tmdb.R
 import com.example.tmdb.databinding.FragmentMoviesBinding
 import com.example.tmdb.ui.UIHelper
@@ -20,11 +13,8 @@ import com.example.tmdb.util.Util
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MoviesFragment : Fragment(), ItemClickInterface {
-    private val viewModel: MainViewModel by activityViewModels()
-
+class MoviesFragment : BaseFragment<FragmentMoviesBinding, MainViewModel>(), ItemClickInterface {
     private val handler = Handler(Looper.getMainLooper())
-    private lateinit var binding: FragmentMoviesBinding
     private lateinit var uiHelper: UIHelper
 
     private lateinit var moviesAdapter: MovieAdapter
@@ -33,18 +23,15 @@ class MoviesFragment : Fragment(), ItemClickInterface {
     private lateinit var topRatedAdapter: MovieAdapter
     private lateinit var upComingAdapter: MovieAdapter
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_movies, container, false)
-        (binding as ViewDataBinding).lifecycleOwner = this
+    override fun layoutResId() = R.layout.fragment_movies
+    override fun getViewModelClass() = MainViewModel::class.java
+
+    override fun initializeUI() {
         binding.viewmodel = viewModel
 
         uiHelper = UIHelper()
         viewModel.setMoviesList()
         setObserve()
-        return binding.root
     }
 
     override fun onDestroy() {
