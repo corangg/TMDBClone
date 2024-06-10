@@ -1,0 +1,26 @@
+[33m15d7fa4[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m HEAD@{0}: reset: moving to 15d7fa4eadb2c344f917c05840bf33de665d111a
+[33mf7046d7[m HEAD@{1}: commit: refactor: 불필요한 casting 제거
+[33m4deb525[m HEAD@{2}: commit: refactor: Domain 생성
+[33m15d7fa4[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m HEAD@{3}: commit: refactor(Activity, Fragment): Activity, Fragment 모듈화
+[33m54b7e90[m HEAD@{4}: commit: style: 대문자로 시작하는 함수명 수정
+[33m66f17e2[m HEAD@{5}: commit: refactor(database): IDData entity 이름 변경
+[33m2014765[m HEAD@{6}: commit: - 완료
+[33m6634141[m HEAD@{7}: commit: - 완료
+[33m1dd9036[m HEAD@{8}: commit: - 평점매기기 필요
+[33ma9bafd1[m HEAD@{9}: commit: - 평점매기기 제외 기능 추가 완료
+[33me4c89e4[m HEAD@{10}: commit: - 즐겨찾기 추가 평점매기기 제외 기능 추가 완료
+[33m328eb38[m HEAD@{11}: commit: - 즐겨찾기 추가 평점매기기 제외 기능 추가 완료
+[33m6e7eb2d[m HEAD@{12}: commit: - ui끝 코드 정리하고 프로필, 로그인 기능 구현 필요
+[33m65d9013[m HEAD@{13}: commit: - ui끝 코드 정리하고 프로필, 로그인 기능 구현 필요
+[33m59de5f7[m HEAD@{14}: commit: - 정리중
+[33me03639c[m HEAD@{15}: commit: - 정리중
+[33m0164fc6[m HEAD@{16}: commit: - 정리중
+[33m32ff4f0[m HEAD@{17}: commit: - 정리중
+[33m0ee7459[m HEAD@{18}: commit: - movies 완
+[33m952748d[m HEAD@{19}: commit: - see all 작업중
+[33m28d8ada[m HEAD@{20}: commit: - movie 클릭
+[33mfba2144[m HEAD@{21}: commit: - movie 클릭
+[33mb3d7164[m HEAD@{22}: commit: - movies 끝
+[33m8a4aab2[m HEAD@{23}: commit: - movies 끝
+[33m6961f23[m HEAD@{24}: commit: - movies 끝
+[33m22b115f[m HEAD@{25}: commit (initial): - TMDB클론 코딩 시작
