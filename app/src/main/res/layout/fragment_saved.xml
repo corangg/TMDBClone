@@ -6,7 +6,6 @@
         <variable
             name="viewmodel"
             type="com.example.tmdb.presentation.viewmodel.MainViewModel" />
-
     </data>
 
     <LinearLayout
@@ -26,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/my_saved"
                 android:gravity="center_horizontal"
-                android:textSize="24sp"
+                android:textSize="@dimen/text_title"
                 android:textColor="@color/logincolor" />
         </androidx.appcompat.widget.Toolbar>
 
@@ -40,6 +39,5 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/saved_recycler" />
         </ScrollView>
-
     </LinearLayout>
 </layout>

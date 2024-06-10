@@ -3,5 +3,7 @@
     android:shape="oval">
     <solid android:color="@color/logincolor"/>
     <stroke/>
-    <size android:width="6dp" android:height="6dp"/>
+    <size
+        android:width="@dimen/indicator_selected_radius"
+        android:height="@dimen/indicator_selected_radius"/>
 </shape>

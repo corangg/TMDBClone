@@ -21,13 +21,13 @@
             android:background="@drawable/bg_title"
             app:title="@string/celebrities"
             app:titleTextColor="@color/white"
-            android:paddingHorizontal="24dp"
+            android:paddingHorizontal="@dimen/title_padding_horizontal"
             android:id="@+id/title_celebrities" />
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="12dp"
+            android:padding="@dimen/fragment_padding"
             android:background="@color/black">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -36,8 +36,8 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="24dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_height="@dimen/layer_see_all"
+                    android:layout_marginTop="@dimen/detail_item_margin_top"
                     android:orientation="horizontal">
                     <TextView
                         android:layout_width="wrap_content"
@@ -45,27 +45,27 @@
                         android:text="@string/popular"
                         android:textColor="@color/white"
                         android:layout_alignParentBottom="true"
-                        android:textSize="16sp"/>
+                        android:textSize="@dimen/text_detail_item"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="@dimen/see_all_margin_top"
                         android:layout_alignParentBottom="true"
                         android:layout_toStartOf="@+id/btn_popular_see_all"
-                        android:textSize="14sp"
-                        android:layout_marginEnd="12dp"
+                        android:textSize="@dimen/text_detial_normal"
+                        android:layout_marginEnd="@dimen/see_all_margin_end"
                         android:text="@string/seeall"
                         android:textColor="@color/logincolor"
                         android:onClick="@{()->viewmodel.celebritiesPopularSeeAll()}"
                         />
 
                     <ImageButton
-                        android:layout_width="12dp"
-                        android:layout_height="12dp"
+                        android:layout_width="@dimen/img_see_all_ic"
+                        android:layout_height="@dimen/img_see_all_ic"
                         android:id="@+id/btn_popular_see_all"
                         android:background="@drawable/ic_right"
                         android:layout_alignParentBottom="true"
-                        android:layout_marginEnd="12dp"
+                        android:layout_marginEnd="@dimen/see_all_margin_end"
                         android:backgroundTint="@color/white"
                         android:layout_alignParentEnd="true"
                         android:onClick="@{()->viewmodel.celebritiesPopularSeeAll()}"/>
@@ -74,13 +74,13 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="@dimen/detail_item_margin_top"
                     android:id="@+id/celebrities_popular_recycler"/>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="24dp"
-                    android:layout_marginTop="24dp"
+                    android:layout_height="@dimen/layer_see_all"
+                    android:layout_marginTop="@dimen/celebrities_margin_top"
                     android:orientation="horizontal">
                     <TextView
                         android:layout_width="wrap_content"
@@ -88,27 +88,27 @@
                         android:text="@string/trending"
                         android:textColor="@color/white"
                         android:layout_alignParentBottom="true"
-                        android:textSize="16sp"/>
+                        android:textSize="@dimen/text_detail_item"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="@dimen/see_all_margin_top"
                         android:layout_alignParentBottom="true"
                         android:layout_toStartOf="@+id/btn_trending_see_all"
-                        android:textSize="14sp"
-                        android:layout_marginEnd="12dp"
+                        android:textSize="@dimen/text_detial_normal"
+                        android:layout_marginEnd="@dimen/see_all_margin_end"
                         android:text="@string/seeall"
                         android:textColor="@color/logincolor"
                         android:onClick="@{()->viewmodel.celebritiesTrendingSeeAll()}"
                         />
 
                     <ImageButton
-                        android:layout_width="12dp"
-                        android:layout_height="12dp"
+                        android:layout_width="@dimen/img_see_all_ic"
+                        android:layout_height="@dimen/img_see_all_ic"
                         android:id="@+id/btn_trending_see_all"
                         android:background="@drawable/ic_right"
                         android:layout_alignParentBottom="true"
-                        android:layout_marginEnd="12dp"
+                        android:layout_marginEnd="@dimen/see_all_margin_end"
                         android:backgroundTint="@color/white"
                         android:layout_alignParentEnd="true"
                         android:onClick="@{()->viewmodel.celebritiesTrendingSeeAll()}"/>
@@ -116,7 +116,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="@dimen/detail_item_margin_top"
                     android:id="@+id/celebrities_trending_recycler"/>
             </LinearLayout>
         </ScrollView>

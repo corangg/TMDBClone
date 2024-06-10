@@ -20,12 +20,12 @@
             android:background="@drawable/bg_title"
             app:title="@string/movies"
             app:titleTextColor="@color/white"
-            android:paddingHorizontal="24dp"
+            android:paddingHorizontal="@dimen/title_padding_horizontal"
             android:id="@+id/title_movies"/>
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="12dp"
+            android:padding="@dimen/fragment_padding"
             android:background="@color/black">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -33,7 +33,7 @@
                 android:orientation="vertical">
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="196dp">
+                    android:layout_height="@dimen/movies_main_height">
                     <androidx.viewpager2.widget.ViewPager2
                         android:id="@+id/viewPager"
                         android:layout_width="match_parent"
@@ -52,12 +52,12 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="24dp"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginTop="24dp">
+                    android:layout_marginTop="@dimen/celebrities_margin_top">
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="24dp"
+                        android:layout_height="@dimen/layer_see_all"
                         android:orientation="horizontal">
                         <TextView
                             android:layout_width="wrap_content"
@@ -65,27 +65,27 @@
                             android:text="@string/nowplaying"
                             android:textColor="@color/white"
                             android:layout_alignParentBottom="true"
-                            android:textSize="16sp"/>
+                            android:textSize="@dimen/text_detail_item"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
+                            android:layout_marginTop="@dimen/detail_poster_margin_start"
                             android:layout_alignParentBottom="true"
                             android:layout_toStartOf="@+id/btn_now_playing_see_all"
-                            android:textSize="14sp"
-                            android:layout_marginEnd="12dp"
+                            android:textSize="@dimen/text_detial_normal"
+                            android:layout_marginEnd="@dimen/see_all_margin_end"
                             android:text="@string/seeall"
                             android:textColor="@color/logincolor"
                             android:onClick="@{()->viewmodel.nowPlayingSeeAll()}"
                             />
 
                         <ImageButton
-                            android:layout_width="12dp"
-                            android:layout_height="12dp"
+                            android:layout_width="@dimen/img_see_all_ic"
+                            android:layout_height="@dimen/img_see_all_ic"
                             android:id="@+id/btn_now_playing_see_all"
                             android:background="@drawable/ic_right"
                             android:layout_alignParentBottom="true"
-                            android:layout_marginEnd="12dp"
+                            android:layout_marginEnd="@dimen/see_all_margin_end"
                             android:backgroundTint="@color/white"
                             android:layout_alignParentEnd="true"
                             android:onClick="@{()->viewmodel.nowPlayingSeeAll()}"/>
@@ -95,17 +95,17 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="@dimen/detail_item_margin_top"
                     android:id="@+id/movies_now_playing_recycler"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="24dp"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginTop="20dp">
+                    android:layout_marginTop="@dimen/layout_margin_top">
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="24dp"
+                        android:layout_height="@dimen/layer_see_all"
                         android:orientation="horizontal">
                         <TextView
                             android:layout_width="wrap_content"
@@ -113,27 +113,27 @@
                             android:text="@string/popular"
                             android:textColor="@color/white"
                             android:layout_alignParentBottom="true"
-                            android:textSize="16sp"/>
+                            android:textSize="@dimen/text_detail_item"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
+                            android:layout_marginTop="@dimen/see_all_margin_top"
                             android:layout_alignParentBottom="true"
                             android:layout_toStartOf="@+id/btn_popular_see_all"
-                            android:textSize="14sp"
-                            android:layout_marginEnd="12dp"
+                            android:textSize="@dimen/text_detial_normal"
+                            android:layout_marginEnd="@dimen/see_all_margin_end"
                             android:text="@string/seeall"
                             android:textColor="@color/logincolor"
                             android:onClick="@{()->viewmodel.popularSeeAll()}"
                             />
 
                         <ImageButton
-                            android:layout_width="12dp"
-                            android:layout_height="12dp"
+                            android:layout_width="@dimen/img_see_all_ic"
+                            android:layout_height="@dimen/img_see_all_ic"
                             android:id="@+id/btn_popular_see_all"
                             android:background="@drawable/ic_right"
                             android:layout_alignParentBottom="true"
-                            android:layout_marginEnd="12dp"
+                            android:layout_marginEnd="@dimen/see_all_margin_end"
                             android:backgroundTint="@color/white"
                             android:layout_alignParentEnd="true"
                             android:onClick="@{()->viewmodel.popularSeeAll()}"/>
@@ -143,19 +143,17 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="@dimen/detail_item_margin_top"
                     android:id="@+id/movies_popular_recycler"/>
-
-                <!--toprated-->
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="24dp"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginTop="20dp">
+                    android:layout_marginTop="@dimen/layout_margin_top">
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="24dp"
+                        android:layout_height="@dimen/layer_see_all"
                         android:orientation="horizontal">
                         <TextView
                             android:layout_width="wrap_content"
@@ -163,26 +161,26 @@
                             android:text="@string/topRated"
                             android:textColor="@color/white"
                             android:layout_alignParentBottom="true"
-                            android:textSize="16sp"/>
+                            android:textSize="@dimen/text_detail_item"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
+                            android:layout_marginTop="@dimen/detail_poster_margin_start"
                             android:layout_alignParentBottom="true"
                             android:layout_toStartOf="@+id/btn_top_rated_see_all"
-                            android:textSize="14sp"
-                            android:layout_marginEnd="12dp"
+                            android:textSize="@dimen/text_detial_normal"
+                            android:layout_marginEnd="@dimen/see_all_margin_end"
                             android:text="@string/seeall"
                             android:textColor="@color/logincolor"
                             android:onClick="@{()->viewmodel.topRatedSeeAll()}"/>
 
                         <ImageButton
-                            android:layout_width="12dp"
-                            android:layout_height="12dp"
+                            android:layout_width="@dimen/img_see_all_ic"
+                            android:layout_height="@dimen/img_see_all_ic"
                             android:id="@+id/btn_top_rated_see_all"
                             android:background="@drawable/ic_right"
                             android:layout_alignParentBottom="true"
-                            android:layout_marginEnd="12dp"
+                            android:layout_marginEnd="@dimen/see_all_margin_end"
                             android:backgroundTint="@color/white"
                             android:layout_alignParentEnd="true"
                             android:onClick="@{()->viewmodel.topRatedSeeAll()}"/>
@@ -192,17 +190,17 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="@dimen/detail_item_margin_top"
                     android:id="@+id/movies_top_rated_recycler"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="24dp"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginTop="20dp">
+                    android:layout_marginTop="@dimen/layout_margin_top">
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="24dp"
+                        android:layout_height="@dimen/layer_see_all"
                         android:orientation="horizontal">
                         <TextView
                             android:layout_width="wrap_content"
@@ -210,26 +208,26 @@
                             android:text="@string/upcoming"
                             android:textColor="@color/white"
                             android:layout_alignParentBottom="true"
-                            android:textSize="16sp"/>
+                            android:textSize="@dimen/text_detail_item"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
+                            android:layout_marginTop="@dimen/detail_poster_margin_start"
                             android:layout_alignParentBottom="true"
                             android:layout_toStartOf="@+id/btn_upcoming_see_all"
-                            android:textSize="14sp"
-                            android:layout_marginEnd="12dp"
+                            android:textSize="@dimen/text_detial_normal"
+                            android:layout_marginEnd="@dimen/see_all_margin_end"
                             android:text="@string/seeall"
                             android:textColor="@color/logincolor"
                             android:onClick="@{()->viewmodel.upcomingSeeAll()}"/>
 
                         <ImageButton
-                            android:layout_width="12dp"
-                            android:layout_height="12dp"
+                            android:layout_width="@dimen/img_see_all_ic"
+                            android:layout_height="@dimen/img_see_all_ic"
                             android:id="@+id/btn_upcoming_see_all"
                             android:background="@drawable/ic_right"
                             android:layout_alignParentBottom="true"
-                            android:layout_marginEnd="12dp"
+                            android:layout_marginEnd="@dimen/see_all_margin_end"
                             android:backgroundTint="@color/white"
                             android:layout_alignParentEnd="true"
                             android:onClick="@{()->viewmodel.upcomingSeeAll()}"/>
@@ -239,7 +237,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="@dimen/detail_name_margin_top"
                     android:id="@+id/movies_upcoming_recycler"/>
             </LinearLayout>
         </ScrollView>

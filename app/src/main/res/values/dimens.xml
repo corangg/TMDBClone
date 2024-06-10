@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="text_title">24sp</dimen>
+    <dimen name="text_detail_name">20sp</dimen>
+    <dimen name="text_detail_smal">10sp</dimen>
+    <dimen name="text_detial_normal">14sp</dimen>
+    <dimen name="text_detail_item">16sp</dimen>
+    <dimen name="text_graphy">13sp</dimen>
+    <dimen name="text_circular_progress">8sp</dimen>
+    <dimen name="text_id">18sp</dimen>
+    <dimen name="text_about">19sp</dimen>
+    <dimen name="text_connection">36sp</dimen>
+    <dimen name="text_give_rating">32sp</dimen>
+    <dimen name="text_profile_id">11sp</dimen>
+    <dimen name="text_popular">9sp</dimen>
+    <dimen name="text_name">12sp</dimen>
+
+
+    <dimen name="img_detail_act_width">160dp</dimen>
+    <dimen name="img_detail_act_height">240dp</dimen>
+    <dimen name="layer_see_all">24dp</dimen>
+    <dimen name="img_see_all_ic">12dp</dimen>
+    <dimen name="gradient_height">40dp</dimen>
+    <dimen name="img_detail_movie_width">140dp</dimen>
+    <dimen name="btn_back_width">80dp</dimen>
+    <dimen name="btn_back_height">40dp</dimen>
+    <dimen name="img_logo_width">172dp</dimen>
+    <dimen name="img_logo_height">120dp</dimen>
+    <dimen name="img_contact_height">60dp</dimen>
+    <dimen name="btn_height">40dp</dimen>
+    <dimen name="btn_size">36dp</dimen>
+    <dimen name="movies_main_height">196dp</dimen>
+    <dimen name="img_network_off">180dp</dimen>
+    <dimen name="img_profile">100dp</dimen>
+    <dimen name="layer_profile">52dp</dimen>
+    <dimen name="img_profile_item">24dp</dimen>
+    <dimen name="layer_search_height">60dp</dimen>
+    <dimen name="img_search">140dp</dimen>
+    <dimen name="layer_tranding_width">308dp</dimen>
+    <dimen name="layer_tranding_height">72dp</dimen>
+    <dimen name="btn_trending_detail">8dp</dimen>
+    <dimen name="img_company_width">50dp</dimen>
+    <dimen name="img_company_height">28dp</dimen>
+    <dimen name="country_height">18dp</dimen>
+    <dimen name="genre_height">26dp</dimen>
+    <dimen name="movie_alpha_height">60dp</dimen>
+    <dimen name="now_playing_width">112dp</dimen>
+    <dimen name="now_playing_height">168dp</dimen>
+    <dimen name="movies_text_height">20dp</dimen>
+    <dimen name="popular_width">236dp</dimen>
+    <dimen name="popular_height">138dp</dimen>
+    <dimen name="top_rated_width">268dp</dimen>
+    <dimen name="img_top_rated_width">60dp</dimen>
+    <dimen name="img_top_rated_height">64dp</dimen>
+    <dimen name="img_top_rated_detail">10dp</dimen>
+    <dimen name="video_width">206dp</dimen>
+    <dimen name="img_actor_see_all_width">80dp</dimen>
+    <dimen name="img_actor_see_all_height">120dp</dimen>
+    <dimen name="btn_detail">12dp</dimen>
+    <dimen name="img_popular_width">120dp</dimen>
+    <dimen name="img_popular_height">148dp</dimen>
+
+
+    <dimen name="layout_margin_top">20dp</dimen>
+    <dimen name="layout_margin_end">16dp</dimen>
+
+    <dimen name="detail_margin_top">20dp</dimen>
+    <dimen name="detail_margin">6dp</dimen>
+    <dimen name="detail_poster_margin_start">8dp</dimen>
+    <dimen name="detail_name_margin_top">12dp</dimen>
+    <dimen name="detail_smal_margin">4dp</dimen>
+    <dimen name="detail_item_margin">10dp</dimen>
+    <dimen name="detail_item_margin_top">10dp</dimen>
+    <dimen name="detail_movie_circle_margin">2dp</dimen>
+    <dimen name="detail_margin_bottom">32dp</dimen>
+
+    <dimen name="see_all_margin_start">16dp</dimen>
+    <dimen name="see_all_margin_top">8dp</dimen>
+    <dimen name="see_all_margin_end">12dp</dimen>
+
+    <dimen name="log_in_logo_margin_top">60dp</dimen>
+    <dimen name="log_in_logo_id_margin">80dp</dimen>
+    <dimen name="log_in_id_margin">28dp</dimen>
+    <dimen name="log_in_id_sign_in_margin">72dp</dimen>
+    <dimen name="log_in_sign_in_up_margin">16dp</dimen>
+    <dimen name="log_in_sign_up_guest_margin">50dp</dimen>
+    <dimen name="log_in_sign_up_margin_start">30dp</dimen>
+
+    <dimen name="celebrities_margin_top">24dp</dimen>
+
+    <dimen name="contact_margin_top">100dp</dimen>
+    <dimen name="contact_margin_connection">60dp</dimen>
+    <dimen name="contact_margin_ic">36dp</dimen>
+    <dimen name="contact_margin_horizontal">32dp</dimen>
+
+    <dimen name="give_rating_margin_horizontal">10dp</dimen>
+    <dimen name="give_rating_btn_margin_top">24dp</dimen>
+
+    <dimen name="profile_margin_start">12dp</dimen>
+    <dimen name="search_margin_start">10dp</dimen>
+    <dimen name="actor_see_all_margin_top">16dp</dimen>
+
+
+    <dimen name="fragment_padding">12dp</dimen>
+    <dimen name="btn_padding_horizontal">40dp</dimen>
+
+    <dimen name="title_padding_horizontal">24dp</dimen>
+    <dimen name="log_in_padding_horizontal">32dp</dimen>
+    <dimen name="log_in_logo_padding_horizontal">40dp</dimen>
+    <dimen name="log_in_id_padding_vertical">12dp</dimen>
+    <dimen name="log_in_id_padding_horizontal">10dp</dimen>
+    <dimen name="log_in_btn_padding_vertical">14dp</dimen>
+    <dimen name="contact_padding_horizontal">24dp</dimen>
+
+    <dimen name="about_padding">16dp</dimen>
+
+    <dimen name="give_rating_padding">20dp</dimen>
+    <dimen name="give_rating_padding_horizontal">60dp</dimen>
+    <dimen name="tin_padding">1dp</dimen>
+    <dimen name="genre_padding">5dp</dimen>
+
+
+    <dimen name="poster_radius">8dp</dimen>
+    <dimen name="circle_size">32dp</dimen>
+    <dimen name="circular_progress_size">26dp</dimen>
+    <dimen name="circular_progress_width">2dp</dimen>
+    <dimen name="bookmark_size">32dp</dimen>
+    <dimen name="profile_radius">50dp</dimen>
+    <dimen name="indicator_selected_radius">6dp</dimen>
+    <dimen name="stroke_radius">2dp</dimen>
+    <dimen name="stroke_radius_normal">4dp</dimen>
+    <dimen name="bg_circle_size">12dp</dimen>
+
+
+
+
+</resources>

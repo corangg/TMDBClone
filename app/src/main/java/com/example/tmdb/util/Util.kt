@@ -79,7 +79,7 @@ object Util {
         }
     }
 
-    fun <T> setupAdapter(
+    fun <T> setupLinearAdapter(
         recyclerView: RecyclerView,
         context: Context,
         dataList: List<T>,
@@ -90,6 +90,25 @@ object Util {
     ): Boolean {
         return if (firstPage) {
             setLinearAdapter(recyclerView, context, type, adapter)
+            false
+        } else {
+            addData(recyclerView.adapter!!, dataList)
+            false
+        }
+    }
+
+    fun <T> setupGridAdapter(
+        recyclerView: RecyclerView,
+        context: Context,
+        dataList: List<T>,
+        firstPage: Boolean,
+        adapter: RecyclerView.Adapter<*>,
+        addData: (RecyclerView.Adapter<*>, List<T>) -> Unit,
+        spanCount: Int,
+        type: Int = 0
+    ): Boolean {
+        return if (firstPage) {
+            setGridAdapter(recyclerView, context, type, spanCount, adapter)
             false
         } else {
             addData(recyclerView.adapter!!, dataList)
@@ -112,7 +131,7 @@ object Util {
     }
 
     suspend fun <T> getApiCall(tag: String, call: suspend () -> Call<T>): T? {
-        return return withContext(Dispatchers.IO) {
+        return withContext(Dispatchers.IO) {
             try {
                 val response = call().execute()
                 if (response.isSuccessful) {

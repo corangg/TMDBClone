@@ -22,7 +22,7 @@ class SeeAllActorViewmodel @Inject constructor(application: Application) :
     val actorList: MutableLiveData<List<CelebritiesResult>> = MutableLiveData()
     val creditList: MutableLiveData<List<Cast>> = MutableLiveData()
 
-    var page: Int = 0
+    private var page: Int = 0
 
     fun getData(type: String, moiveID: Int) = viewModelScope.launch {
         title.value = type

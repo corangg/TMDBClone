@@ -19,7 +19,6 @@ class LoginViewmodel @Inject constructor(
     private val getDataRepository: GetDataRepository,
     private val setAccountDataRepository: SetAccountDataRepository
 ) : AndroidViewModel(application) {
-
     val id: MutableLiveData<String> = MutableLiveData()
     val password: MutableLiveData<String> = MutableLiveData()
 
@@ -29,6 +28,26 @@ class LoginViewmodel @Inject constructor(
     init {
         loginCheck()
         getTMDBData()
+    }
+
+    fun signUp() {
+        openSignUpPage.value = Unit
+    }
+
+    fun clickedSignIn() = viewModelScope.launch {
+        val idValue = id.value
+        val passwordValue = password.value
+
+        if (idValue != null && passwordValue != null) {
+            setAccountDataRepository.signIn(idValue, passwordValue)?.let {
+                saveLoginData(idValue, passwordValue)
+                startMainActivity.value = Unit
+            }
+        }
+    }
+
+    fun servieceContinue() {
+        startMainActivity.value = Unit
     }
 
     private fun loginCheck() = viewModelScope.launch {
@@ -50,25 +69,5 @@ class LoginViewmodel @Inject constructor(
     private fun saveLoginData(id: String, password: String) = viewModelScope.launch {
         val idData = IDData(id, password)
         getLoginDataRepository.insertID(idData)
-    }
-
-    fun signUp() {
-        openSignUpPage.value = Unit
-    }
-
-    fun clickedSignIn() = viewModelScope.launch {
-        val idValue = id.value
-        val passwordValue = password.value
-
-        if (idValue != null && passwordValue != null) {
-            setAccountDataRepository.signIn(idValue, passwordValue)?.let {
-                saveLoginData(idValue, passwordValue)
-                startMainActivity.value = Unit
-            }
-        }
-    }
-
-    fun servieceContinue() {
-        startMainActivity.value = Unit
     }
 }

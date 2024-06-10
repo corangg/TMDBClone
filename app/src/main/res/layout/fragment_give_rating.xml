@@ -22,10 +22,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
+            android:layout_marginHorizontal="@dimen/give_rating_margin_horizontal"
             android:layout_centerVertical="true"
             android:background="@drawable/bg_orangestroke_black"
-            android:padding="20dp"
+            android:padding="@dimen/give_rating_padding"
             android:orientation="vertical">
 
             <TextView
@@ -33,20 +33,20 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
                 android:text="@string/giverating"
-                android:textSize="20sp" />
+                android:textSize="@dimen/text_detail_name" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="60dp"
-                android:layout_marginTop="20dp"
+                android:paddingHorizontal="@dimen/give_rating_padding_horizontal"
+                android:layout_marginTop="@dimen/layout_margin_top"
                 android:orientation="horizontal">
 
                 <EditText
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textSize="32sp"
+                    android:textSize="@dimen/text_give_rating"
                     android:gravity="center_horizontal"
                     android:hint="@string/ratinghint"
                     android:textColorHint="@color/gray"
@@ -59,7 +59,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/split"
                     android:textColor="@color/white"
-                    android:textSize="32sp" />
+                    android:textSize="@dimen/text_give_rating" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -68,21 +68,21 @@
                     android:textColor="@color/white"
                     android:gravity="center_horizontal"
                     android:text="@string/perfectrating"
-                    android:textSize="32sp" />
+                    android:textSize="@dimen/text_give_rating" />
             </LinearLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="24dp">
+                android:layout_height="@dimen/btn_height"
+                android:layout_marginTop="@dimen/give_rating_btn_margin_top">
 
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_round_button_white"
-                    android:paddingHorizontal="40dp"
+                    android:paddingHorizontal="@dimen/btn_padding_horizontal"
                     android:layout_toStartOf="@+id/btn_no"
-                    android:layout_marginEnd="20dp"
+                    android:layout_marginEnd="@dimen/give_rating_padding"
                     android:text="@string/yes"
                     android:textColor="@color/logincolor"
                     android:onClick="@{()->viewmodel.giveRating(true)}" />
@@ -93,15 +93,13 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/btn_no"
                     android:background="@drawable/bg_round_button_theme_color"
-                    android:paddingHorizontal="40dp"
+                    android:paddingHorizontal="@dimen/btn_padding_horizontal"
                     android:layout_alignParentEnd="true"
                     android:text="@string/No"
                     android:textColor="@color/white"
                     android:onClick="@{()->viewmodel.giveRating(false)}" />
 
             </RelativeLayout>
-
         </LinearLayout>
-
     </RelativeLayout>
 </layout>

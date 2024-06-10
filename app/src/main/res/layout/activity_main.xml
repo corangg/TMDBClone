@@ -7,7 +7,6 @@
                 <variable
                     name="viewmodel"
                     type="com.example.tmdb.presentation.viewmodel.MainViewModel" />
-
         </data>
 
         <RelativeLayout
@@ -15,13 +14,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context=".ui.activity.MainActivity">
-
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/fragment_main"
                     android:layout_above="@+id/navigation"/>
-
 
                 <com.google.android.material.bottomnavigation.BottomNavigationView
                     android:layout_width="match_parent"

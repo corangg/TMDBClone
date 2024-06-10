@@ -10,7 +10,7 @@ import com.example.tmdb.util.ItemClickInterface
 import com.example.tmdb.util.StartActivityUtil.startDetailActorInfoActivity
 import com.example.tmdb.util.Util.getMovieID
 import com.example.tmdb.util.Util.moreData
-import com.example.tmdb.util.Util.setupAdapter
+import com.example.tmdb.util.Util.setupLinearAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -40,7 +40,7 @@ class SeeAllActorActivity : BaseActivity<ActivitySeeAllActorBinding, SeeAllActor
     override fun setObserve() {
         viewModel.actorList.observe(this) {
             seeAllActorAdapter = SeeAllActorAdapter(it.toMutableList(), this)
-            firstPage = setupAdapter(
+            firstPage = setupLinearAdapter(
                 binding.actorRecycler,
                 this,
                 it,
@@ -51,7 +51,7 @@ class SeeAllActorActivity : BaseActivity<ActivitySeeAllActorBinding, SeeAllActor
         }
         viewModel.creditList.observe(this) {
             seeAllMovieActorAdapter = SeeAllMovieActorAdapter(it.toMutableList(), this)
-            firstPage = setupAdapter(
+            firstPage = setupLinearAdapter(
                 binding.actorRecycler,
                 this,
                 it,

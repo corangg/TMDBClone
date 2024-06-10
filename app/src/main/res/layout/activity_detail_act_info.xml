@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:text="@={viewmodel.actName}"
                 android:gravity="center_horizontal"
-                android:textSize="24sp"
+                android:textSize="@dimen/text_title"
                 android:textColor="@color/white"/>
         </androidx.appcompat.widget.Toolbar>
         <ScrollView
@@ -38,18 +38,18 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="240dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginHorizontal="6dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/detail_margin_top"
+                    android:layout_marginHorizontal="@dimen/detail_margin"
                     android:orientation="horizontal">
                     <androidx.cardview.widget.CardView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:onClick="@{()->viewmodel.onclickedProfile()}"
-                        app:cardCornerRadius="8dp">
+                        app:cardCornerRadius="@dimen/poster_radius">
                         <ImageView
-                            android:layout_width="160dp"
-                            android:layout_height="240dp"
+                            android:layout_width="@dimen/img_detail_act_width"
+                            android:layout_height="@dimen/img_detail_act_height"
                             android:id="@+id/img_profile"
                             android:src="@drawable/img_not_found"
                             android:scaleType="fitXY"/>
@@ -57,16 +57,16 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginStart="8dp">
+                        android:layout_marginStart="@dimen/detail_poster_margin_start">
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/name"
                             android:text="@={viewmodel.actName}"
-                            android:textSize="20sp"
+                            android:textSize="@dimen/text_detail_name"
                             android:textColor="@color/white"
-                            android:layout_marginTop="12dp"
+                            android:layout_marginTop="@dimen/detail_name_margin_top"
                             android:maxLines="1"/>
 
 
@@ -74,9 +74,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/knowfor"
-                            android:textSize="10sp"
+                            android:textSize="@dimen/text_detail_smal"
                             android:layout_above="@+id/knowfordata"
-                            android:layout_marginBottom="4dp"
+                            android:layout_marginBottom="@dimen/detail_smal_margin"
                             android:textColor="@color/gray"
                             android:text="@string/known"/>
 
@@ -86,17 +86,17 @@
                             android:id="@+id/knowfordata"
                             android:layout_above="@+id/place"
                             android:textColor="@color/white"
-                            android:textSize="14sp"
-                            android:layout_marginBottom="6dp"
+                            android:textSize="@dimen/text_detial_normal"
+                            android:layout_marginBottom="@dimen/detail_margin"
                             android:text="@={viewmodel.known}"/>
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/place"
-                            android:textSize="10sp"
+                            android:textSize="@dimen/text_detail_smal"
                             android:layout_above="@+id/placeinfo"
-                            android:layout_marginBottom="4dp"
+                            android:layout_marginBottom="@dimen/detail_smal_margin"
                             android:textColor="@color/gray"
                             android:text="@string/birthplace"/>
 
@@ -106,17 +106,17 @@
                             android:id="@+id/placeinfo"
                             android:layout_above="@+id/companies"
                             android:textColor="@color/white"
-                            android:textSize="14sp"
-                            android:layout_marginBottom="6dp"
+                            android:textSize="@dimen/text_detial_normal"
+                            android:layout_marginBottom="@dimen/detail_margin"
                             android:text="@={viewmodel.place}"/>
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/companies"
-                            android:textSize="10sp"
+                            android:textSize="@dimen/text_detail_smal"
                             android:layout_above="@+id/dateinfo"
-                            android:layout_marginBottom="4dp"
+                            android:layout_marginBottom="@dimen/detail_smal_margin"
                             android:textColor="@color/gray"
                             android:text="@string/companies"/>
 
@@ -126,69 +126,69 @@
                             android:id="@+id/dateinfo"
                             android:layout_alignParentBottom="true"
                             android:textColor="@color/white"
-                            android:textSize="14sp"
-                            android:layout_marginBottom="6dp"
+                            android:textSize="@dimen/text_detial_normal"
+                            android:layout_marginBottom="@dimen/detail_margin"
                             android:text="@={viewmodel.companies}"/>
                     </RelativeLayout>
                 </LinearLayout>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="@dimen/detail_margin_top"
                     android:text="@string/biography"
                     android:textColor="@color/logincolor"
-                    android:layout_marginStart="10dp"
-                    android:textSize="16sp" />
+                    android:layout_marginStart="@dimen/detail_item_margin"
+                    android:textSize="@dimen/text_detail_item" />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="@dimen/detail_item_margin"
                     android:id="@+id/biographydata"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="@dimen/detail_item_margin"
                     android:text="@={viewmodel.biography}"
                     android:textColor="@color/white"
-                    android:textSize="13sp"/>
+                    android:textSize="@dimen/text_graphy"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="24dp"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginTop="10dp">
+                    android:layout_marginTop="@dimen/detail_item_margin_top">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="24dp"
+                        android:layout_height="@dimen/layer_see_all"
                         android:orientation="horizontal">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/movies"
-                            android:layout_marginStart="16dp"
+                            android:layout_marginStart="@dimen/see_all_margin_start"
                             android:textColor="@color/white"
                             android:textStyle="bold"
                             android:layout_alignParentBottom="true"
-                            android:textSize="16sp" />
+                            android:textSize="@dimen/text_detail_item" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
+                            android:layout_marginTop="@dimen/see_all_margin_top"
                             android:layout_alignParentBottom="true"
                             android:layout_toStartOf="@+id/btn_movie_see_all"
-                            android:textSize="14sp"
-                            android:layout_marginEnd="12dp"
+                            android:textSize="@dimen/text_detial_normal"
+                            android:layout_marginEnd="@dimen/see_all_margin_end"
                             android:text="@string/seeall"
                             android:textColor="@color/logincolor"
                             android:onClick="@{()->viewmodel.creditSeeAll()}"/>
 
                         <ImageButton
-                            android:layout_width="12dp"
-                            android:layout_height="12dp"
+                            android:layout_width="@dimen/img_see_all_ic"
+                            android:layout_height="@dimen/img_see_all_ic"
                             android:id="@+id/btn_movie_see_all"
                             android:background="@drawable/ic_right"
                             android:layout_alignParentBottom="true"
-                            android:layout_marginEnd="12dp"
+                            android:layout_marginEnd="@dimen/see_all_margin_end"
                             android:backgroundTint="@color/white"
                             android:layout_alignParentEnd="true"
                             android:onClick="@{()->viewmodel.creditSeeAll()}"/>
@@ -198,10 +198,9 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="@dimen/detail_item_margin_top"
                     android:id="@+id/recycler_movie"/>
             </LinearLayout>
         </ScrollView>
-
     </LinearLayout>
 </layout>

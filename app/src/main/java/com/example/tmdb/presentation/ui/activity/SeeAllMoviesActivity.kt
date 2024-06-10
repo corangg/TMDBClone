@@ -12,7 +12,7 @@ import com.example.tmdb.util.Util.getActorID
 import com.example.tmdb.util.Util.getMovieID
 import com.example.tmdb.util.Util.moreData
 import com.example.tmdb.util.Util.setGridAdapter
-import com.example.tmdb.util.Util.setupAdapter
+import com.example.tmdb.util.Util.setupGridAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -43,13 +43,14 @@ class SeeAllMoviesActivity : BaseActivity<ActivitySeeAllBinding, SeeAllMoviesVie
     override fun setObserve() {
         viewModel.movieList.observe(this) {
             seeAllMovieAdapter = SeeAllMovieAdapter(it.toMutableList(), this)
-            firstPage = setupAdapter(
+            firstPage = setupGridAdapter(
                 binding.movieRecycler,
                 this,
                 it,
                 firstPage,
                 seeAllMovieAdapter,
-                { adapter, data -> (adapter as SeeAllMovieAdapter).addData(data) }
+                { adapter, data -> (adapter as SeeAllMovieAdapter).addData(data) },
+                2
             )
         }
         viewModel.creditMovieList.observe(this) {

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="80dp"
+    android:layout_width="@dimen/img_actor_see_all_width"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/item_cast"
-    android:layout_marginEnd="16dp"
+    android:layout_marginEnd="@dimen/layout_margin_end"
     android:orientation="vertical">
     <androidx.cardview.widget.CardView
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        app:cardCornerRadius="40dp">
+        android:layout_width="@dimen/img_actor_see_all_width"
+        android:layout_height="@dimen/img_actor_see_all_width"
+        app:cardCornerRadius="@dimen/profile_radius">
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -21,8 +21,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/text_name"
-        android:layout_marginTop="8dp"
-        android:textSize="12sp"
+        android:layout_marginTop="@dimen/detail_poster_margin_start"
+        android:textSize="@dimen/text_profile_id"
         android:textColor="@color/white"
         android:maxLines="1"
         android:ellipsize="end"/>
@@ -30,10 +30,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/text_cast"
-        android:layout_marginTop="6dp"
-        android:textSize="11sp"
+        android:layout_marginTop="@dimen/detail_margin"
+        android:textSize="@dimen/text_profile_id"
         android:textColor="@color/logincolor"
         android:maxLines="1"
         android:ellipsize="end"/>
-
 </LinearLayout>

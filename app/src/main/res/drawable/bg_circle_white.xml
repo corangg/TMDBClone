@@ -3,5 +3,7 @@
     android:shape="oval">
     <solid android:color="@color/white"/>
     <stroke/>
-    <size android:width="12dp" android:height="12dp"/>
+    <size
+        android:width="@dimen/bg_circle_size"
+        android:height="@dimen/bg_circle_size"/>
 </shape>

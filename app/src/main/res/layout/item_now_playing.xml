@@ -4,25 +4,25 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:id="@+id/item_movie"
-    android:layout_marginEnd="12dp"
+    android:layout_marginEnd="@dimen/layout_margin_end"
     android:background="@color/black"
     android:orientation="vertical">
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="6dp">
+        app:cardCornerRadius="@dimen/poster_radius">
         <ImageView
-            android:layout_width="112dp"
-            android:layout_height="168dp"
+            android:layout_width="@dimen/now_playing_width"
+            android:layout_height="@dimen/now_playing_height"
             android:src="@drawable/img_not_found"
             android:id="@+id/img_poster"/>
     </androidx.cardview.widget.CardView>
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="20dp"
+        android:layout_height="@dimen/movies_text_height"
         android:background="@color/black"
-        android:layout_marginTop="6dp"
-        android:textSize="14sp"
+        android:layout_marginTop="@dimen/detail_margin"
+        android:textSize="@dimen/text_detial_normal"
         android:textStyle="bold"
         android:ellipsize="end"
         android:id="@+id/text_title"
@@ -32,11 +32,9 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="@dimen/detail_smal_margin"
         android:textColor="@color/logincolor"
-        android:textSize="10sp"
+        android:textSize="@dimen/text_detail_smal"
         android:maxLines="1"
         android:id="@+id/text_popularity"/>
-
-
 </LinearLayout>

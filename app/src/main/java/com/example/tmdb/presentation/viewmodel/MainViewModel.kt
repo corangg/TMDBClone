@@ -63,7 +63,7 @@ class MainViewModel @Inject constructor(
     val liveCelebritiesTrendingList: MutableLiveData<List<CelebritiesResult>> = MutableLiveData()
     val searchActorList: MutableLiveData<List<CelebritiesResult>> = MutableLiveData()
 
-    var page = 0
+    private var page = 0
 
     fun bottomNavigationItemSelected(item: MenuItem): Boolean {
 
@@ -110,11 +110,6 @@ class MainViewModel @Inject constructor(
         liveMoviesUpComingList.value = getDataRepository.moviesUpComingList
     }
 
-    private fun setCelebritiesList() {
-        liveCelebritiesPopularList.value = getDataRepository.celebritiesPopularList
-        liveCelebritiesTrendingList.value = getDataRepository.celebritiesTrendingList
-    }
-
     fun startMovieActivity(id: Int) {
         movieId.value = id
     }
@@ -149,10 +144,10 @@ class MainViewModel @Inject constructor(
     }
 
     fun selectSearchAny(type: Boolean) {
-        if (type){
+        if (type) {
             searchAny.value = type
             textSearchAny.value = getApplication<Application>().getString(R.string.search_movie)
-        }else{
+        } else {
             searchAny.value = type
             textSearchAny.value = getApplication<Application>().getString(R.string.search_actor)
         }
@@ -175,21 +170,6 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    private fun getList(keyWord: String) = viewModelScope.launch {
-        searchAny.value?.let {
-            if(it){
-                TMDBRetrofit.fetchSearchMovie(keyWord, page)?.let {
-                    searchMovieList.value = it
-                }
-            }
-            else{
-                TMDBRetrofit.fetchSearchActor(keyWord, page)?.let {
-                    searchActorList.value = it
-                }
-            }
-        }
-    }
-
     fun checkLogOut() {
         if (setAccountDataRepository.accountId != -1) {
             startCheckLogOutFragment.value = Unit
@@ -206,10 +186,6 @@ class MainViewModel @Inject constructor(
             finishedLogoutCheckFragment.value = true
             finishedLogoutCheckFragment.value = false
         }
-    }
-
-    private fun deleteIDData() = viewModelScope.launch {
-        getLoginDataRepository.deleteID()
     }
 
     fun clickedSaved() {
@@ -240,5 +216,28 @@ class MainViewModel @Inject constructor(
         setAccountDataRepository.getMyWatchList()?.let {
             savedList.value = it
         }
+    }
+
+    private fun setCelebritiesList() {
+        liveCelebritiesPopularList.value = getDataRepository.celebritiesPopularList
+        liveCelebritiesTrendingList.value = getDataRepository.celebritiesTrendingList
+    }
+
+    private fun getList(keyWord: String) = viewModelScope.launch {
+        searchAny.value?.let {
+            if (it) {
+                TMDBRetrofit.fetchSearchMovie(keyWord, page)?.let {
+                    searchMovieList.value = it
+                }
+            } else {
+                TMDBRetrofit.fetchSearchActor(keyWord, page)?.let {
+                    searchActorList.value = it
+                }
+            }
+        }
+    }
+
+    private fun deleteIDData() = viewModelScope.launch {
+        getLoginDataRepository.deleteID()
     }
 }

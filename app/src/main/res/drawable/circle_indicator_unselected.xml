@@ -5,5 +5,7 @@
         android:width="0.4dp"
         android:color="@color/white"
         />
-    <size android:width="8dp" android:height="8dp"/>
+    <size
+        android:width="@dimen/poster_radius"
+        android:height="@dimen/poster_radius"/>
 </shape>

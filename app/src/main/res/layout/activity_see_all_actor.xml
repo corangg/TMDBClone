@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -27,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:text="@={viewmodel.title}"
                 android:gravity="center_horizontal"
-                android:textSize="24sp"
+                android:textSize="@dimen/text_title"
                 android:textColor="@color/white" />
         </androidx.appcompat.widget.Toolbar>
         <ScrollView
@@ -39,6 +38,5 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/actor_recycler"/>
         </ScrollView>
-
     </LinearLayout>
 </layout>

@@ -7,7 +7,6 @@
         <variable
             name="viewmodel"
             type="com.example.tmdb.presentation.viewmodel.DetailMovieViewmodel" />
-
     </data>
     <RelativeLayout
         android:layout_width="match_parent"
@@ -31,7 +30,7 @@
                     android:layout_height="wrap_content"
                     android:text="@={viewmodel.movieTitle}"
                     android:gravity="center_horizontal"
-                    android:textSize="23sp"
+                    android:textSize="@dimen/text_title"
                     android:textColor="@color/white"/>
             </androidx.appcompat.widget.Toolbar>
 
@@ -42,7 +41,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="@dimen/detail_item_margin_top"
                     android:paddingHorizontal="16dp"
                     android:orientation="vertical">
 
@@ -60,7 +59,7 @@
 
                         <View
                             android:layout_width="match_parent"
-                            android:layout_height="40dp"
+                            android:layout_height="@dimen/gradient_height"
                             android:layout_alignParentBottom="true"
                             android:background="@drawable/gradient_black" />
                     </RelativeLayout>
@@ -68,16 +67,16 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
+                        android:layout_marginTop="@dimen/detail_margin"
                         android:orientation="horizontal">
 
                         <androidx.cardview.widget.CardView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:onClick="@{()->viewmodel.onclickedPoster()}"
-                            app:cardCornerRadius="4dp">
+                            app:cardCornerRadius="@dimen/poster_radius">
                             <RelativeLayout
-                                android:layout_width="140dp"
+                                android:layout_width="@dimen/img_detail_movie_width"
                                 android:layout_height="wrap_content">
 
                                 <ImageView
@@ -88,22 +87,22 @@
                                     android:id="@+id/img_poster"/>
 
                                 <RelativeLayout
-                                    android:layout_width="32dp"
-                                    android:layout_height="32dp"
-                                    android:layout_margin="2dp"
+                                    android:layout_width="@dimen/circle_size"
+                                    android:layout_height="@dimen/circle_size"
+                                    android:layout_margin="@dimen/detail_movie_circle_margin"
                                     android:background="@drawable/bg_circle_white"
                                     android:layout_alignParentEnd="true">
 
                                     <com.mikhaellopez.circularprogressbar.CircularProgressBar
                                         android:id="@+id/circularProgressBar"
                                         android:layout_centerInParent="true"
-                                        android:layout_width="26dp"
-                                        android:layout_height="26dp"
+                                        android:layout_width="@dimen/circular_progress_size"
+                                        android:layout_height="@dimen/circular_progress_size"
                                         app:cpb_progress="0"
                                         app:cpb_progress_max="100"
                                         android:background="@drawable/bg_circle_white"
-                                        app:cpb_background_progressbar_width="2dp"
-                                        app:cpb_progressbar_width="2dp"
+                                        app:cpb_background_progressbar_width="@dimen/circular_progress_width"
+                                        app:cpb_progressbar_width="@dimen/circular_progress_width"
                                         app:cpb_progressbar_color="@color/logincolor"
                                         app:cpb_background_progressbar_color="@color/black" />
 
@@ -111,28 +110,26 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="@={viewmodel.ratingPercent}"
-                                        android:textSize="8sp"
+                                        android:textSize="@dimen/text_circular_progress"
                                         android:textColor="@color/black"
                                         android:layout_centerInParent="true" />
 
                                 </RelativeLayout>
                             </RelativeLayout>
-
-
                         </androidx.cardview.widget.CardView>
 
 
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp">
+                            android:layout_marginStart="@dimen/detail_item_margin">
 
                             <View
-                                android:layout_width="32dp"
-                                android:layout_height="32dp"
+                                android:layout_width="@dimen/bookmark_size"
+                                android:layout_height="@dimen/bookmark_size"
                                 android:id="@+id/btn_bookmark"
                                 android:layout_alignParentEnd="true"
-                                android:layout_marginEnd="6dp"
+                                android:layout_marginEnd="@dimen/detail_margin"
                                 android:background="@drawable/ic_bookmark"
                                 android:backgroundTint="@color/white"
                                 android:scaleType="centerCrop"
@@ -141,7 +138,7 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="6dp"
+                                android:layout_marginTop="@dimen/detail_margin"
                                 android:id="@+id/rating_layout"
                                 android:gravity="center_vertical"
                                 android:layout_below="@+id/btn_bookmark"
@@ -163,7 +160,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginStart="4dp"
+                                    android:layout_marginStart="@dimen/detail_smal_margin"
                                     android:textColor="@color/logincolor"
                                     android:text="@={viewmodel.ratingNum}" />
                             </LinearLayout>
@@ -172,7 +169,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:id="@+id/text_layer"
-                                android:layout_marginTop="4dp"
+                                android:layout_marginTop="@dimen/detail_smal_margin"
                                 android:layout_below="@id/rating_layout"
                                 android:orientation="horizontal">
                                 <TextView
@@ -180,15 +177,15 @@
                                     android:layout_height="wrap_content"
                                     android:id="@+id/text_date"
                                     android:text="@string/release_date"
-                                    android:textSize="14sp"
+                                    android:textSize="@dimen/text_detial_normal"
                                     android:textColor="@color/white" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginStart="6dp"
+                                    android:layout_marginStart="@dimen/detail_margin"
                                     android:text="@={viewmodel.releaseDate}"
-                                    android:textSize="14sp"
+                                    android:textSize="@dimen/text_detial_normal"
                                     android:textColor="@color/white" />
                             </LinearLayout>
 
@@ -196,7 +193,7 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="6dp"
+                                android:layout_marginTop="@dimen/detail_margin"
                                 android:id="@+id/country_layout"
                                 android:gravity="center_vertical"
                                 android:layout_below="@+id/text_layer"
@@ -207,19 +204,19 @@
                                     android:layout_height="wrap_content"
                                     android:textColor="@color/white"
                                     android:text="@string/country"
-                                    android:textSize="14sp" />
+                                    android:textSize="@dimen/text_detial_normal" />
 
                                 <androidx.recyclerview.widget.RecyclerView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:id="@+id/country_recycler"
-                                    android:layout_marginStart="8dp" />
+                                    android:layout_marginStart="@dimen/detail_poster_margin_start" />
                             </LinearLayout>
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="6dp"
+                                android:layout_marginTop="@dimen/detail_margin"
                                 android:id="@+id/language_layout"
                                 android:gravity="center_vertical"
                                 android:layout_below="@+id/country_layout"
@@ -227,15 +224,15 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textSize="14sp"
+                                    android:textSize="@dimen/text_detial_normal"
                                     android:textColor="@color/white"
                                     android:text="@string/language"/>
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:textSize="14sp"
-                                    android:layout_marginStart="6dp"
+                                    android:textSize="@dimen/text_detial_normal"
+                                    android:layout_marginStart="@dimen/detail_margin"
                                     android:textColor="@color/white"
                                     android:text="@={viewmodel.language}"/>
                             </LinearLayout>
@@ -244,7 +241,7 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="6dp"
+                                android:layout_marginTop="@dimen/detail_margin"
                                 android:id="@+id/revenue_layout"
                                 android:gravity="center_vertical"
                                 android:layout_below="@+id/language_layout"
@@ -253,15 +250,15 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:id="@+id/text_revenue"
-                                    android:textSize="14sp"
+                                    android:textSize="@dimen/text_detial_normal"
                                     android:textColor="@color/logincolor"
                                     android:text="@string/revenue" />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:textSize="14sp"
-                                    android:layout_marginStart="6dp"
+                                    android:textSize="@dimen/text_detial_normal"
+                                    android:layout_marginStart="@dimen/detail_margin"
                                     android:textColor="@color/logincolor"
                                     android:text="@={viewmodel.revenueValue}"/>
                             </LinearLayout>
@@ -269,7 +266,7 @@
                             <androidx.recyclerview.widget.RecyclerView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="12dp"
+                                android:layout_marginTop="@dimen/detail_name_margin_top"
                                 android:id="@+id/recycler_genre"
                                 android:layout_below="@id/revenue_layout" />
                         </RelativeLayout>
@@ -278,7 +275,7 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginTop="@dimen/detail_margin_top"
                         android:id="@+id/recycler_company" />
 
                     <LinearLayout
@@ -298,49 +295,49 @@
                             android:layout_height="wrap_content"
                             android:text="@={viewmodel.overview}"
                             android:textColor="@color/white"
-                            android:textSize="12sp" />
+                            android:textSize="@dimen/text_graphy" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="24dp"
+                        android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:layout_marginTop="10dp">
+                        android:layout_marginTop="@dimen/detail_item_margin_top">
 
                         <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="24dp"
+                            android:layout_height="@dimen/layer_see_all"
                             android:orientation="horizontal">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/actor"
-                                android:layout_marginStart="16dp"
+                                android:layout_marginStart="@dimen/see_all_margin_start"
                                 android:textColor="@color/white"
                                 android:textStyle="bold"
                                 android:layout_alignParentBottom="true"
-                                android:textSize="16sp" />
+                                android:textSize="@dimen/text_detail_item"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
+                                android:layout_marginTop="@dimen/see_all_margin_top"
                                 android:layout_alignParentBottom="true"
                                 android:layout_toStartOf="@+id/btn_actors_see_all"
                                 android:textSize="14sp"
-                                android:layout_marginEnd="12dp"
+                                android:layout_marginEnd="@dimen/see_all_margin_end"
                                 android:text="@string/seeall"
                                 android:textColor="@color/logincolor"
                                 android:onClick="@{()->viewmodel.onclickedAllActors()}"/>
 
                             <ImageButton
-                                android:layout_width="12dp"
+                                android:layout_width="@dimen/img_see_all_ic"
                                 android:layout_height="12dp"
                                 android:id="@+id/btn_actors_see_all"
                                 android:background="@drawable/ic_right"
                                 android:layout_alignParentBottom="true"
-                                android:layout_marginEnd="12dp"
+                                android:layout_marginEnd="@dimen/see_all_margin_end"
                                 android:backgroundTint="@color/white"
                                 android:layout_alignParentEnd="true"
                                 android:onClick="@{()->viewmodel.onclickedAllActors()}"/>
@@ -351,98 +348,92 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
+                        android:layout_marginTop="@dimen/detail_item_margin_top"
                         android:id="@+id/movies_actors_recycler" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="24dp"
+                        android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:layout_marginTop="10dp">
 
                         <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="24dp"
+                            android:layout_height="@dimen/layer_see_all"
                             android:orientation="horizontal">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/video"
-                                android:layout_marginStart="16dp"
+                                android:layout_marginStart="@dimen/see_all_margin_start"
                                 android:textColor="@color/white"
                                 android:textStyle="bold"
                                 android:layout_alignParentBottom="true"
-                                android:textSize="16sp" />
+                                android:textSize="@dimen/text_detail_item" />
                         </RelativeLayout>
                     </LinearLayout>
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
+                        android:layout_marginTop="@dimen/detail_item_margin_top"
                         android:id="@+id/movies_video_recycler" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="24dp"
+                        android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:layout_marginTop="10dp">
+                        android:layout_marginTop="@dimen/detail_item_margin_top">
 
                         <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="24dp"
+                            android:layout_height="@dimen/layer_see_all"
                             android:orientation="horizontal">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/similarmovier"
-                                android:layout_marginStart="16dp"
+                                android:layout_marginStart="@dimen/see_all_margin_start"
                                 android:textColor="@color/white"
                                 android:textStyle="bold"
                                 android:layout_alignParentBottom="true"
-                                android:textSize="16sp" />
+                                android:textSize="@dimen/text_detail_item" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
+                                android:layout_marginTop="@dimen/see_all_margin_top"
                                 android:layout_alignParentBottom="true"
                                 android:onClick="@{()->viewmodel.onclickedAllSimilarMovies()}"
                                 android:layout_toStartOf="@+id/btn_similar_movie_see_all"
-                                android:textSize="14sp"
-                                android:layout_marginEnd="12dp"
+                                android:textSize="@dimen/text_detial_normal"
+                                android:layout_marginEnd="@dimen/see_all_margin_end"
                                 android:text="@string/seeall"
                                 android:textColor="@color/logincolor" />
 
                             <ImageButton
-                                android:layout_width="12dp"
-                                android:layout_height="12dp"
+                                android:layout_width="@dimen/img_see_all_ic"
+                                android:layout_height="@dimen/img_see_all_ic"
                                 android:id="@+id/btn_similar_movie_see_all"
                                 android:background="@drawable/ic_right"
                                 android:onClick="@{()->viewmodel.onclickedAllSimilarMovies()}"
                                 android:layout_alignParentBottom="true"
-                                android:layout_marginEnd="12dp"
+                                android:layout_marginEnd="@dimen/see_all_margin_end"
                                 android:backgroundTint="@color/white"
                                 android:layout_alignParentEnd="true" />
-
                         </RelativeLayout>
                     </LinearLayout>
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
+                        android:layout_marginTop="@dimen/detail_item_margin_top"
                         android:id="@+id/movies_similar_movie_recycler"
-                        android:layout_marginBottom="32dp" />
-
+                        android:layout_marginBottom="@dimen/detail_margin_bottom"/>
                 </LinearLayout>
             </ScrollView>
-
-
         </LinearLayout>
     </RelativeLayout>
-
-
 </layout>
