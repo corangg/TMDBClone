@@ -53,59 +53,6 @@ object Util {
         return intent.getIntExtra(context.getString(R.string.actorID), -1)
     }
 
-    fun startMainActivity(context: Context) {
-        val intent = Intent(context, MainActivity::class.java)
-        context.startActivity(intent)
-    }
-
-    fun startDetailMovieInfoActivity(context: Context, id: Int) {
-        val intent = Intent(context, DetailMovieInfoActivity::class.java)
-        intent.putExtra(getString(context, R.string.movieID), id)
-        context.startActivity(intent)
-    }
-
-    fun startDetailActorInfoActivity(context: Context, id: Int) {
-        val intent = Intent(context, DetailActorInfoActivity::class.java)
-        intent.putExtra(getString(context, R.string.actorID), id)
-        context.startActivity(intent)
-    }
-
-    fun startSeeAllMovieActivity(
-        context: Context,
-        type: String,
-        movieID: Int = -1,
-        actorID: Int = -1
-    ) {
-        val intent = Intent(context, SeeAllMoviesActivity::class.java)
-        intent.putExtra(getString(context, R.string.seeAllMovie), type)
-        intent.putExtra(getString(context, R.string.movieID), movieID)
-        intent.putExtra(getString(context, R.string.actorID), actorID)
-        context.startActivity(intent)
-    }
-
-    fun startSeeAllActorActivity(context: Context, type: String, movieID: Int = -1) {
-        val intent = Intent(context, SeeAllActorActivity::class.java)
-        intent.putExtra(getString(context, R.string.seeAllActor), type)
-        intent.putExtra(getString(context, R.string.movieID), movieID)
-        context.startActivity(intent)
-    }
-
-    fun startFullImageActivity(context: Context, img: String) {
-        val intent = Intent(context, FullImageActivity::class.java)
-        intent.putExtra(context.getString(R.string.imgUrl), img)
-        context.startActivity(intent)
-    }
-
-    fun startVideoActivity(context: Context, key: String) {
-        val intent = Intent(context, VideoPlayActivity::class.java)
-        intent.putExtra(context.getString(R.string.videoKey), key)
-        context.startActivity(intent)
-    }
-
-    fun startLoginActivity(context: Context) {
-        val intent = Intent(context, LoginActivity::class.java)
-        context.startActivity(intent)
-    }
 
     fun setLinearAdapter(
         recyclerView: RecyclerView,
@@ -121,6 +68,7 @@ object Util {
         recyclerView.layoutManager = LinearLayoutManager(context, linearLayoutManager, false)
         recyclerView.adapter = adapter
     }
+
 
     fun setGridAdapter(
         recyclerView: RecyclerView,
@@ -146,33 +94,23 @@ object Util {
         }
     }
 
-    fun imgButtonSet(drawable: Int, root: View, view: ImageButton, color: Int) {
-        Glide.with(root).load(drawable).apply(RequestOptions().centerCrop()).listener(object :
-            RequestListener<Drawable> {
-            override fun onLoadFailed(
-                e: GlideException?,
-                model: Any?,
-                target: Target<Drawable>?,
-                isFirstResource: Boolean
-            ): Boolean {
-                return false
-            }
-
-            override fun onResourceReady(
-                resource: Drawable?,
-                model: Any?,
-                target: Target<Drawable>?,
-                dataSource: DataSource?,
-                isFirstResource: Boolean
-            ): Boolean {
-                resource?.colorFilter = PorterDuffColorFilter(color, PorterDuff.Mode.SRC_ATOP)
-                return false
-            }
-        }).into(view)
+    fun <T> setupAdapter(
+        recyclerView: RecyclerView,
+        context: Context,
+        dataList: List<T>,
+        firstPage: Boolean,
+        adapter: RecyclerView.Adapter<*>,
+        addData: (RecyclerView.Adapter<*>, List<T>) -> Unit,
+        type: Int = 0
+    ): Boolean {
+        return if (firstPage) {
+            setLinearAdapter(recyclerView, context, type, adapter)
+            false
+        } else {
+            addData(recyclerView.adapter!!, dataList)
+            false
+        }
     }
 
-    fun beginFragment(fragmentManager: FragmentManager, id: Int, fragment: Fragment){
-        fragmentManager.beginTransaction().replace(id, fragment).commit()
-    }
 
 }

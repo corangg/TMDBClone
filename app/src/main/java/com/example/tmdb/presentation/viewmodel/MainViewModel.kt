@@ -12,8 +12,6 @@ import com.example.tmdb.data.repository.GetDataRepository
 import com.example.tmdb.data.repository.GetLoginDataRepository
 import com.example.tmdb.data.repository.SetAccountDataRepository
 import com.example.tmdb.data.source.remot.retrofit.TMDBRetrofit
-import com.example.tmdb.domain.usecase.GetAccountIdUseCase
-import com.example.tmdb.domain.usecase.GetMyWatchListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -23,13 +21,11 @@ class MainViewModel @Inject constructor(
     application: Application,
     private val getDataRepository: GetDataRepository,
     private val getLoginDataRepository: GetLoginDataRepository,
-    private val setAccountDataRepository: SetAccountDataRepository,
-    private val getAccountIdUseCase: GetAccountIdUseCase,
-    private val getMyWatchListUseCase: GetMyWatchListUseCase,
+    private val setAccountDataRepository: SetAccountDataRepository
 ) : AndroidViewModel(application) {
 
     val selectNavigationItem: MutableLiveData<Int> = MutableLiveData(0)
-    val searchAny: MutableLiveData<Int> = MutableLiveData(0)
+    val searchAny: MutableLiveData<Boolean> = MutableLiveData(false)
     val movieId: MutableLiveData<Int> = MutableLiveData()
     val actorId: MutableLiveData<Int> = MutableLiveData()
     val connectionIC: MutableLiveData<Int> = MutableLiveData()
@@ -97,13 +93,13 @@ class MainViewModel @Inject constructor(
     }
 
     fun setPorfileData() = viewModelScope.launch {
-        getAccountIdUseCase.execute()?.let {
+        setAccountDataRepository.getAccountId()?.let {
             setProfile.value = Unit
             log.value = getApplication<Application>().getString(R.string.logout)
             if (it.name != "") name.value = it.name
             id.value = it.username
         }
-        getMyWatchListUseCase.execute()
+        setAccountDataRepository.getMyWatchList()
     }
 
     fun setMoviesList() {
@@ -152,18 +148,15 @@ class MainViewModel @Inject constructor(
         startSeeAllActorActivity.value = getApplication<Application>().getString(R.string.trending)
     }
 
-    fun selectSearchAny(type: Int) {
-        when (type) {
-            0 -> {
-                searchAny.value = type
-                textSearchAny.value = getApplication<Application>().getString(R.string.search_movie)
-            }
-
-            1 -> {
-                searchAny.value = type
-                textSearchAny.value = getApplication<Application>().getString(R.string.search_actor)
-            }
+    fun selectSearchAny(type: Boolean) {
+        if (type){
+            searchAny.value = type
+            textSearchAny.value = getApplication<Application>().getString(R.string.search_movie)
+        }else{
+            searchAny.value = type
+            textSearchAny.value = getApplication<Application>().getString(R.string.search_actor)
         }
+
     }
 
     fun searchKeyword() = viewModelScope.launch {
@@ -183,14 +176,13 @@ class MainViewModel @Inject constructor(
     }
 
     private fun getList(keyWord: String) = viewModelScope.launch {
-        when (searchAny.value) {
-            0 -> {
+        searchAny.value?.let {
+            if(it){
                 TMDBRetrofit.fetchSearchMovie(keyWord, page)?.let {
                     searchMovieList.value = it
                 }
             }
-
-            1 -> {
+            else{
                 TMDBRetrofit.fetchSearchActor(keyWord, page)?.let {
                     searchActorList.value = it
                 }
@@ -245,7 +237,7 @@ class MainViewModel @Inject constructor(
     }
 
     fun getMySavedList() = viewModelScope.launch {
-        getMyWatchListUseCase.execute()?.let {
+        setAccountDataRepository.getMyWatchList()?.let {
             savedList.value = it
         }
     }

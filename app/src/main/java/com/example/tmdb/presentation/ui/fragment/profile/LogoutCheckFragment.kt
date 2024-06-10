@@ -19,7 +19,7 @@ class LogoutCheckFragment : BaseFragment<FragmentLogoutCheckBinding, MainViewMod
     private fun setObserve() {
         viewModel.finishedLogoutCheckFragment.observe(viewLifecycleOwner) {
             if (it) {
-                parentFragmentManager.beginTransaction().remove(this).commit()
+                fragmentClose()
             }
         }
     }

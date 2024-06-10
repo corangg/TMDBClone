@@ -6,11 +6,11 @@ import com.example.tmdb.databinding.ActivityDetailActInfoBinding
 import com.example.tmdb.presentation.ui.adapter.CreditMovieAdapter
 import com.example.tmdb.presentation.viewmodel.DetailActorViewmodel
 import com.example.tmdb.util.ItemClickInterface
-import com.example.tmdb.util.Util
+import com.example.tmdb.util.StartActivityUtil.startDetailMovieInfoActivity
+import com.example.tmdb.util.StartActivityUtil.startFullImageActivity
+import com.example.tmdb.util.StartActivityUtil.startSeeAllMovieActivity
+import com.example.tmdb.util.Util.setImage
 import com.example.tmdb.util.Util.setLinearAdapter
-import com.example.tmdb.util.Util.startDetailMovieInfoActivity
-import com.example.tmdb.util.Util.startFullImageActivity
-import com.example.tmdb.util.Util.startSeeAllMovieActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -43,7 +43,7 @@ class DetailActorInfoActivity :
 
     override fun setObserve() {
         viewModel.profile.observe(this) {
-            Util.setImage(it, binding.root, binding.imgProfile)
+            setImage(it, binding.root, binding.imgProfile)
         }
         viewModel.fullImage.observe(this) {
             startFullImageActivity(this, it)

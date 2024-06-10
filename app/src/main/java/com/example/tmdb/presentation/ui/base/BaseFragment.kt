@@ -23,7 +23,7 @@ abstract class BaseFragment<B : ViewDataBinding, VM : ViewModel> : Fragment() {
         binding = DataBindingUtil.inflate(inflater, layoutResId(), container, false)
         binding.lifecycleOwner = this
 
-        viewModel = ViewModelProvider(this).get(getViewModelClass())
+        viewModel = ViewModelProvider(requireActivity()).get(getViewModelClass())
 
         initializeUI()
         return binding.root
@@ -33,14 +33,8 @@ abstract class BaseFragment<B : ViewDataBinding, VM : ViewModel> : Fragment() {
     abstract fun layoutResId(): Int
     abstract fun initializeUI()
 
-    fun fragmentClose() {
-        val fragmentManager = requireActivity().supportFragmentManager
-        fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+    protected fun fragmentClose() {
+        parentFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
     }
 
-    fun getTransaction(): FragmentTransaction {
-        val fragmentManager = requireActivity().supportFragmentManager
-        val transaction = fragmentManager.beginTransaction()
-        return transaction
-    }
 }

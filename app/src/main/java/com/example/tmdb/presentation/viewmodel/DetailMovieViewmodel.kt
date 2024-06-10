@@ -28,7 +28,7 @@ class DetailMovieViewmodel @Inject constructor(
     application: Application,
     private val watchListRepository: WatchListRepository,
     private val setAccountDataRepository: SetAccountDataRepository,
-    private val checkWatchListUseCase: CheckWatchListUseCase
+    //private val checkWatchListUseCase: CheckWatchListUseCase
 ) : AndroidViewModel(application) {
     val movieTitle: MutableLiveData<String> = MutableLiveData("")
     val backImg: MutableLiveData<String> = MutableLiveData("")
@@ -83,7 +83,7 @@ class DetailMovieViewmodel @Inject constructor(
     }
 
     fun checkWatchList(id: Int) {
-        if (checkWatchListUseCase.execute(id)) {
+        if (setAccountDataRepository.checkWatchList(id)) {
             addWatchListCheck.value = true
         } else {
             addWatchListCheck.value = false

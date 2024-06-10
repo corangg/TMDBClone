@@ -6,7 +6,7 @@ import com.example.tmdb.databinding.FragmentSavedBinding
 import com.example.tmdb.presentation.ui.adapter.SeeAllMovieAdapter
 import com.example.tmdb.presentation.viewmodel.MainViewModel
 import com.example.tmdb.util.ItemClickInterface
-import com.example.tmdb.util.Util
+import com.example.tmdb.util.Util.setGridAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -29,7 +29,7 @@ class SavedFragment : BaseFragment<FragmentSavedBinding, MainViewModel>(), ItemC
     private fun setObserve() {
         viewModel.savedList.observe(viewLifecycleOwner) {
             seeAllMovieAdapter = SeeAllMovieAdapter(it.toMutableList(), this)
-            Util.setGridAdapter(binding.savedRecycler, requireContext(), 0, 2, seeAllMovieAdapter)
+            setGridAdapter(binding.savedRecycler, requireContext(), 0, 2, seeAllMovieAdapter)
         }
     }
 }

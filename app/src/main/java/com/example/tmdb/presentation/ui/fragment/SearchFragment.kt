@@ -12,7 +12,11 @@ import com.example.tmdb.presentation.ui.adapter.SeeAllActorAdapter
 import com.example.tmdb.presentation.ui.adapter.SeeAllMovieAdapter
 import com.example.tmdb.presentation.viewmodel.MainViewModel
 import com.example.tmdb.util.ItemClickInterface
-import com.example.tmdb.util.Util
+import com.example.tmdb.util.StartActivityUtil.startDetailActorInfoActivity
+import com.example.tmdb.util.StartActivityUtil.startDetailMovieInfoActivity
+import com.example.tmdb.util.Util.moreData
+import com.example.tmdb.util.Util.setGridAdapter
+import com.example.tmdb.util.Util.setLinearAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -26,39 +30,35 @@ class SearchFragment : BaseFragment<FragmentSearchBinding, MainViewModel>(), Ite
     override fun initializeUI() {
         binding.viewmodel = viewModel
         setObserve()
-        Util.moreData(binding.scrollview) { viewModel.getMorePage() }
+        moreData(binding.scrollview) { viewModel.getMorePage() }
     }
 
     override fun onActorItemClick(id: Int) {
-        Util.startDetailActorInfoActivity(requireContext(), id)
+        startDetailActorInfoActivity(requireContext(), id)
     }
 
     override fun onMovieItemClick(id: Int) {
-        Util.startDetailMovieInfoActivity(requireContext(), id)
+        startDetailMovieInfoActivity(requireContext(), id)
     }
 
     private fun setObserve() {
         viewModel.searchAny.observe(viewLifecycleOwner) {
-            when (it) {
-                0 -> {
-                    binding.btnMovies.setBackgroundColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.logincolor
-                        )
+            if (it) {
+                binding.btnMovies.setBackgroundColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.logincolor
                     )
-                    binding.btnActors.setBackgroundColor(Color.BLACK)
-                }
-
-                1 -> {
-                    binding.btnMovies.setBackgroundColor(Color.BLACK)
-                    binding.btnActors.setBackgroundColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.logincolor
-                        )
+                )
+                binding.btnActors.setBackgroundColor(Color.BLACK)
+            } else {
+                binding.btnMovies.setBackgroundColor(Color.BLACK)
+                binding.btnActors.setBackgroundColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.logincolor
                     )
-                }
+                )
             }
         }
 
@@ -82,11 +82,11 @@ class SearchFragment : BaseFragment<FragmentSearchBinding, MainViewModel>(), Ite
 
     private fun setSearchMovieAdapter(list: List<Result>) {
         searchMovieAdapter = SeeAllMovieAdapter(list.toMutableList(), this)
-        Util.setGridAdapter(binding.recyclerSearch, requireContext(), 0, 2, searchMovieAdapter)
+        setGridAdapter(binding.recyclerSearch, requireContext(), 0, 2, searchMovieAdapter)
     }
 
     private fun setSearchActorAdapter(list: List<CelebritiesResult>) {
         searchActorAdapter = SeeAllActorAdapter(list.toMutableList(), this)
-        Util.setLinearAdapter(binding.recyclerSearch, requireContext(), 0, searchActorAdapter)
+        setLinearAdapter(binding.recyclerSearch, requireContext(), 0, searchActorAdapter)
     }
 }

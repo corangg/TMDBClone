@@ -7,9 +7,12 @@ import com.example.tmdb.presentation.ui.adapter.SeeAllCreditAdapter
 import com.example.tmdb.presentation.ui.adapter.SeeAllMovieAdapter
 import com.example.tmdb.presentation.viewmodel.SeeAllMoviesViewmodel
 import com.example.tmdb.util.ItemClickInterface
-import com.example.tmdb.util.Util
+import com.example.tmdb.util.StartActivityUtil.startDetailMovieInfoActivity
+import com.example.tmdb.util.Util.getActorID
+import com.example.tmdb.util.Util.getMovieID
+import com.example.tmdb.util.Util.moreData
 import com.example.tmdb.util.Util.setGridAdapter
-import com.example.tmdb.util.Util.startDetailMovieInfoActivity
+import com.example.tmdb.util.Util.setupAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -19,10 +22,10 @@ class SeeAllMoviesActivity : BaseActivity<ActivitySeeAllBinding, SeeAllMoviesVie
     private lateinit var seeAllMovieAdapter: SeeAllMovieAdapter
     private lateinit var seeAllCreditAdapter: SeeAllCreditAdapter
 
-    var type = ""
-    var id = -1
-    var actorid = -1
-    var page = 1
+    private var type = ""
+    private var id = -1
+    private var actorid = -1
+    private var firstPage = true
 
     override fun layoutResId() = R.layout.activity_see_all
     override fun getViewModelClass() = SeeAllMoviesViewmodel::class.java
@@ -30,7 +33,7 @@ class SeeAllMoviesActivity : BaseActivity<ActivitySeeAllBinding, SeeAllMoviesVie
     override fun initializeUI() {
         binding.viewmodel = viewModel
         getData()
-        Util.moreData(binding.scrollview) { viewModel.getData(type, id, actorid) }
+        moreData(binding.scrollview) { viewModel.getData(type, id, actorid) }
     }
 
     override fun onMovieItemClick(id: Int) {
@@ -39,13 +42,15 @@ class SeeAllMoviesActivity : BaseActivity<ActivitySeeAllBinding, SeeAllMoviesVie
 
     override fun setObserve() {
         viewModel.movieList.observe(this) {
-            if (page == 1) {
-                seeAllMovieAdapter = SeeAllMovieAdapter(it.toMutableList(), this)
-                setGridAdapter(binding.movieRecycler, this, 0, 2, seeAllMovieAdapter)
-                page += 1
-            } else {
-                seeAllMovieAdapter.addData(it)
-            }
+            seeAllMovieAdapter = SeeAllMovieAdapter(it.toMutableList(), this)
+            firstPage = setupAdapter(
+                binding.movieRecycler,
+                this,
+                it,
+                firstPage,
+                seeAllMovieAdapter,
+                { adapter, data -> (adapter as SeeAllMovieAdapter).addData(data) }
+            )
         }
         viewModel.creditMovieList.observe(this) {
             seeAllCreditAdapter = SeeAllCreditAdapter(it, this)
@@ -58,8 +63,8 @@ class SeeAllMoviesActivity : BaseActivity<ActivitySeeAllBinding, SeeAllMoviesVie
 
     private fun getData() {
         val data = intent.getStringExtra(getString(R.string.seeAllMovie))
-        id = Util.getMovieID(intent, this)
-        actorid = Util.getActorID(intent, this)
+        id = getMovieID(intent, this)
+        actorid = getActorID(intent, this)
         data?.let {
             type = it
             viewModel.getData(type, id, actorid)

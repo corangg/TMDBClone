@@ -13,6 +13,5 @@ class ContactFragment : BaseFragment<FragmentContactBinding, MainViewModel>() {
 
     override fun initializeUI() {
         binding.viewmodel = viewModel
-
     }
 }

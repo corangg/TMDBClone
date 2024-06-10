@@ -19,7 +19,7 @@ class GiveRatingFragment : BaseFragment<FragmentGiveRatingBinding, DetailMovieVi
     private fun setObserve() {
         viewModel.finishedGiveRatingFragment.observe(viewLifecycleOwner) {
             if (it) {
-                parentFragmentManager.beginTransaction().remove(this).commit()
+                fragmentClose()
             }
         }
     }

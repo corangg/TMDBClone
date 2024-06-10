@@ -4,8 +4,9 @@ import com.example.img_decorat.ui.base.BaseActivity
 import com.example.tmdb.R
 import com.example.tmdb.databinding.ActivityLoginBinding
 import com.example.tmdb.presentation.viewmodel.LoginViewmodel
+import com.example.tmdb.util.StartActivityUtil.startMainActivity
 import com.example.tmdb.util.TMDBUrl
-import com.example.tmdb.util.Util
+import com.example.tmdb.util.Util.openInternetPage
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -20,11 +21,11 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewmodel>() {
 
     override fun setObserve() {
         viewModel.startMainActivity.observe(this) {
-            Util.startMainActivity(this)
+            startMainActivity(this)
             finish()
         }
         viewModel.openSignUpPage.observe(this) {
-            Util.openInternetPage(this, TMDBUrl.signUpUrl)
+            openInternetPage(this, TMDBUrl.signUpUrl)
         }
     }
 }

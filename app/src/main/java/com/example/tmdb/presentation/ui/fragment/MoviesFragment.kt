@@ -5,16 +5,18 @@ import android.os.Looper
 import com.example.img_decorat.ui.base.BaseFragment
 import com.example.tmdb.R
 import com.example.tmdb.databinding.FragmentMoviesBinding
+import com.example.tmdb.presentation.ui.UIHelper
 import com.example.tmdb.presentation.ui.adapter.MovieAdapter
 import com.example.tmdb.presentation.viewmodel.MainViewModel
 import com.example.tmdb.util.ItemClickInterface
-import com.example.tmdb.util.Util
+import com.example.tmdb.util.Util.setGridAdapter
+import com.example.tmdb.util.Util.setLinearAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MoviesFragment : BaseFragment<FragmentMoviesBinding, MainViewModel>(), ItemClickInterface {
     private val handler = Handler(Looper.getMainLooper())
-    private lateinit var uiHelper: com.example.tmdb.presentation.ui.UIHelper
+    private lateinit var uiHelper: UIHelper
 
     private lateinit var moviesAdapter: MovieAdapter
     private lateinit var nowPlayingAdapter: MovieAdapter
@@ -28,7 +30,7 @@ class MoviesFragment : BaseFragment<FragmentMoviesBinding, MainViewModel>(), Ite
     override fun initializeUI() {
         binding.viewmodel = viewModel
 
-        uiHelper = com.example.tmdb.presentation.ui.UIHelper()
+        uiHelper = UIHelper()
         viewModel.setMoviesList()
         setObserve()
     }
@@ -50,7 +52,7 @@ class MoviesFragment : BaseFragment<FragmentMoviesBinding, MainViewModel>(), Ite
 
         viewModel.liveMoviesNowPlayingList.observe(viewLifecycleOwner) {
             nowPlayingAdapter = MovieAdapter(it, 1, this)
-            Util.setLinearAdapter(
+            setLinearAdapter(
                 binding.moviesNowPlayingRecycler,
                 requireContext(),
                 1,
@@ -60,7 +62,7 @@ class MoviesFragment : BaseFragment<FragmentMoviesBinding, MainViewModel>(), Ite
 
         viewModel.liveMoviesPopularList.observe(viewLifecycleOwner) {
             popularAdapter = MovieAdapter(it, 2, this)
-            Util.setLinearAdapter(
+            setLinearAdapter(
                 binding.moviesPopularRecycler,
                 requireContext(),
                 1,
@@ -70,7 +72,7 @@ class MoviesFragment : BaseFragment<FragmentMoviesBinding, MainViewModel>(), Ite
 
         viewModel.liveMoviesTopRatedList.observe(viewLifecycleOwner) {
             topRatedAdapter = MovieAdapter(it, 3, this)
-            Util.setGridAdapter(
+            setGridAdapter(
                 binding.moviesTopRatedRecycler,
                 requireContext(),
                 1,
@@ -81,7 +83,7 @@ class MoviesFragment : BaseFragment<FragmentMoviesBinding, MainViewModel>(), Ite
 
         viewModel.liveMoviesUpComingList.observe(viewLifecycleOwner) {
             upComingAdapter = MovieAdapter(it, 1, this)
-            Util.setLinearAdapter(
+            setLinearAdapter(
                 binding.moviesUpcomingRecycler,
                 requireContext(),
                 1,

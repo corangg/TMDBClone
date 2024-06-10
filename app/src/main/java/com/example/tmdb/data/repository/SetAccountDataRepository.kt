@@ -1,18 +1,17 @@
 package com.example.tmdb.data.repository
 
 import com.example.tmdb.data.model.Result
+import com.example.tmdb.data.source.remot.retrofit.TMDBRetrofit
 import com.example.tmdb.domain.model.account.AccountDetailsResponse
 import com.example.tmdb.domain.model.account.CreateSessionBody
 import com.example.tmdb.domain.model.account.ValidateTokenBody
-import com.example.tmdb.data.source.remot.retrofit.TMDBRetrofit
-import com.example.tmdb.domain.repository.AccountRepository
 
-class SetAccountDataRepository : AccountRepository {
+class SetAccountDataRepository {
     var accountId = -1
     var sessionId = ""
     var myWatchList = listOf<Result>()
 
-    override suspend fun signIn(id: String, password: String): String? {
+    suspend fun signIn(id: String, password: String): String? {
         val token = TMDBRetrofit.createToken()
         token?.let {
             val body = ValidateTokenBody(
@@ -33,7 +32,7 @@ class SetAccountDataRepository : AccountRepository {
         return null
     }
 
-    override suspend fun getAccountId(): AccountDetailsResponse? {
+    suspend fun getAccountId(): AccountDetailsResponse? {
         if (sessionId != "") {
             TMDBRetrofit.getAccountId(sessionId)?.let {
                 accountId = it.id
@@ -43,7 +42,7 @@ class SetAccountDataRepository : AccountRepository {
         return null
     }
 
-    override suspend fun getMyWatchList(): List<Result>? {
+    suspend fun getMyWatchList(): List<Result>? {
         TMDBRetrofit.fetchMySavedList(accountId)?.let {
             myWatchList = it
             return it
@@ -51,7 +50,7 @@ class SetAccountDataRepository : AccountRepository {
         return null
     }
 
-    override fun checkWatchList(id: Int): Boolean {
+    fun checkWatchList(id: Int): Boolean {
         val checkWatchList = myWatchList.find { it.id == id }
         return if (checkWatchList != null) {
             true

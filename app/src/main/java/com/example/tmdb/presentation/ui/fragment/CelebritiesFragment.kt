@@ -7,7 +7,7 @@ import com.example.tmdb.presentation.ui.adapter.CelebritiesPopularAdapter
 import com.example.tmdb.presentation.ui.adapter.CelebritiesTrendingAdapter
 import com.example.tmdb.presentation.viewmodel.MainViewModel
 import com.example.tmdb.util.ItemClickInterface
-import com.example.tmdb.util.Util
+import com.example.tmdb.util.Util.setGridAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -31,7 +31,7 @@ class CelebritiesFragment : BaseFragment<FragmentCelebritiesBinding, MainViewMod
     private fun setObserve() {
         viewModel.liveCelebritiesPopularList.observe(viewLifecycleOwner) {
             popularAdapter = CelebritiesPopularAdapter(it, this)
-            Util.setGridAdapter(
+            setGridAdapter(
                 binding.celebritiesPopularRecycler,
                 requireContext(),
                 1,
@@ -42,7 +42,7 @@ class CelebritiesFragment : BaseFragment<FragmentCelebritiesBinding, MainViewMod
 
         viewModel.liveCelebritiesTrendingList.observe(viewLifecycleOwner) {
             trendingAdapter = CelebritiesTrendingAdapter(it, this)
-            Util.setGridAdapter(
+            setGridAdapter(
                 binding.celebritiesTrendingRecycler,
                 requireContext(),
                 1,

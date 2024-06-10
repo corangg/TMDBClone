@@ -127,15 +127,14 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp">
 
-                            <ImageButton
+                            <View
                                 android:layout_width="32dp"
                                 android:layout_height="32dp"
                                 android:id="@+id/btn_bookmark"
                                 android:layout_alignParentEnd="true"
                                 android:layout_marginEnd="6dp"
-                                android:background="@color/black"
-                                android:src="@drawable/ic_bookmark"
-                                app:tint="@color/white"
+                                android:background="@drawable/ic_bookmark"
+                                android:backgroundTint="@color/white"
                                 android:scaleType="centerCrop"
                                 android:onClick="@{()->viewmodel.addWatchList()}"/>
 

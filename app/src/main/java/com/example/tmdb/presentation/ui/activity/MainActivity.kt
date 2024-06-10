@@ -13,19 +13,19 @@ import com.example.tmdb.presentation.ui.fragment.profile.LanguageFragment
 import com.example.tmdb.presentation.ui.fragment.profile.LogoutCheckFragment
 import com.example.tmdb.presentation.ui.fragment.profile.SavedFragment
 import com.example.tmdb.presentation.viewmodel.MainViewModel
+import com.example.tmdb.util.StartActivityUtil.startDetailActorInfoActivity
+import com.example.tmdb.util.StartActivityUtil.startDetailMovieInfoActivity
+import com.example.tmdb.util.StartActivityUtil.startLoginActivity
+import com.example.tmdb.util.StartActivityUtil.startSeeAllActorActivity
+import com.example.tmdb.util.StartActivityUtil.startSeeAllMovieActivity
 import com.example.tmdb.util.TMDBUrl
-import com.example.tmdb.util.Util
-import com.example.tmdb.util.Util.beginFragment
-import com.example.tmdb.util.Util.startDetailActorInfoActivity
-import com.example.tmdb.util.Util.startDetailMovieInfoActivity
-import com.example.tmdb.util.Util.startLoginActivity
-import com.example.tmdb.util.Util.startSeeAllActorActivity
-import com.example.tmdb.util.Util.startSeeAllMovieActivity
+import com.example.tmdb.util.Util.openInternetPage
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
-    private val fragments = arrayOf(MoviesFragment(), CelebritiesFragment(), SearchFragment(), ProfileFragment())
+    private val fragments =
+        arrayOf(MoviesFragment(), CelebritiesFragment(), SearchFragment(), ProfileFragment())
 
     override fun layoutResId() = R.layout.activity_main
 
@@ -38,7 +38,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 
     override fun setObserve() {
         viewModel.selectNavigationItem.observe(this) {
-            beginFragment(supportFragmentManager, binding.fragmentMain.id, fragments[it])
+            replaceFragment(binding.fragmentMain.id, fragments[it])
         }
 
         viewModel.movieId.observe(this) {
@@ -62,36 +62,27 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
         }
 
         viewModel.startSavedFragment.observe(this) {
-            supportFragmentManager.beginTransaction().add(binding.fragmentMain.id, SavedFragment())
-                .addToBackStack(null).commit()
+            replaceFragment(binding.fragmentMain.id, SavedFragment(), true)
         }
 
         viewModel.startLanguageFragment.observe(this) {
-            supportFragmentManager.beginTransaction()
-                .add(binding.fragmentMain.id, LanguageFragment()).addToBackStack(null).commit()
+            replaceFragment(binding.fragmentMain.id, LanguageFragment(), true)
         }
 
         viewModel.startContactFragment.observe(this) {
-            supportFragmentManager.beginTransaction()
-                .add(binding.fragmentMain.id, ContactFragment()).addToBackStack(null).commit()
+            replaceFragment(binding.fragmentMain.id, ContactFragment(), true)
         }
 
         viewModel.startAboutFragment.observe(this) {
-            supportFragmentManager.beginTransaction().add(binding.fragmentMain.id, AboutFragment())
-                .addToBackStack(null).commit()
+            replaceFragment(binding.fragmentMain.id, AboutFragment(), true)
         }
 
         viewModel.startCheckLogOutFragment.observe(this) {
-            supportFragmentManager.beginTransaction()
-                .add(binding.fragmentMain.id, LogoutCheckFragment()).addToBackStack(null).commit()
+            replaceFragment(binding.fragmentMain.id, LogoutCheckFragment(), true)
         }
 
         viewModel.connectionIC.observe(this) {
-            when (it) {
-                0 -> Util.openInternetPage(this, TMDBUrl.telegramUrl)
-                1 -> Util.openInternetPage(this, TMDBUrl.instargramUrl)
-                2 -> Util.openInternetPage(this, TMDBUrl.linkedInUrl)
-            }
+            openInternetPage(this, TMDBUrl.connectionICArray[it])
         }
     }
 }

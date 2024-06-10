@@ -110,7 +110,7 @@
                 android:text="@string/movies"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:onClick="@{()-> viewmodel.selectSearchAny(0)}"/>
+                android:onClick="@{()-> viewmodel.selectSearchAny(true)}"/>
 
             <Button
                 android:layout_width="0dp"
@@ -122,7 +122,7 @@
                 android:text="@string/actor"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:onClick="@{()-> viewmodel.selectSearchAny(1)}"/>
+                android:onClick="@{()-> viewmodel.selectSearchAny(false)}"/>
 
         </LinearLayout>
 

@@ -4,7 +4,7 @@ import com.example.img_decorat.ui.base.BaseActivity
 import com.example.tmdb.R
 import com.example.tmdb.databinding.ActivityFullImageBinding
 import com.example.tmdb.presentation.viewmodel.FullImageViewmodel
-import com.example.tmdb.util.Util
+import com.example.tmdb.util.Util.setImage
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -27,7 +27,7 @@ class FullImageActivity : BaseActivity<ActivityFullImageBinding, FullImageViewmo
     private fun imageSet() {
         val url = intent.getStringExtra(getString(R.string.imgUrl))
         url?.let {
-            Util.setImage(it, binding.root, binding.img)
+            setImage(it, binding.root, binding.img)
         }
     }
 }

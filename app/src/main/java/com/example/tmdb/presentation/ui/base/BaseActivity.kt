@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 
@@ -27,4 +28,12 @@ abstract class BaseActivity<B : ViewDataBinding, VM : ViewModel> : AppCompatActi
     abstract fun initializeUI()
     abstract fun setObserve()
 
+    protected fun replaceFragment(id: Int, fragment: Fragment, backStack: Boolean = false){
+        val beginFragment = supportFragmentManager.beginTransaction().replace(id, fragment)
+        if(backStack){
+            beginFragment.addToBackStack(null).commit()
+        }else{
+            beginFragment.commit()
+        }
+    }
 }

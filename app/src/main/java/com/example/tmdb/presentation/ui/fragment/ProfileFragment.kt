@@ -3,7 +3,6 @@ package com.example.tmdb.presentation.ui.fragment
 import android.view.View
 import com.bumptech.glide.Glide
 import com.example.img_decorat.ui.base.BaseFragment
-import com.example.tmdb.BuildConfig
 import com.example.tmdb.R
 import com.example.tmdb.databinding.FragmentProfileBinding
 import com.example.tmdb.presentation.viewmodel.MainViewModel

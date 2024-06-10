@@ -1,5 +1,6 @@
 package com.example.tmdb.presentation.ui.activity
 
+import android.content.res.ColorStateList
 import com.example.img_decorat.ui.base.BaseActivity
 import com.example.tmdb.R
 import com.example.tmdb.databinding.ActivityDetailMovieInfoBinding
@@ -12,17 +13,16 @@ import com.example.tmdb.presentation.ui.adapter.VideoAdapter
 import com.example.tmdb.presentation.ui.fragment.GiveRatingFragment
 import com.example.tmdb.presentation.viewmodel.DetailMovieViewmodel
 import com.example.tmdb.util.ItemClickInterface
-import com.example.tmdb.util.Util
+import com.example.tmdb.util.StartActivityUtil.startDetailActorInfoActivity
+import com.example.tmdb.util.StartActivityUtil.startDetailMovieInfoActivity
+import com.example.tmdb.util.StartActivityUtil.startFullImageActivity
+import com.example.tmdb.util.StartActivityUtil.startLoginActivity
+import com.example.tmdb.util.StartActivityUtil.startSeeAllActorActivity
+import com.example.tmdb.util.StartActivityUtil.startSeeAllMovieActivity
+import com.example.tmdb.util.StartActivityUtil.startVideoActivity
 import com.example.tmdb.util.Util.getMovieID
-import com.example.tmdb.util.Util.imgButtonSet
+import com.example.tmdb.util.Util.setImage
 import com.example.tmdb.util.Util.setLinearAdapter
-import com.example.tmdb.util.Util.startDetailActorInfoActivity
-import com.example.tmdb.util.Util.startDetailMovieInfoActivity
-import com.example.tmdb.util.Util.startFullImageActivity
-import com.example.tmdb.util.Util.startLoginActivity
-import com.example.tmdb.util.Util.startSeeAllActorActivity
-import com.example.tmdb.util.Util.startSeeAllMovieActivity
-import com.example.tmdb.util.Util.startVideoActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -37,7 +37,7 @@ class DetailMovieInfoActivity :
     private lateinit var videoAdapter: VideoAdapter
     private lateinit var movieAdapter: MovieAdapter
 
-    var id = -1
+    private var movieId = -1
 
     override fun layoutResId() = R.layout.activity_detail_movie_info
 
@@ -62,10 +62,10 @@ class DetailMovieInfoActivity :
 
     override fun setObserve() {
         viewModel.backImg.observe(this) {
-            Util.setImage(it, binding.root, binding.imgBack)
+            setImage(it, binding.root, binding.imgBack)
         }
         viewModel.posterImg.observe(this) {
-            Util.setImage(it, binding.root, binding.imgPoster)
+            setImage(it, binding.root, binding.imgPoster)
         }
         viewModel.ratingPercentInt.observe(this) {
             binding.circularProgressBar.progress = it.toFloat()
@@ -107,11 +107,11 @@ class DetailMovieInfoActivity :
         }
 
         viewModel.startSeeAllActorActivity.observe(this) {
-            startSeeAllActorActivity(this, it, id)
+            startSeeAllActorActivity(this, it, movieId)
         }
 
         viewModel.startSeeAllMovieActivity.observe(this) {
-            startSeeAllMovieActivity(this, it, id)
+            startSeeAllMovieActivity(this, it, movieId)
         }
 
         viewModel.startLoginActivity.observe(this) {
@@ -121,33 +121,28 @@ class DetailMovieInfoActivity :
 
         viewModel.addWatchListCheck.observe(this) {
             if (it) {
-                imgButtonSet(
-                    R.drawable.ic_fill_bookmarker,
-                    binding.root,
-                    binding.btnBookmark,
-                    getColor(R.color.logincolor)
-                )
+                binding.btnBookmark.setBackgroundResource(R.drawable.ic_fill_bookmarker)
+                binding.btnBookmark.backgroundTintList =
+                    ColorStateList.valueOf(getColor(R.color.logincolor))
+
             } else {
-                imgButtonSet(
-                    R.drawable.ic_bookmark,
-                    binding.root,
-                    binding.btnBookmark,
-                    getColor(R.color.white)
-                )
+                binding.btnBookmark.setBackgroundResource(R.drawable.ic_bookmark)
+                binding.btnBookmark.backgroundTintList =
+                    ColorStateList.valueOf(getColor(R.color.white))
+
             }
         }
 
         viewModel.startGiveRatingFragment.observe(this) {
-            supportFragmentManager.beginTransaction().add(binding.view.id, GiveRatingFragment())
-                .addToBackStack(null).commit()
+            replaceFragment(binding.view.id, GiveRatingFragment(), true)
         }
     }
 
     private fun setMovie() {
-        id = getMovieID(intent, this)
-        if (id != -1) {
-            viewModel.getMovieData(id)
-            viewModel.checkWatchList(id)
+        movieId = getMovieID(intent, this)
+        if (movieId != -1) {
+            viewModel.getMovieData(movieId)
+            viewModel.checkWatchList(movieId)
         }
     }
 }
