@@ -7,7 +7,6 @@ import javax.inject.Singleton
 
 @Singleton
 class GetDataRepository {
-
     var moviesList: List<Result> = listOf()
     var moviesNowPlayingList: List<Result> = listOf()
     var moviesPopularList: List<Result> = listOf()

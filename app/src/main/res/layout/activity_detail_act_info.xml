@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewmodel"
-            type="com.example.tmdb.ui.viewmodel.DetailActorViewmodel" />
+            type="com.example.tmdb.presentation.viewmodel.DetailActorViewmodel" />
     </data>
     <LinearLayout
         android:id="@+id/main"
@@ -14,7 +14,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:background="@color/black"
-        tools:context=".ui.activity.DetailActorInfoActivity">
+        tools:context=".presentation.ui.activity.DetailActorInfoActivity">
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

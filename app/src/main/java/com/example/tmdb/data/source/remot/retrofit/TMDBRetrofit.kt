@@ -1,13 +1,14 @@
 package com.example.tmdb.data.source.remot.retrofit
 
 import android.util.Log
+import com.example.tmdb.BuildConfig
 import com.example.tmdb.data.model.CreateTokenResponse
 import com.example.tmdb.data.model.Result
-import com.example.tmdb.data.model.account.AccountDetailsResponse
-import com.example.tmdb.data.model.account.CreateSessionBody
-import com.example.tmdb.data.model.account.SessionResponse
-import com.example.tmdb.data.model.account.ValidateTokenBody
-import com.example.tmdb.data.model.account.ValidateTokenResponse
+import com.example.tmdb.domain.model.account.AccountDetailsResponse
+import com.example.tmdb.domain.model.account.CreateSessionBody
+import com.example.tmdb.domain.model.account.SessionResponse
+import com.example.tmdb.domain.model.account.ValidateTokenBody
+import com.example.tmdb.domain.model.account.ValidateTokenResponse
 import com.example.tmdb.data.model.celebrities.CelebritiesResult
 import com.example.tmdb.data.model.credit.CreditResponse
 import com.example.tmdb.data.model.detailactor.ActorCast
@@ -26,9 +27,9 @@ import retrofit2.HttpException
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+
 object TMDBRetrofit {
-    val authHeader =
-        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0OTUwZmEyYTRiYTVmMGQ5NWZmYzhiZGFkNDc4NWVmYSIsInN1YiI6IjY2NTZkYjY5YmIxNDRjOGQ3N2E2ZGE1YSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.-8qeYfk8z7lvaeb2TyW7WYBJZ2JZ33QFDgN0E_5zZgU"
+    val authHeader = BuildConfig.TMDB_AUTH_HEADER
     val retrofit = Retrofit.Builder()
         .baseUrl(TMDBUrl.baseUrl)
         .addConverterFactory(GsonConverterFactory.create())

@@ -7,6 +7,11 @@ import com.example.tmdb.data.repository.WatchListRepository
 import com.example.tmdb.data.repository.SetAccountDataRepository
 import com.example.tmdb.data.source.local.IDDB
 import com.example.tmdb.data.source.local.IDDao
+import com.example.tmdb.domain.repository.AccountRepository
+import com.example.tmdb.domain.usecase.CheckWatchListUseCase
+import com.example.tmdb.domain.usecase.GetAccountIdUseCase
+import com.example.tmdb.domain.usecase.GetMyWatchListUseCase
+import com.example.tmdb.domain.usecase.SignInUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -56,5 +61,33 @@ object Moudle {
         return WatchListRepository(context, setAccountDataRepository)
     }
 
+    @Provides
+    @Singleton
+    fun provideAccountRepository(): AccountRepository {
+        return SetAccountDataRepository()
+    }
 
+    @Provides
+    @Singleton
+    fun provideGetAccountIdUseCase(accountRepository: AccountRepository): GetAccountIdUseCase {
+        return GetAccountIdUseCase(accountRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideSignInUseCase(accountRepository: AccountRepository): SignInUseCase {
+        return SignInUseCase(accountRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetMyWatchList(accountRepository: AccountRepository): GetMyWatchListUseCase {
+        return GetMyWatchListUseCase(accountRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideCheckWatchList(accountRepository: AccountRepository): CheckWatchListUseCase {
+        return CheckWatchListUseCase(accountRepository)
+    }
 }

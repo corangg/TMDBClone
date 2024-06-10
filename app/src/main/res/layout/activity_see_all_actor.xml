@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewmodel"
-            type="com.example.tmdb.ui.viewmodel.SeeAllActorViewmodel" />
+            type="com.example.tmdb.presentation.viewmodel.SeeAllActorViewmodel" />
     </data>
 
     <LinearLayout

@@ -1,5 +1,6 @@
 package com.example.tmdb.util
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.PorterDuff
@@ -11,6 +12,8 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.ScrollView
 import androidx.core.content.ContextCompat.getString
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,14 +24,14 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.example.tmdb.R
-import com.example.tmdb.ui.activity.DetailActorInfoActivity
-import com.example.tmdb.ui.activity.DetailMovieInfoActivity
-import com.example.tmdb.ui.activity.FullImageActivity
-import com.example.tmdb.ui.activity.LoginActivity
-import com.example.tmdb.ui.activity.MainActivity
-import com.example.tmdb.ui.activity.SeeAllActorActivity
-import com.example.tmdb.ui.activity.SeeAllMoviesActivity
-import com.example.tmdb.ui.activity.VideoPlayActivity
+import com.example.tmdb.presentation.ui.activity.DetailActorInfoActivity
+import com.example.tmdb.presentation.ui.activity.DetailMovieInfoActivity
+import com.example.tmdb.presentation.ui.activity.FullImageActivity
+import com.example.tmdb.presentation.ui.activity.LoginActivity
+import com.example.tmdb.presentation.ui.activity.MainActivity
+import com.example.tmdb.presentation.ui.activity.SeeAllActorActivity
+import com.example.tmdb.presentation.ui.activity.SeeAllMoviesActivity
+import com.example.tmdb.presentation.ui.activity.VideoPlayActivity
 
 object Util {
     fun setImage(uri: String, root: View, view: ImageView) {
@@ -166,6 +169,10 @@ object Util {
                 return false
             }
         }).into(view)
+    }
+
+    fun beginFragment(fragmentManager: FragmentManager, id: Int, fragment: Fragment){
+        fragmentManager.beginTransaction().replace(id, fragment).commit()
     }
 
 }
