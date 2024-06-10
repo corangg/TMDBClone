@@ -36,5 +36,4 @@ abstract class BaseFragment<B : ViewDataBinding, VM : ViewModel> : Fragment() {
     protected fun fragmentClose() {
         parentFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
     }
-
 }
