@@ -1,9 +1,6 @@
 package com.example.tmdb.util
 
 import android.util.Log
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import retrofit2.HttpException
 
 object LogUtil {
     fun logError(tag: String, message: String) {

@@ -58,4 +58,10 @@ class SetAccountDataRepository {
             false
         }
     }
+
+    fun initID(){
+        accountId = -1
+        sessionId = ""
+        myWatchList = listOf()
+    }
 }

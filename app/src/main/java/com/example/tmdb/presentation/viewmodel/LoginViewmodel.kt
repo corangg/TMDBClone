@@ -26,7 +26,6 @@ class LoginViewmodel @Inject constructor(
     val startMainActivity: MutableLiveData<Unit> = MutableLiveData()
     val openSignUpPage: MutableLiveData<Unit> = MutableLiveData()
 
-
     init {
         loginCheck()
         getTMDBData()
@@ -39,6 +38,8 @@ class LoginViewmodel @Inject constructor(
                 saveLoginData(IDData.id, IDData.password)
                 startMainActivity.value = Unit
             }
+        } ?: run {
+            setAccountDataRepository.initID()
         }
     }
 

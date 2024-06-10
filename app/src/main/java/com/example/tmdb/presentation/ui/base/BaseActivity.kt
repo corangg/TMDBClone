@@ -2,11 +2,15 @@ package com.example.img_decorat.ui.base
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.tmdb.R
+import com.example.tmdb.presentation.ui.fragment.NetworkOffFragment
+import com.example.tmdb.util.NetworkUtil
 
 abstract class BaseActivity<B : ViewDataBinding, VM : ViewModel> : AppCompatActivity() {
     protected lateinit var binding: B
@@ -29,11 +33,15 @@ abstract class BaseActivity<B : ViewDataBinding, VM : ViewModel> : AppCompatActi
     abstract fun setObserve()
 
     protected fun replaceFragment(id: Int, fragment: Fragment, backStack: Boolean = false){
-        val beginFragment = supportFragmentManager.beginTransaction().replace(id, fragment)
-        if(backStack){
-            beginFragment.addToBackStack(null).commit()
+        if(NetworkUtil.isNetworkAvailable(this)){
+            val beginFragment = supportFragmentManager.beginTransaction().replace(id, fragment)
+            if(backStack){
+                beginFragment.addToBackStack(null).commit()
+            }else{
+                beginFragment.commit()
+            }
         }else{
-            beginFragment.commit()
+            supportFragmentManager.beginTransaction().replace(id, NetworkOffFragment()).commit()
         }
     }
 }

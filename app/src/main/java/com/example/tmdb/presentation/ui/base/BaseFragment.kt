@@ -8,7 +8,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 
@@ -22,7 +21,6 @@ abstract class BaseFragment<B : ViewDataBinding, VM : ViewModel> : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, layoutResId(), container, false)
         binding.lifecycleOwner = this
-
         viewModel = ViewModelProvider(requireActivity()).get(getViewModelClass())
 
         initializeUI()

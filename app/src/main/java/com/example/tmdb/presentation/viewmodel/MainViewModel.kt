@@ -241,5 +241,4 @@ class MainViewModel @Inject constructor(
             savedList.value = it
         }
     }
-
 }
