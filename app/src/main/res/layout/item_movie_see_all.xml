@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:layout_margin="@dimen/detail_item_margin"
+    android:layout_margin="@dimen/margin_default"
     android:id="@+id/item_movie_see_all">
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
@@ -21,18 +21,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/text_title"
-        android:layout_marginTop="@dimen/detail_margin"
+        android:layout_marginTop="@dimen/item_movie_see_all_margin_top"
         android:textColor="@color/white"
-        android:textSize="@dimen/text_detial_normal"
+        android:textSize="@dimen/item_movie_see_all_text_title"
         android:maxLines="2"
         android:ellipsize="end"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/text_date"
-        android:layout_marginTop="@dimen/detail_margin"
+        android:layout_marginTop="@dimen/item_movie_see_all_margin_top"
         android:textColor="@color/logincolor"
-        android:textSize="@dimen/text_profile_id"
+        android:textSize="@dimen/item_movie_see_all_text_data"
         android:maxLines="1"
         android:ellipsize="end"/>
 </LinearLayout>

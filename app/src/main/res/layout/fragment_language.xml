@@ -19,13 +19,13 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/layout_margin_top"
+        android:layout_marginTop="@dimen/margin_top_layout"
         android:id="@+id/layer_language">
         <RadioButton
-            android:layout_width="@dimen/btn_size"
-            android:layout_height="@dimen/btn_size"
+            android:layout_width="@dimen/language_img"
+            android:layout_height="@dimen/language_img"
             android:id="@+id/radio_btn"
-            android:layout_marginStart="@dimen/detail_margin"
+            android:layout_marginStart="@dimen/language_margin"
             android:buttonTint="@color/logincolor"/>
         <TextView
             android:layout_width="wrap_content"
@@ -35,6 +35,6 @@
             android:text="@string/english"
             android:layout_centerVertical="true"
             android:textSize="@dimen/text_title"
-            android:layout_marginEnd="@dimen/layout_margin_end"/>
+            android:layout_marginEnd="@dimen/margin_end_layout"/>
     </RelativeLayout>
 </LinearLayout>

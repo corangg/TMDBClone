@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="@dimen/layer_tranding_width"
-    android:layout_height="@dimen/layer_tranding_height"
+    android:layout_width="@dimen/itme_celebrivites_tranding_img_width"
+    android:layout_height="@dimen/itme_celebrivites_tranding_img_height"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/item_trending"
-    android:layout_marginBottom="@dimen/layout_margin_end"
-    android:layout_marginEnd="@dimen/layout_margin_top">
+    android:layout_marginBottom="@dimen/itme_celebrivites_tranding_margin_bottom"
+    android:layout_marginEnd="@dimen/itme_celebrivites_tranding_margin_end">
     <androidx.cardview.widget.CardView
-        android:layout_width="@dimen/layer_tranding_height"
+        android:layout_width="@dimen/itme_celebrivites_tranding_img_height"
         android:layout_height="match_parent"
         android:id="@+id/card_profile"
-        app:cardCornerRadius="@dimen/profile_radius">
+        app:cardCornerRadius="@dimen/circle_radius">
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -24,14 +24,14 @@
         android:orientation="vertical"
         android:layout_centerVertical="true"
         android:layout_toEndOf ="@+id/card_profile"
-        android:layout_marginStart="@dimen/detail_poster_margin_start">
+        android:layout_marginStart="@dimen/itme_celebrivites_tranding_margin_start">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/text_name"
             android:textColor="@color/white"
             android:textStyle="bold"
-            android:textSize="@dimen/text_name"
+            android:textSize="@dimen/itme_celebrivites_tranding_text_name"
             android:maxLines="1"
             android:ellipsize="end"/>
         <TextView
@@ -39,14 +39,14 @@
             android:layout_height="wrap_content"
             android:id="@+id/text_popularity"
             android:textColor="@color/logincolor"
-            android:textSize="@dimen/text_detail_smal"
+            android:textSize="@dimen/itme_celebrivites_tranding_text_popularity"
             android:maxLines="1"
             android:ellipsize="end"/>
     </LinearLayout>
 
     <ImageButton
-        android:layout_width="@dimen/btn_trending_detail"
-        android:layout_height="@dimen/btn_trending_detail"
+        android:layout_width="@dimen/itme_celebrivites_tranding_img_detail"
+        android:layout_height="@dimen/itme_celebrivites_tranding_img_detail"
         android:id="@+id/btn_see_all"
         android:background="@drawable/ic_right"
         android:layout_centerVertical="true"

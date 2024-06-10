@@ -1,4 +1,4 @@
-package com.example.tmdb.domain.model.account
+package com.example.tmdb.data.model.account
 
 data class CreateSessionBody(
     val request_token: String

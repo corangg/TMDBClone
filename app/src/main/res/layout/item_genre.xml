@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="@dimen/genre_height"
-    android:layout_marginEnd="@dimen/detail_margin"
+    android:layout_height="@dimen/item_genre_height"
+    android:layout_marginEnd="@dimen/item_genre_margin_end"
     android:id="@+id/text_genre"
-    android:paddingHorizontal="@dimen/genre_padding"
+    android:paddingHorizontal="@dimen/item_genre_padding_horizontal"
     android:textColor="@color/white"
     android:gravity="center"
     android:background="@drawable/bg_title">

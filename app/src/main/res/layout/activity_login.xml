@@ -19,12 +19,12 @@
         android:paddingHorizontal="@dimen/log_in_padding_horizontal">
 
         <ImageView
-            android:layout_width="@dimen/img_logo_width"
-            android:layout_height="@dimen/img_logo_height"
+            android:layout_width="@dimen/log_in_img_logo_width"
+            android:layout_height="@dimen/log_in_img_logo_height"
             android:background="@drawable/bg_orangestroke_black"
             android:src="@drawable/img_main_logo"
-            android:layout_marginTop="@dimen/log_in_logo_margin_top"
-            android:paddingHorizontal="@dimen/log_in_logo_padding_horizontal"/>
+            android:layout_marginTop="@dimen/log_in_margin_top_logo"
+            android:paddingHorizontal="@dimen/log_in_padding_horizontal_logo"/>
 
         <EditText
             android:layout_width="match_parent"
@@ -32,11 +32,11 @@
             android:id="@+id/edit_id"
             android:hint="@string/id_hint"
             android:textColorHint="@color/gray"
-            android:layout_marginTop="@dimen/log_in_logo_id_margin"
+            android:layout_marginTop="@dimen/log_in_margin_logo_id"
             android:inputType="text"
-            android:textSize="@dimen/text_id"
-            android:paddingVertical="@dimen/log_in_id_padding_vertical"
-            android:paddingHorizontal="@dimen/log_in_id_padding_horizontal"
+            android:textSize="@dimen/log_in_text_id"
+            android:paddingVertical="@dimen/log_in_padding_vertical_id"
+            android:paddingHorizontal="@dimen/log_in_padding_horizontal_id"
             android:text="@={viewmodel.id}"
             android:textColor="@color/black"
             android:background="@drawable/bg_orangestroke_white"/>
@@ -47,11 +47,11 @@
             android:id="@+id/edit_pw"
             android:hint="@string/pw_hint"
             android:textColorHint="@color/gray"
-            android:layout_marginTop="@dimen/log_in_id_margin"
+            android:layout_marginTop="@dimen/log_in_margin_id_password"
             android:inputType="textPassword"
-            android:textSize="@dimen/text_id"
-            android:paddingVertical="@dimen/log_in_id_padding_vertical"
-            android:paddingHorizontal="@dimen/log_in_id_padding_horizontal"
+            android:textSize="@dimen/log_in_text_id"
+            android:paddingVertical="@dimen/log_in_padding_vertical_id"
+            android:paddingHorizontal="@dimen/log_in_padding_horizontal_id"
             android:text="@={viewmodel.password}"
             android:textColor="@color/black"
             android:background="@drawable/bg_orangestroke_white"/>
@@ -60,20 +60,20 @@
             android:id="@+id/btn_sign_in"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/log_in_id_sign_in_margin"
+            android:layout_marginTop="@dimen/log_in_margin_password_sign_in"
             android:background="@drawable/bg_orangestroke_black"
             android:onClick="@{()->viewmodel.clickedSignIn()}"
-            android:paddingVertical="@dimen/log_in_btn_padding_vertical"
+            android:paddingVertical="@dimen/padding_vertical_btn"
             android:text="@string/sign_in"
             android:textColor="@color/logincolor"
-            android:textSize="@dimen/text_detail_name"
+            android:textSize="@dimen/text_btn_large"
             android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:layout_marginTop="@dimen/log_in_sign_in_up_margin"
+            android:layout_marginTop="@dimen/log_in_margin_sign_in_up"
             android:orientation="horizontal">
             <TextView
                 android:layout_width="wrap_content"
@@ -84,9 +84,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/black"
-                android:layout_marginStart="@dimen/log_in_sign_up_margin_start"
+                android:layout_marginStart="@dimen/log_in_margin_start_sign_up"
                 android:text="@string/sign_up"
-                android:textSize="@dimen/text_id"
+                android:textSize="@dimen/log_in_text_sign_up"
                 android:textColor="@color/logincolor"
                 android:onClick="@{()->viewmodel.signUp()}"/>
         </LinearLayout>
@@ -96,10 +96,10 @@
             android:layout_height="wrap_content"
             android:id="@+id/btn_continue"
             android:background="@drawable/bg_orangestroke_black"
-            android:layout_marginTop="@dimen/log_in_sign_up_guest_margin"
+            android:layout_marginTop="@dimen/log_in_margin_sign_up_guest"
             android:text="@string/conti"
-            android:paddingVertical="@dimen/log_in_btn_padding_vertical"
-            android:textSize="@dimen/text_detail_name"
+            android:paddingVertical="@dimen/padding_vertical_btn"
+            android:textSize="@dimen/text_btn_large"
             android:textStyle="bold"
             android:textColor="@color/logincolor"
             android:onClick="@{()->viewmodel.servieceContinue()}"/>

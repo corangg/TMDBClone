@@ -23,10 +23,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/give_rating_margin_horizontal"
+            android:layout_marginHorizontal="@dimen/log_out_check_margin_horizontal"
             android:layout_centerVertical="true"
             android:background="@drawable/bg_orangestroke_black"
-            android:padding="@dimen/give_rating_padding"
+            android:padding="@dimen/log_out_check_padding"
             android:orientation="vertical">
 
             <TextView
@@ -34,28 +34,28 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
                 android:text="@string/logout_check_title"
-                android:textSize="@dimen/text_detail_name" />
+                android:textSize="@dimen/text_large" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/detail_margin"
+                android:layout_marginTop="@dimen/log_out_check_margin_title_text"
                 android:textColor="@color/logincolor"
                 android:text="@string/logout_check_detail"
-                android:textSize="@dimen/text_detail_item" />
+                android:textSize="@dimen/text_normal" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/btn_height"
-                android:layout_marginTop="@dimen/layout_margin_top">
+                android:layout_marginTop="@dimen/margin_top_layout">
 
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_round_button_white"
-                    android:paddingHorizontal="@dimen/btn_padding_horizontal"
+                    android:paddingHorizontal="@dimen/padding_horizontal_btn"
                     android:layout_toStartOf="@+id/btn_no"
-                    android:layout_marginEnd="@dimen/give_rating_padding"
+                    android:layout_marginEnd="@dimen/margin_btn"
                     android:text="@string/yes"
                     android:textColor="@color/logincolor"
                     android:onClick="@{()->viewmodel.startLoginActivity(true)}"/>
@@ -66,7 +66,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/btn_no"
                     android:background="@drawable/bg_round_button_theme_color"
-                    android:paddingHorizontal="@dimen/btn_padding_horizontal"
+                    android:paddingHorizontal="@dimen/padding_horizontal_btn"
                     android:layout_alignParentEnd="true"
                     android:text="@string/No"
                     android:textColor="@color/white"

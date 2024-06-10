@@ -17,13 +17,13 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/layer_search_height"
+            android:layout_height="@dimen/search_layer_height"
             android:orientation="horizontal"
             android:background="@color/black"
             android:gravity="center_vertical"
             android:id="@+id/toolbar"
-            android:padding="@dimen/detail_margin"
-            android:layout_marginTop="@dimen/detail_margin">
+            android:padding="@dimen/search_padding"
+            android:layout_marginTop="@dimen/search_margin">
 
             <EditText
                 android:layout_width="0dp"
@@ -32,10 +32,10 @@
                 android:background="@drawable/bg_title"
                 android:hint="@string/search"
                 android:text="@={viewmodel.searchKeyword}"
-                android:textSize="@dimen/text_detail_name"
+                android:textSize="@dimen/search_text"
                 android:textColorHint="@color/gray"
                 android:textColor="@color/white"
-                android:paddingHorizontal="@dimen/log_in_id_padding_horizontal" />
+                android:paddingHorizontal="@dimen/search_padding_horizontal" />
 
             <ImageButton
                 android:layout_width="0dp"
@@ -45,7 +45,7 @@
                 android:src="@drawable/ic_search"
                 android:scaleType="centerInside"
                 android:layout_marginStart="@dimen/search_margin_start"
-                android:padding="@dimen/log_in_id_padding_horizontal"
+                android:padding="@dimen/padding_default"
                 app:tint="@color/white"
                 android:onClick="@{()->viewmodel.searchKeyword()}"/>
         </LinearLayout>
@@ -57,8 +57,8 @@
             android:layout_below="@+id/toolbar">
 
             <ImageView
-                android:layout_width="@dimen/img_search"
-                android:layout_height="@dimen/img_search"
+                android:layout_width="@dimen/search_img"
+                android:layout_height="@dimen/search_img"
                 android:src="@drawable/ic_search"
                 android:layout_centerInParent="true"
                 app:tint="@color/white"
@@ -70,9 +70,9 @@
                 android:layout_below="@id/img_search"
                 android:textColor="@color/white"
                 android:text="@={viewmodel.textSearchAny}"
-                android:textSize="@dimen/text_detail_name"
+                android:textSize="@dimen/text_large"
                 android:gravity="center_horizontal"
-                android:layout_marginTop="@dimen/layout_margin_top"/>
+                android:layout_marginTop="@dimen/margin_top_item"/>
         </RelativeLayout>
 
         <ScrollView
@@ -80,7 +80,7 @@
             android:layout_height="match_parent"
             android:id="@+id/scrollview"
             android:layout_below="@+id/toolbar"
-            android:padding="@dimen/fragment_padding">
+            android:padding="@dimen/padding_fragment">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
@@ -90,20 +90,20 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/btn_size"
+            android:layout_height="@dimen/btn_height"
             android:background="@drawable/bg_title"
             android:layout_alignParentBottom="true"
-            android:layout_marginHorizontal="@dimen/btn_padding_horizontal"
+            android:layout_marginHorizontal="@dimen/search_margin_horizontal_btn"
             android:orientation="horizontal"
-            android:layout_marginBottom="@dimen/layout_margin_top"
-            android:padding="@dimen/tin_padding">
+            android:layout_marginBottom="@dimen/margin_top_item"
+            android:padding="@dimen/padding_tin">
 
             <Button
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:id="@+id/btn_movies"
-                android:textSize="@dimen/text_detial_normal"
+                android:textSize="@dimen/text_btn_normal"
                 android:background="@color/logincolor"
                 android:text="@string/movies"
                 android:textAllCaps="false"
@@ -116,7 +116,7 @@
                 android:layout_weight="1"
                 android:id="@+id/btn_actors"
                 android:background="@color/black"
-                android:textSize="@dimen/text_detial_normal"
+                android:textSize="@dimen/text_btn_normal"
                 android:text="@string/actor"
                 android:textAllCaps="false"
                 android:textColor="@color/white"

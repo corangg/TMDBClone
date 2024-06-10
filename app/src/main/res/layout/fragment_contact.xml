@@ -35,7 +35,7 @@
             android:layout_marginTop="@dimen/contact_margin_top"
             android:text="@string/contactDetail"
             android:paddingHorizontal="@dimen/contact_padding_horizontal"
-            android:textSize="@dimen/text_detail_name"
+            android:textSize="@dimen/text_large"
             android:textColor="@color/white" />
 
         <TextView
@@ -45,11 +45,11 @@
             android:gravity="center_horizontal"
             android:textColor="@color/connectioncolor"
             android:layout_marginTop="@dimen/contact_margin_connection"
-            android:textSize="@dimen/text_connection" />
+            android:textSize="@dimen/contact_text_connection" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/img_contact_height"
+            android:layout_height="@dimen/contact_img_height"
             android:orientation="horizontal"
             android:layout_marginTop="@dimen/contact_margin_ic">
 

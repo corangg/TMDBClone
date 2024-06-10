@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="@dimen/img_actor_see_all_width"
+    android:layout_width="@dimen/item_cast_img"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/item_cast"
-    android:layout_marginEnd="@dimen/layout_margin_end"
+    android:layout_marginEnd="@dimen/margin_end_layout"
     android:orientation="vertical">
     <androidx.cardview.widget.CardView
-        android:layout_width="@dimen/img_actor_see_all_width"
-        android:layout_height="@dimen/img_actor_see_all_width"
-        app:cardCornerRadius="@dimen/profile_radius">
+        android:layout_width="@dimen/item_cast_img"
+        android:layout_height="@dimen/item_cast_img"
+        app:cardCornerRadius="@dimen/circle_radius">
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -21,8 +21,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/text_name"
-        android:layout_marginTop="@dimen/detail_poster_margin_start"
-        android:textSize="@dimen/text_profile_id"
+        android:layout_marginTop="@dimen/item_cast_margin"
+        android:textSize="@dimen/item_cast_text"
         android:textColor="@color/white"
         android:maxLines="1"
         android:ellipsize="end"/>
@@ -30,8 +30,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/text_cast"
-        android:layout_marginTop="@dimen/detail_margin"
-        android:textSize="@dimen/text_profile_id"
+        android:layout_marginTop="@dimen/margin_smal"
+        android:textSize="@dimen/item_cast_text"
         android:textColor="@color/logincolor"
         android:maxLines="1"
         android:ellipsize="end"/>

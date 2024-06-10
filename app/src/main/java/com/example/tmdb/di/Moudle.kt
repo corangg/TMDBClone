@@ -61,13 +61,13 @@ object Moudle {
         return WatchListRepository(context, setAccountDataRepository)
     }
 
-   /* @Provides
+    @Provides
     @Singleton
     fun provideAccountRepository(): AccountRepository {
         return SetAccountDataRepository()
-    }*/
+    }
 
-    /*@Provides
+    @Provides
     @Singleton
     fun provideGetAccountIdUseCase(accountRepository: AccountRepository): GetAccountIdUseCase {
         return GetAccountIdUseCase(accountRepository)
@@ -89,5 +89,5 @@ object Moudle {
     @Singleton
     fun provideCheckWatchList(accountRepository: AccountRepository): CheckWatchListUseCase {
         return CheckWatchListUseCase(accountRepository)
-    }*/
+    }
 }

@@ -24,9 +24,9 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/about_padding"
+            android:padding="@dimen/about_padding_text"
             android:text="@string/aboutDetail"
-            android:textSize="@dimen/text_about"
+            android:textSize="@dimen/about_text"
             android:textStyle="italic"
             android:textColor="@color/white"/>
     </ScrollView>

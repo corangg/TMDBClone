@@ -5,16 +5,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/item_popular"
     android:orientation="vertical"
-    android:layout_marginEnd="@dimen/layout_margin_end"
-    android:layout_marginVertical="@dimen/detail_item_margin">
+    android:layout_marginEnd="@dimen/margin_end_layout"
+    android:layout_marginVertical="@dimen/margin_default">
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:cardCornerRadius="@dimen/poster_radius">
 
         <ImageView
-            android:layout_width="@dimen/img_popular_width"
-            android:layout_height="@dimen/img_popular_height"
+            android:layout_width="@dimen/itme_celebrivites_pouply_img_width"
+            android:layout_height="@dimen/itme_celebrivites_pouply_img_height"
             android:src="@drawable/img_not_found"
             android:id="@+id/img_profile"
             android:scaleType="centerCrop"/>
@@ -23,9 +23,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/text_name"
-        android:layout_marginTop="@dimen/detail_item_margin_top"
+        android:layout_marginTop="@dimen/margin_top_item"
         android:textColor="@color/white"
-        android:textSize="@dimen/text_graphy"
+        android:textSize="@dimen/itme_celebrivites_pouply_text"
         android:textStyle="bold"
         android:maxLines="1"
         android:ellipsize="end"/>
@@ -36,7 +36,7 @@
         android:id="@+id/text_popularity"
         android:layout_marginTop="6dp"
         android:textColor="@color/logincolor"
-        android:textSize="@dimen/text_popular"
+        android:textSize="@dimen/text_smal"
         android:maxLines="1"
         android:ellipsize="end"/>
 </LinearLayout>

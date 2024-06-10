@@ -21,15 +21,15 @@
             android:layout_alignParentBottom="true">
             <View
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/movie_alpha_height"
+                android:layout_height="@dimen/item_movies_view_height"
                 android:background="@color/black"
                 android:alpha="0.7"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="@dimen/detail_margin"
-                android:textSize="@dimen/text_detail_item"
+                android:paddingTop="@dimen/item_movies_padding_top"
+                android:textSize="@dimen/text_normal"
                 android:gravity="center_horizontal"
                 android:textColor="@color/white"
                 android:ellipsize="end"
@@ -38,12 +38,12 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/text_name"
+                android:textSize="@dimen/item_movies_text"
                 android:gravity="center_horizontal"
                 android:layout_below="@+id/text_title"
                 android:textColor="@color/logincolor"
                 android:ellipsize="end"
-                android:layout_marginBottom="@dimen/detail_item_margin"
+                android:layout_marginBottom="@dimen/margin_default"
                 android:maxLines="1"
                 android:id="@+id/text_popularity"/>
         </RelativeLayout>

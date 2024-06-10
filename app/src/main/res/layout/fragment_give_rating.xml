@@ -22,7 +22,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/give_rating_margin_horizontal"
+            android:layout_marginHorizontal="@dimen/margin_default"
             android:layout_centerVertical="true"
             android:background="@drawable/bg_orangestroke_black"
             android:padding="@dimen/give_rating_padding"
@@ -33,20 +33,20 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
                 android:text="@string/giverating"
-                android:textSize="@dimen/text_detail_name" />
+                android:textSize="@dimen/text_large" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="@dimen/give_rating_padding_horizontal"
-                android:layout_marginTop="@dimen/layout_margin_top"
+                android:layout_marginTop="@dimen/margin_top_layout"
                 android:orientation="horizontal">
 
                 <EditText
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textSize="@dimen/text_give_rating"
+                    android:textSize="@dimen/give_rating_text"
                     android:gravity="center_horizontal"
                     android:hint="@string/ratinghint"
                     android:textColorHint="@color/gray"
@@ -59,7 +59,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/split"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/text_give_rating" />
+                    android:textSize="@dimen/give_rating_text" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -68,32 +68,31 @@
                     android:textColor="@color/white"
                     android:gravity="center_horizontal"
                     android:text="@string/perfectrating"
-                    android:textSize="@dimen/text_give_rating" />
+                    android:textSize="@dimen/give_rating_text" />
             </LinearLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/btn_height"
-                android:layout_marginTop="@dimen/give_rating_btn_margin_top">
+                android:layout_marginTop="@dimen/give_rating_margin_top_btn">
 
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_round_button_white"
-                    android:paddingHorizontal="@dimen/btn_padding_horizontal"
+                    android:paddingHorizontal="@dimen/padding_horizontal_btn"
                     android:layout_toStartOf="@+id/btn_no"
                     android:layout_marginEnd="@dimen/give_rating_padding"
                     android:text="@string/yes"
                     android:textColor="@color/logincolor"
                     android:onClick="@{()->viewmodel.giveRating(true)}" />
 
-
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/btn_no"
                     android:background="@drawable/bg_round_button_theme_color"
-                    android:paddingHorizontal="@dimen/btn_padding_horizontal"
+                    android:paddingHorizontal="@dimen/padding_horizontal_btn"
                     android:layout_alignParentEnd="true"
                     android:text="@string/No"
                     android:textColor="@color/white"

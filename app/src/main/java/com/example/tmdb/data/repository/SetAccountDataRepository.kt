@@ -2,16 +2,17 @@ package com.example.tmdb.data.repository
 
 import com.example.tmdb.data.model.Result
 import com.example.tmdb.data.source.remot.retrofit.TMDBRetrofit
-import com.example.tmdb.domain.model.account.AccountDetailsResponse
-import com.example.tmdb.domain.model.account.CreateSessionBody
-import com.example.tmdb.domain.model.account.ValidateTokenBody
+import com.example.tmdb.data.model.account.AccountDetailsResponse
+import com.example.tmdb.data.model.account.CreateSessionBody
+import com.example.tmdb.data.model.account.ValidateTokenBody
+import com.example.tmdb.domain.repository.AccountRepository
 
-class SetAccountDataRepository {
+class SetAccountDataRepository:AccountRepository {
     var accountId = -1
     var sessionId = ""
     var myWatchList = listOf<Result>()
 
-    suspend fun signIn(id: String, password: String): String? {
+    override suspend fun signIn(id: String, password: String): String? {
         val token = TMDBRetrofit.createToken()
         token?.let {
             val body = ValidateTokenBody(
@@ -32,7 +33,7 @@ class SetAccountDataRepository {
         return null
     }
 
-    suspend fun getAccountId(): AccountDetailsResponse? {
+    override suspend fun getAccountId(): AccountDetailsResponse? {
         if (sessionId != "") {
             TMDBRetrofit.getAccountId(sessionId)?.let {
                 accountId = it.id
@@ -42,7 +43,7 @@ class SetAccountDataRepository {
         return null
     }
 
-    suspend fun getMyWatchList(): List<Result>? {
+    override suspend fun getMyWatchList(): List<Result>? {
         TMDBRetrofit.fetchMySavedList(accountId)?.let {
             myWatchList = it
             return it
@@ -50,7 +51,7 @@ class SetAccountDataRepository {
         return null
     }
 
-    fun checkWatchList(id: Int): Boolean {
+    override fun checkWatchList(id: Int): Boolean {
         val checkWatchList = myWatchList.find { it.id == id }
         return if (checkWatchList != null) {
             true
@@ -59,7 +60,7 @@ class SetAccountDataRepository {
         }
     }
 
-    fun initID(){
+    override fun initID(){
         accountId = -1
         sessionId = ""
         myWatchList = listOf()

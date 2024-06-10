@@ -21,22 +21,22 @@
             android:background="@drawable/bg_title"
             app:title="@string/profile"
             app:titleTextColor="@color/white"
-            android:paddingHorizontal="@dimen/contact_padding_horizontal"
+            android:paddingHorizontal="@dimen/padding_horizontal_title"
             android:id="@+id/title_movies" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:layout_marginTop="@dimen/layout_margin_top"
+            android:layout_marginTop="@dimen/margin_top_layout"
             android:id="@+id/layer_profile"
             android:orientation="vertical"
             android:visibility="gone">
             <androidx.cardview.widget.CardView
-                android:layout_width="@dimen/img_profile"
-                android:layout_height="@dimen/img_profile"
-                android:layout_marginTop="@dimen/contact_margin_ic"
-                app:cardCornerRadius="@dimen/profile_radius">
+                android:layout_width="@dimen/profile_img"
+                android:layout_height="@dimen/profile_img"
+                android:layout_marginTop="@dimen/profile_margin_top_img"
+                app:cardCornerRadius="@dimen/circle_radius">
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -49,32 +49,32 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/text_detail_item"
+                android:textSize="@dimen/text_normal"
                 android:textColor="@color/white"
-                android:layout_marginTop="@dimen/detail_item_margin_top"
+                android:layout_marginTop="@dimen/margin_top_item"
                 android:text="@={viewmodel.name}"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/text_profile_id"
+                android:textSize="@dimen/profile_text_id"
                 android:textColor="@color/logincolor"
-                android:layout_marginTop="@dimen/detail_smal_margin"
+                android:layout_marginTop="@dimen/margin_smal"
                 android:text="@={viewmodel.id}"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/layer_profile"
+            android:layout_height="@dimen/profile_layer_height"
             android:id="@+id/layer_saved"
-            android:layout_marginTop="@dimen/layout_margin_top"
+            android:layout_marginTop="@dimen/margin_top_layout"
             android:layout_marginStart="@dimen/profile_margin_start"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:onClick="@{()->viewmodel.clickedSaved()}">
 
             <ImageView
-                android:layout_width="@dimen/img_profile_item"
-                android:layout_height="@dimen/img_profile_item"
+                android:layout_width="@dimen/profile_img_item"
+                android:layout_height="@dimen/profile_img_item"
                 android:src="@drawable/ic_fill_bookmarker"
                 app:tint="@color/logincolor" />
 
@@ -84,12 +84,12 @@
                 android:textColor="@color/white"
                 android:layout_marginStart="@dimen/profile_margin_start"
                 android:text="@string/saved"
-                android:textSize="@dimen/text_detail_name" />
+                android:textSize="@dimen/text_large" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/layer_profile"
+            android:layout_height="@dimen/profile_layer_height"
             android:id="@+id/layer_language"
             android:layout_marginStart="@dimen/profile_margin_start"
             android:gravity="center_vertical"
@@ -97,8 +97,8 @@
             android:onClick="@{()->viewmodel.clickedLanguage()}">
 
             <ImageView
-                android:layout_width="@dimen/img_profile_item"
-                android:layout_height="@dimen/img_profile_item"
+                android:layout_width="@dimen/profile_img_item"
+                android:layout_height="@dimen/profile_img_item"
                 android:src="@drawable/ic_language"
                 app:tint="@color/logincolor" />
 
@@ -108,21 +108,21 @@
                 android:textColor="@color/white"
                 android:layout_marginStart="@dimen/profile_margin_start"
                 android:text="@string/profilelanguage"
-                android:textSize="@dimen/text_detail_name" />
+                android:textSize="@dimen/text_large" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/layer_profile"
+            android:layout_height="@dimen/profile_layer_height"
             android:id="@+id/layer_contact"
-            android:layout_marginStart="@dimen/detail_smal_margin"
+            android:layout_marginStart="@dimen/margin_smal"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:onClick="@{()->viewmodel.clickedContact()}">
 
             <ImageView
-                android:layout_width="@dimen/btn_size"
-                android:layout_height="@dimen/btn_size"
+                android:layout_width="@dimen/profile_img_contact"
+                android:layout_height="@dimen/profile_img_contact"
                 android:src="@drawable/ic_contact"
                 app:tint="@color/logincolor" />
 
@@ -130,23 +130,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
-                android:layout_marginStart="@dimen/detail_smal_margin"
+                android:layout_marginStart="@dimen/margin_smal"
                 android:text="@string/contact"
-                android:textSize="@dimen/text_detail_name" />
+                android:textSize="@dimen/text_large" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/layer_profile"
+            android:layout_height="@dimen/profile_layer_height"
             android:id="@+id/layer_about"
-            android:layout_marginStart="@dimen/detail_smal_margin"
+            android:layout_marginStart="@dimen/margin_smal"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:onClick="@{()->viewmodel.clickedAbout()}">
 
             <ImageView
-                android:layout_width="@dimen/img_profile_item"
-                android:layout_height="@dimen/img_profile_item"
+                android:layout_width="@dimen/profile_img_item"
+                android:layout_height="@dimen/profile_img_item"
                 android:src="@drawable/ic_about"
                 app:tint="@color/logincolor" />
 
@@ -156,12 +156,12 @@
                 android:textColor="@color/white"
                 android:layout_marginStart="@dimen/profile_margin_start"
                 android:text="@string/about"
-                android:textSize="@dimen/text_detail_name" />
+                android:textSize="@dimen/text_large" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/layer_profile"
+            android:layout_height="@dimen/profile_layer_height"
             android:id="@+id/layer_log"
             android:layout_marginStart="@dimen/profile_margin_start"
             android:onClick="@{()->viewmodel.checkLogOut()}"
@@ -169,8 +169,8 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="@dimen/img_profile_item"
-                android:layout_height="@dimen/img_profile_item"
+                android:layout_width="@dimen/profile_img_item"
+                android:layout_height="@dimen/profile_img_item"
                 android:src="@drawable/ic_log_in"
                 android:id="@+id/img_log"
                 app:tint="@color/logincolor" />
@@ -181,7 +181,7 @@
                 android:textColor="@color/white"
                 android:layout_marginStart="@dimen/profile_margin_start"
                 android:text="@={viewmodel.log}"
-                android:textSize="@dimen/text_detail_name" />
+                android:textSize="@dimen/text_large" />
         </LinearLayout>
     </LinearLayout>
 </layout>

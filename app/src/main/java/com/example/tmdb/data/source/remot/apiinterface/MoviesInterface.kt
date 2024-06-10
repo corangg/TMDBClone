@@ -21,11 +21,11 @@ import com.example.tmdb.data.model.search.SearchMovieResponse
 import com.example.tmdb.data.model.video.VideoResponse
 import com.example.tmdb.data.model.watchlist.WatchListBody
 import com.example.tmdb.data.model.watchlist.WatchListResponse
-import com.example.tmdb.domain.model.account.AccountDetailsResponse
-import com.example.tmdb.domain.model.account.CreateSessionBody
-import com.example.tmdb.domain.model.account.SessionResponse
-import com.example.tmdb.domain.model.account.ValidateTokenBody
-import com.example.tmdb.domain.model.account.ValidateTokenResponse
+import com.example.tmdb.data.model.account.AccountDetailsResponse
+import com.example.tmdb.data.model.account.CreateSessionBody
+import com.example.tmdb.data.model.account.SessionResponse
+import com.example.tmdb.data.model.account.ValidateTokenBody
+import com.example.tmdb.data.model.account.ValidateTokenResponse
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
