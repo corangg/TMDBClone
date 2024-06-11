@@ -21,7 +21,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewmodel>() {
 
     override fun setObserve() {
         viewModel.startMainActivity.observe(this) {
-            startMainActivity(this)
+            startMainActivity(this, viewModel.sessionId)
             finish()
         }
         viewModel.openSignUpPage.observe(this) {

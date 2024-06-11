@@ -1,10 +1,11 @@
 package com.example.tmdb.di
 
 import android.content.Context
+import android.content.SharedPreferences
 import com.example.tmdb.data.repository.GetDataRepository
 import com.example.tmdb.data.repository.GetLoginDataRepository
-import com.example.tmdb.data.repository.WatchListRepository
 import com.example.tmdb.data.repository.SetAccountDataRepository
+import com.example.tmdb.data.repository.WatchListRepository
 import com.example.tmdb.data.source.local.IDDB
 import com.example.tmdb.data.source.local.IDDao
 import com.example.tmdb.domain.repository.AccountRepository
@@ -56,9 +57,9 @@ object Moudle {
     @Singleton
     fun provideWatchListRepository(
         @ApplicationContext context: Context,
-        setAccountDataRepository: SetAccountDataRepository
+        sharedPreferences: SharedPreferences
     ): WatchListRepository {
-        return WatchListRepository(context, setAccountDataRepository)
+        return WatchListRepository(context, sharedPreferences)
     }
 
     @Provides
@@ -89,5 +90,11 @@ object Moudle {
     @Singleton
     fun provideCheckWatchList(accountRepository: AccountRepository): CheckWatchListUseCase {
         return CheckWatchListUseCase(accountRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideSharedPreferences(@ApplicationContext context: Context): SharedPreferences {
+        return context.getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
     }
 }

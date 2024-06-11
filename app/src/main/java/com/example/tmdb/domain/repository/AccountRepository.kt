@@ -5,9 +5,7 @@ import com.example.tmdb.data.model.account.AccountDetailsResponse
 
 interface AccountRepository {
     suspend fun signIn(id: String, password: String): String?
-    suspend fun getAccountId(): AccountDetailsResponse?
-    suspend fun getMyWatchList(): List<Result>?
-    fun checkWatchList(id: Int): Boolean
-
-    fun initID()
+    suspend fun getAccountId(sessionId: String): AccountDetailsResponse?
+    suspend fun getMyWatchList(accountId: Int): List<Result>?
+    fun checkWatchList(id: Int, myWatchList: List<Result>): Boolean
 }

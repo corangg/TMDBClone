@@ -19,7 +19,7 @@ class DetailActorInfoActivity :
     ItemClickInterface {
     private lateinit var creditMovieAdapter: CreditMovieAdapter
 
-    var actorId = -1
+    private var actorId = -1
 
     override fun layoutResId(): Int = R.layout.activity_detail_act_info
 

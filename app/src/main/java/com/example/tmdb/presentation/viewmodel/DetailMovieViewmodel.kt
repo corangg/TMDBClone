@@ -1,6 +1,7 @@
 package com.example.tmdb.presentation.viewmodel
 
 import android.app.Application
+import android.content.SharedPreferences
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -12,22 +13,23 @@ import com.example.tmdb.data.model.detailmovie.Genre
 import com.example.tmdb.data.model.detailmovie.ProductionCompany
 import com.example.tmdb.data.model.rating.RatingBody
 import com.example.tmdb.data.model.video.VideoResult
-import com.example.tmdb.data.repository.SetAccountDataRepository
 import com.example.tmdb.data.repository.WatchListRepository
 import com.example.tmdb.data.source.remot.retrofit.TMDBRetrofit
 import com.example.tmdb.domain.usecase.CheckWatchListUseCase
+import com.example.tmdb.domain.usecase.GetMyWatchListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.text.NumberFormat
 import java.util.Locale
 import javax.inject.Inject
 
-
 @HiltViewModel
 class DetailMovieViewmodel @Inject constructor(
     application: Application,
     private val watchListRepository: WatchListRepository,
-    private val setAccountDataRepository: SetAccountDataRepository
+    private val getMyWatchListUseCase: GetMyWatchListUseCase,
+    private val checkWatchListUseCase: CheckWatchListUseCase,
+    private val sharedPreferences: SharedPreferences
 ) : AndroidViewModel(application) {
     val movieTitle: MutableLiveData<String> = MutableLiveData("")
     val backImg: MutableLiveData<String> = MutableLiveData("")
@@ -62,6 +64,14 @@ class DetailMovieViewmodel @Inject constructor(
     val similarList: MutableLiveData<List<Result>> = MutableLiveData()
 
     private var movieId: Int = -1
+    private var accountId = -1
+
+    init {
+        accountId = sharedPreferences.getInt(
+            getApplication<Application>().getString(R.string.accountID),
+            -1
+        )
+    }
 
     fun getMovieData(id: Int) {
         movieId = id
@@ -84,11 +94,13 @@ class DetailMovieViewmodel @Inject constructor(
         }
     }
 
-    fun checkWatchList(id: Int) {
-        if (setAccountDataRepository.checkWatchList(id)) {
-            addWatchListCheck.value = true
-        } else {
-            addWatchListCheck.value = false
+    fun checkWatchList(id: Int) = viewModelScope.launch {
+        getMyWatchListUseCase.execute(accountId)?.let {
+            if (checkWatchListUseCase.execute(id, it)) {
+                addWatchListCheck.value = true
+            } else {
+                addWatchListCheck.value = false
+            }
         }
     }
 
@@ -121,7 +133,7 @@ class DetailMovieViewmodel @Inject constructor(
     }
 
     fun addWatchList() = viewModelScope.launch {
-        if (setAccountDataRepository.accountId != -1) {
+        if (accountId != -1) {
             addWatchListCheck.value?.let {
                 watchListRepository.addWatchList(it, movieId)?.let { check ->
                     addWatchListCheck.value = !check

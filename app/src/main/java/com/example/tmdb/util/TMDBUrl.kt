@@ -7,7 +7,8 @@ object TMDBUrl {
 
     const val telegramUrl = "https://t.me/Muhammadsiddiq_97"
     const val instargramUrl = "https://www.instagram.com/android_developer_2022/"
-    const val linkedInUrl = "https://www.linkedin.com/in/muhammadsiddiq-mirzaxmedov-752b91232/?original_referer="
+    const val linkedInUrl =
+        "https://www.linkedin.com/in/muhammadsiddiq-mirzaxmedov-752b91232/?original_referer="
 
     val connectionICArray = arrayOf(telegramUrl, instargramUrl, linkedInUrl)
 }

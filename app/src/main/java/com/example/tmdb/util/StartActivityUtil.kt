@@ -14,8 +14,9 @@ import com.example.tmdb.presentation.ui.activity.SeeAllMoviesActivity
 import com.example.tmdb.presentation.ui.activity.VideoPlayActivity
 
 object StartActivityUtil {
-    fun startMainActivity(context: Context) {
+    fun startMainActivity(context: Context, sessionId: String = "") {
         val intent = Intent(context, MainActivity::class.java)
+        intent.putExtra(ContextCompat.getString(context, R.string.sessionID), sessionId)
         context.startActivity(intent)
     }
 

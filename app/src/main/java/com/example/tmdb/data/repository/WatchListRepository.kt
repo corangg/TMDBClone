@@ -1,6 +1,7 @@
 package com.example.tmdb.data.repository
 
 import android.content.Context
+import android.content.SharedPreferences
 import com.example.tmdb.R
 import com.example.tmdb.data.model.watchlist.WatchListBody
 import com.example.tmdb.data.source.remot.retrofit.TMDBRetrofit
@@ -9,8 +10,13 @@ import javax.inject.Inject
 
 class WatchListRepository @Inject constructor(
     @ApplicationContext private val context: Context,
-    private val setAccountDataRepository: SetAccountDataRepository
+    private val sharedPreferences: SharedPreferences
 ) {
+    private var accountId = -1
+
+    init {
+        accountId = sharedPreferences.getInt(context.getString(R.string.accountID), -1)
+    }
 
     suspend fun addWatchList(check: Boolean, movieId: Int): Boolean? {
         val body = WatchListBody(
@@ -18,7 +24,7 @@ class WatchListRepository @Inject constructor(
             movieId,
             !check
         )
-        TMDBRetrofit.addWatchList(setAccountDataRepository.accountId, body)?.let {
+        TMDBRetrofit.addWatchList(accountId, body)?.let {
             return check
         }
         return null

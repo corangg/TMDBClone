@@ -1,8 +1,5 @@
 package com.example.tmdb.presentation.ui.activity
 
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.Network
 import com.example.img_decorat.ui.base.BaseActivity
 import com.example.tmdb.R
 import com.example.tmdb.databinding.ActivityMainBinding
@@ -30,16 +27,15 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
     private val fragments =
         arrayOf(MoviesFragment(), CelebritiesFragment(), SearchFragment(), ProfileFragment())
 
-    private lateinit var connectivityManager: ConnectivityManager
-    private lateinit var networkCallback: ConnectivityManager.NetworkCallback
-
     override fun layoutResId() = R.layout.activity_main
 
     override fun getViewModelClass() = MainViewModel::class.java
 
     override fun initializeUI() {
         binding.viewmodel = viewModel
-        viewModel.setPorfileData()
+        intent.getStringExtra(getString(R.string.sessionID))?.let {
+            viewModel.setPorfileData(it)
+        }
     }
 
     override fun setObserve() {

@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.tmdb.data.model.ID.IDData
 import com.example.tmdb.data.repository.GetDataRepository
 import com.example.tmdb.data.repository.GetLoginDataRepository
-import com.example.tmdb.data.repository.SetAccountDataRepository
+import com.example.tmdb.domain.usecase.SignInUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -17,13 +17,15 @@ class LoginViewmodel @Inject constructor(
     application: Application,
     private val getLoginDataRepository: GetLoginDataRepository,
     private val getDataRepository: GetDataRepository,
-    private val setAccountDataRepository: SetAccountDataRepository
+    private val signInUseCase: SignInUseCase
 ) : AndroidViewModel(application) {
     val id: MutableLiveData<String> = MutableLiveData()
     val password: MutableLiveData<String> = MutableLiveData()
 
     val startMainActivity: MutableLiveData<Unit> = MutableLiveData()
     val openSignUpPage: MutableLiveData<Unit> = MutableLiveData()
+
+    var sessionId = ""
 
     init {
         loginCheck()
@@ -39,8 +41,9 @@ class LoginViewmodel @Inject constructor(
         val passwordValue = password.value
 
         if (idValue != null && passwordValue != null) {
-            setAccountDataRepository.signIn(idValue, passwordValue)?.let {
+            signInUseCase.execute(idValue, passwordValue)?.let {
                 saveLoginData(idValue, passwordValue)
+                sessionId = it
                 startMainActivity.value = Unit
             }
         }
@@ -53,12 +56,11 @@ class LoginViewmodel @Inject constructor(
     private fun loginCheck() = viewModelScope.launch {
         val id = getLoginDataRepository.getID()
         id?.let { IDData ->
-            setAccountDataRepository.signIn(IDData.id, IDData.password)?.let {
+            signInUseCase.execute(IDData.id, IDData.password)?.let {
                 saveLoginData(IDData.id, IDData.password)
+                sessionId = it
                 startMainActivity.value = Unit
             }
-        } ?: run {
-            setAccountDataRepository.initID()
         }
     }
 

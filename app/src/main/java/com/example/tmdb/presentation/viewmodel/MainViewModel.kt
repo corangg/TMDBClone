@@ -1,6 +1,7 @@
 package com.example.tmdb.presentation.viewmodel
 
 import android.app.Application
+import android.content.SharedPreferences
 import android.view.MenuItem
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
@@ -10,8 +11,9 @@ import com.example.tmdb.data.model.Result
 import com.example.tmdb.data.model.celebrities.CelebritiesResult
 import com.example.tmdb.data.repository.GetDataRepository
 import com.example.tmdb.data.repository.GetLoginDataRepository
-import com.example.tmdb.data.repository.SetAccountDataRepository
 import com.example.tmdb.data.source.remot.retrofit.TMDBRetrofit
+import com.example.tmdb.domain.usecase.GetAccountIdUseCase
+import com.example.tmdb.domain.usecase.GetMyWatchListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -21,7 +23,9 @@ class MainViewModel @Inject constructor(
     application: Application,
     private val getDataRepository: GetDataRepository,
     private val getLoginDataRepository: GetLoginDataRepository,
-    private val setAccountDataRepository: SetAccountDataRepository
+    private val getAccountIdUseCase: GetAccountIdUseCase,
+    private val getMyWatchListUseCase: GetMyWatchListUseCase,
+    private val sharedPreferences: SharedPreferences
 ) : AndroidViewModel(application) {
 
     val selectNavigationItem: MutableLiveData<Int> = MutableLiveData(0)
@@ -65,6 +69,8 @@ class MainViewModel @Inject constructor(
 
     private var page = 0
 
+    private var accountId = -1
+
     fun bottomNavigationItemSelected(item: MenuItem): Boolean {
 
         when (item.itemId) {
@@ -92,14 +98,16 @@ class MainViewModel @Inject constructor(
         return false
     }
 
-    fun setPorfileData() = viewModelScope.launch {
-        setAccountDataRepository.getAccountId()?.let {
+    fun setPorfileData(sessionId: String) = viewModelScope.launch {
+        getAccountIdUseCase.execute(sessionId)?.let {
             setProfile.value = Unit
             log.value = getApplication<Application>().getString(R.string.logout)
             if (it.name != "") name.value = it.name
             id.value = it.username
+            accountId = it.id
+            sharedPreferences.edit()
+                .putInt(getApplication<Application>().getString(R.string.accountID), it.id).apply()
         }
-        setAccountDataRepository.getMyWatchList()
     }
 
     fun setMoviesList() {
@@ -171,7 +179,7 @@ class MainViewModel @Inject constructor(
     }
 
     fun checkLogOut() {
-        if (setAccountDataRepository.accountId != -1) {
+        if (accountId != -1) {
             startCheckLogOutFragment.value = Unit
         } else {
             startLoginActivity.value = Unit
@@ -189,7 +197,7 @@ class MainViewModel @Inject constructor(
     }
 
     fun clickedSaved() {
-        if (setAccountDataRepository.accountId != -1) {
+        if (accountId != -1) {
             startSavedFragment.value = Unit
         } else {
             startLoginActivity.value = Unit
@@ -213,7 +221,7 @@ class MainViewModel @Inject constructor(
     }
 
     fun getMySavedList() = viewModelScope.launch {
-        setAccountDataRepository.getMyWatchList()?.let {
+        getMyWatchListUseCase.execute(accountId)?.let {
             savedList.value = it
         }
     }
