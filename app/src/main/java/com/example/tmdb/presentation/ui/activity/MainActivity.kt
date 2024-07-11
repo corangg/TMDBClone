@@ -36,6 +36,13 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
         intent.getStringExtra(getString(R.string.sessionID))?.let {
             viewModel.setPorfileData(it)
         }
+        viewModel.collect1()
+        viewModel.collect2()
+        viewModel.collect3()
+        viewModel.stateFlowCollect1()
+        viewModel.sharedFlowCollect1()
+        viewModel.sharedFlowCollect2()
+       // viewModel.sharedFlowCollect3()
     }
 
     override fun setObserve() {

@@ -2,6 +2,7 @@ package com.example.tmdb.presentation.viewmodel
 
 import android.app.Application
 import android.content.SharedPreferences
+import android.util.Log
 import android.view.MenuItem
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
@@ -12,9 +13,15 @@ import com.example.tmdb.data.model.celebrities.CelebritiesResult
 import com.example.tmdb.data.repository.GetDataRepository
 import com.example.tmdb.data.repository.GetLoginDataRepository
 import com.example.tmdb.data.source.remot.retrofit.TMDBRetrofit
+import com.example.tmdb.domain.usecase.FlowBuilder
 import com.example.tmdb.domain.usecase.GetAccountIdUseCase
 import com.example.tmdb.domain.usecase.GetMyWatchListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -25,7 +32,8 @@ class MainViewModel @Inject constructor(
     private val getLoginDataRepository: GetLoginDataRepository,
     private val getAccountIdUseCase: GetAccountIdUseCase,
     private val getMyWatchListUseCase: GetMyWatchListUseCase,
-    private val sharedPreferences: SharedPreferences
+    private val sharedPreferences: SharedPreferences,
+    private val flowBuilder: FlowBuilder
 ) : AndroidViewModel(application) {
 
     val selectNavigationItem: MutableLiveData<Int> = MutableLiveData(0)
@@ -248,4 +256,94 @@ class MainViewModel @Inject constructor(
     private fun deleteIDData() = viewModelScope.launch {
         getLoginDataRepository.deleteID()
     }
+
+    val a = MutableLiveData<List<Result>>()
+
+    fun collect1() = viewModelScope.launch {
+        flowBuilder("collect 1").collect {
+            Log.d("collect", "collect 1")
+            a.value = it
+            val list = it
+        }
+    }
+
+    fun collect2() = viewModelScope.launch {
+        delay(3000)
+        flowBuilder("collect 2").collect {
+            Log.d("collect", "collect 2")
+            val list = it
+        }
+    }
+
+    fun collect3() = viewModelScope.launch {
+        delay(6000)
+        flowBuilder("collect 3").collect {
+            Log.d("collect", "collect 3")
+            val list = it
+        }
+    }
+
+    private val _stateFlow = MutableStateFlow<List<Result>>(emptyList())
+    val stateFlow: StateFlow<List<Result>> = _stateFlow
+
+    /* init {
+         setStateFlow()
+         sharedFlow()
+     }*/
+
+    private fun setStateFlow() = viewModelScope.launch {
+        val list = TMDBRetrofit.fetchNowPlayingMovies() ?: return@launch
+        delay(5000)
+        Log.d("stateFlow", "StateFlow")
+        _stateFlow.value = list
+    }
+
+    fun stateFlowCollect1() = viewModelScope.launch {
+        stateFlow.collect {
+            Log.d("stateFlowCollect1", "${it.size}")
+        }
+    }
+
+
+    private val _sharedFlow = MutableSharedFlow<Int>()
+    val sharedFlow: SharedFlow<Int> = _sharedFlow
+
+    init {
+        sharedFlow()
+    }
+
+    private fun sharedFlow() = viewModelScope.launch {
+        var num = 0
+        Log.d("sharedFlow", "sharedFlow")
+        while (true) {
+            num += 1
+            _sharedFlow.emit(num)
+            delay(1000)
+        }
+    }
+
+    fun sharedFlowCollect1() = viewModelScope.launch {
+        sharedFlow.collect {
+            Log.d("sharedFlowCollect1", "$it")
+        }
+    }
+
+    fun sharedFlowCollect2() = viewModelScope.launch {
+        delay(4000)
+        sharedFlow.collect {
+            Log.d("sharedFlowCollect2", "$it")
+        }
+    }
+
+   /* fun sharedFlowCollect3() = viewModelScope.launch {
+        sharedFlow.collect {
+            Log.d("sharedFlowCollect", "3 : ${it.size}")
+        }
+    }*/
+
+
+    fun getData() = viewModelScope.launch {
+        val list = TMDBRetrofit.fetchNowPlayingMovies() ?: return@launch
+    }
+
 }

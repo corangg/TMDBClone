@@ -28,14 +28,6 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        /*val localProperties = Properties()
-        val localPropertiesFile = rootProject.file("local.properties")
-        if (localPropertiesFile.exists()) {
-            localPropertiesFile.inputStream().use { stream ->
-                localProperties.load(stream)
-            }
-        }*/
-        // BuildConfig에 값을 추가
         buildConfigField("String", "TMDB_AUTH_HEADER", "\"${localProperties["authHeader"]}\"")
 
     }
