@@ -6,6 +6,7 @@ plugins {
 
     id ("kotlin-kapt")
     id("com.google.dagger.hilt.android")
+    id("realm-android")
 }
 
 val localProperties = Properties().apply {
@@ -21,7 +22,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.tmdb"
-        minSdk = 24
+        minSdk = 21
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -100,6 +101,13 @@ dependencies {
     kapt ("androidx.room:room-compiler:2.6.1")
     implementation ("androidx.room:room-ktx:2.6.1")
     testImplementation("androidx.room:room-testing:2.6.1")
+
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:<latest-version>")
+    implementation("androidx.core:core-ktx:1.6.0")
+    implementation("androidx.appcompat:appcompat:1.3.1")
+    implementation("com.google.android.material:material:1.4.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.0")
+    implementation("io.realm:realm-android-library:<latest-version>")
 }
 
 kapt {
