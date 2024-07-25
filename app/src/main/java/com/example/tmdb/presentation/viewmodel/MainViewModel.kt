@@ -286,6 +286,9 @@ class MainViewModel @Inject constructor(
     private val _stateFlow = MutableStateFlow<List<Result>>(emptyList())
     val stateFlow: StateFlow<List<Result>> = _stateFlow
 
+    private val _state = MutableStateFlow(0)
+    val state: StateFlow<Int> = _state
+
     /* init {
          setStateFlow()
          sharedFlow()
@@ -346,4 +349,38 @@ class MainViewModel @Inject constructor(
         val list = TMDBRetrofit.fetchNowPlayingMovies() ?: return@launch
     }
 
+}
+interface Button {
+    fun paint()
+}
+
+class WinButton : Button {
+    override fun paint() = println("WinButton")
+}
+
+class MacButton : Button {
+    override fun paint() = println("MacButton")
+}
+
+interface GUIFactory {
+    fun createButton(): Button
+}
+
+class WinFactory : GUIFactory {
+    override fun createButton(): Button = WinButton()
+}
+
+class MacFactory : GUIFactory {
+    override fun createButton(): Button = MacButton()
+}
+
+fun main() {
+    val osType = "Windows"
+    val factory: GUIFactory = if (osType == "Windows") {
+        WinFactory()
+    } else {
+        MacFactory()
+    }
+    val button = factory.createButton()
+    button.paint()
 }

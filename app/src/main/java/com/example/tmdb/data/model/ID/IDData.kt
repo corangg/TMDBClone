@@ -17,5 +17,18 @@ data class IDSQL(
 )
 
 open class User(
-    @PrimaryKey var id: Int = 0
+    @PrimaryKey var id: Int = 0,
+    var name: String = "",
+    var age: Int = 0,
+    var email: String = "",
+    var address: String = ""
 ) : RealmObject()
+
+@Entity(tableName = "test")
+data class RoomTest(
+    @PrimaryKey val id: Int = 0,
+    val name: String = "",
+    val age: Int = 0,
+    val email: String = "",
+    val address: String = ""
+)

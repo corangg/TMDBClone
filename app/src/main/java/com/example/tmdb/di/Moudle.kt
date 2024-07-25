@@ -8,6 +8,8 @@ import com.example.tmdb.data.repository.SetAccountDataRepository
 import com.example.tmdb.data.repository.WatchListRepository
 import com.example.tmdb.data.source.local.IDDB
 import com.example.tmdb.data.source.local.IDDao
+import com.example.tmdb.data.source.local.TestDB
+import com.example.tmdb.data.source.local.TestDao
 import com.example.tmdb.domain.repository.AccountRepository
 import com.example.tmdb.domain.usecase.CheckWatchListUseCase
 import com.example.tmdb.domain.usecase.GetAccountIdUseCase
@@ -30,9 +32,20 @@ object Moudle {
         return IDDB.getDatabase(context)
     }
 
+    @Singleton
+    @Provides
+    fun provideTestDB(@ApplicationContext context: Context): TestDB {
+        return TestDB.getDatabase(context)
+    }
+
     @Provides
     fun provideIDDao(idDB: IDDB): IDDao {
         return idDB.idDao()
+    }
+
+    @Provides
+    fun provideTestDao(idDB: TestDB): TestDao {
+        return idDB.testDao()
     }
 
     @Provides
@@ -43,8 +56,8 @@ object Moudle {
 
     @Provides
     @Singleton
-    fun provideGetLoginDataRepository(idDao: IDDao): GetLoginDataRepository {
-        return GetLoginDataRepository(idDao)
+    fun provideGetLoginDataRepository(idDao: IDDao, testDao: TestDao): GetLoginDataRepository {
+        return GetLoginDataRepository(idDao,testDao)
     }
 
     @Provides

@@ -15,3 +15,31 @@ class ContactFragment : BaseFragment<FragmentContactBinding, MainViewModel>() {
         binding.viewmodel = viewModel
     }
 }
+
+interface Animal {
+    fun speak(): String
+}
+
+class Dog : Animal {
+    override fun speak() = "Woof"
+}
+
+class Cat : Animal {
+    override fun speak() = "Meow"
+}
+
+class AnimalFactory {
+    fun createAnimal(type: String): Animal {
+        return when (type) {
+            "Dog" -> Dog()
+            "Cat" -> Cat()
+            else -> throw IllegalArgumentException("Unknown animal type")
+        }
+    }
+}
+
+fun main() {
+    val factory = AnimalFactory()
+    val animal = factory.createAnimal("Dog")
+    println(animal.speak())
+}
